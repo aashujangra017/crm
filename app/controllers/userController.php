@@ -43,17 +43,6 @@ public function insert(){
         $phone = $_POST['phone'];
         $status = $_POST['status'];
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo "Invalid email format";
-            return;
-        }
-
-        if (!preg_match('/^\d{10}$/', $phone)) {
-    echo "Invalid phone number. It must be exactly 10 digits.";
-    return;
- }
-
-
         $object = new user();
         $object->create($name, $email, $phone, $status);
     } else {

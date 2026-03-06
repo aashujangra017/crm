@@ -213,6 +213,25 @@ $router->addRoute('/cool/delete-client',function(){
     $controller = new clientController();
     $controller->delete();
 });
+//select id for update to select
+$router->addRoute('/cool/clientid', function(){
+    $controller = new clientController();
+    $controller->selectclientform();
+});
+
+
+$router->addRoute('/cool/update-client', function(){
+    $controller = new clientController();
+    $controller->update();
+});
+
+
+//search routes start form here 
+
+$router->addRoute('/cool/search-client', function(){
+    $controller = new clientController();
+    $controller->search();
+});
 
 
 

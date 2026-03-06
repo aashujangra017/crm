@@ -104,10 +104,67 @@ public function deleteclient($id) {
 
 
 
+//update client master first select the client data
+
+public function selectclient($id){
+    $sql = "SELECT c.id, c.name, c.phone, c.address, s.sname AS state, c.city, c.pincode
+            FROM clientinsert AS c
+            JOIN states AS s
+            ON c.state_id = s.id
+            WHERE c.id = ?";
+
+    $cool = $this->conn->prepare($sql);
+    $cool->bind_param("i", $id);
+    $cool->execute();
+    return $cool->get_result();
+} 
 
 
+//udpate start from here
+ public function updateclient($id, $name, $phone, $address, $state, $city, $pincode) {
+   
+        $sql = "update clientinsert 
+                SET name = ?, phone = ?, address = ?, state_id = (SELECT id FROM states WHERE sname = ?), city = ?, pincode = ? 
+                WHERE id = ?";
+
+       
+        $cool = $this->conn->prepare($sql);
+
+      
+        $cool->bind_param("ssssssi", $name, $phone, $address, $state, $city, $pincode, $id);
 
    
+        $cool->execute();
+       
+    }
+
+
+    //search for client 
+
+
+ public function searchclient($keyword){
+
+    $sql = "select c.id, c.name, c.phone, c.address, s.sname, c.city, c.pincode 
+            FROM clientinsert AS c 
+            JOIN states AS s ON c.state_id = s.id
+            WHERE c.name LIKE ?
+            OR c.phone LIKE ?
+            OR c.city LIKE ?
+            OR s.sname LIKE ?
+            OR c.pincode LIKE ?";
+
+    $cool = $this->conn->prepare($sql);
+
+    $search = "%".$keyword."%";
+
+    $cool->bind_param("sssss",$search,$search,$search,$search,$search);
+
+    $cool->execute();
+
+    return $cool->get_result();
+}
+
+
 
 
         

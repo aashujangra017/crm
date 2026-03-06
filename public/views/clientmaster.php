@@ -30,7 +30,7 @@ require "navbar.php";
   
 
     <div class="nav flex-column mt-3" id="sidebarMenu">
-        <button  class="nav-link" id="userMaster">
+       <button onclick="window.location.href='/cool/home';"  class="nav-link" id="userMaster">
             <i class="bi bi-people-fill"></i> <span class="link-text">User Master</span>
         </button>
         <button class="nav-link" id="clientMaster">
@@ -153,9 +153,9 @@ role="tabpanel">
 <div class="first bg-body-tertiary co-12">
 
 
-                <label for="searchname" class="fw-bold">Name:</label>
+                <label for="searchname" class="fw-bold">Search Something:</label>
                 <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
-                <button class="btn btn-primary">Search</button>
+                <button class="btn btn-primary" id="search">Search</button>
                 
 
 </div>
@@ -250,6 +250,14 @@ $("#toggleSidebar").click(function(){
         $(this).addClass("active");
 
 })
+
+
+
+
+
+
+
+
 
 
 

@@ -333,26 +333,27 @@ $("#close-btn").on("click",function(){
 
     //delete button api start from here 
 $(document).on("click", ".deletebutton", function() {
-    var userid = $(this).data("id"); 
-    var element = this; 
+    var userid = $(this).data("id");
+    var element = this;
+    var isdelete = confirm("Are you sure you want to delete this user?");
 
-    
-    $.ajax({
-        url: "/cool/delete", 
-        type: "POST",            
-        data: { 
-            id: userid 
-        },     
-        success: function(response) {
-            if (response.trim() === "success") {
-                $(element).closest("tr").fadeOut(); 
-            } else {
-               console.log(response) 
+    if (isdelete) {
+        $.ajax({
+            url: "/cool/delete",
+            type: "POST",
+            data: {
+                id: userid
+            },
+            success: function(response) {
+                if (response.trim() === "success") {
+                    $(element).closest("tr").fadeOut();
+                } else {
+                    console.log(response);
+                }
             }
-        }
-    });
+        });
+    }
 });
-
 
 //sort asc desc api start form here
 

@@ -82,7 +82,8 @@ role="tabpanel">
 
 <div class="stat">
     <label for="state " class="fw-bold">State:</label>
-  <select class="form-select" id="states" name="states" required>
+  <!-- <select class="form-select" id="states" name="states" required> -->
+    <select class="form-select" id="state" name="state">
     <option value="">Select state</option>
 
 </select>
@@ -121,9 +122,9 @@ role="tabpanel">
 <div class="first bg-body-secondary co-12">
 
 
-                <label for="searchname" class="fw-bold">Name:</label>
+                <label for="searchname" class="fw-bold">Search Something:</label>
                 <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
-                <button class="btn btn-primary">Search</button>
+                <button id="serach" class="btn btn-primary">Search</button>
                 
 
 </div>
@@ -176,7 +177,7 @@ role="tabpanel">
         <h2>Edit Form</h2>
         <div id="close-btn">X</div>
 
-        <div id="edit-form"></div>
+        <div id="update-form"></div>
     </div>
 </div>
 
@@ -197,6 +198,38 @@ role="tabpanel">
 
 
 
+
+
+//search start form here
+// Search client
+
+$(document).on("click","#serach",function(){
+
+    var searchvalue = $("#searchname").val();
+
+    $.ajax({
+        url:"/cool/search-client",
+        type:"POST",
+        data:{
+            search:searchvalue
+        },
+        success:function(response){
+
+            $("#bodydata").html(response);
+
+        }
+    });
+
+});
+
+
+
+
+
+
+
+//update start from here 
+
 $(document).on("click",".update-btn", function(){
     $("#model").show();
 });
@@ -208,32 +241,106 @@ $(document).on("click","#close-btn",function(){
 });
 
 
+ $(document).on("click", ".update-btn", function() {
+    $("#model").show();
+
+    var id = $(this).data("eid");
+
+    $.ajax({
+        url: "/cool/clientid",
+        type: "POST",
+        data: { 
+            id: id
+        },
+        success: function(response){
+            $("#update-form").html(response);
+        } 
+    });
+});
+
+
+$(document).on("click", "#update-client", function() {
+   
+    var id = $("#edit-id").val();
+    var name = $("#edit-name").val();
+    var phone = $("#edit-phone").val();
+    var address = $("#edit-address").val();
+    var state = $("#edit-state").val();
+    var city = $("#edit-city").val();
+    var pincode = $("#edit-pin").val();
+
+    // Validate required fields
+    if (!name || !phone || !address || !state || !city || !pincode) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+   
+    $.ajax({
+        url: '/cool/update-client',  
+        type: 'POST',
+        data: {
+            id: id,              
+            name: name,         
+            phone: phone,       
+            address: address,    
+            state: state,        
+            city: city,          
+            pincode: pincode   
+        },
+        success: function(response) {
+          
+            if (response.trim() === 'success') {
+                alert("Client updated successfully!");  
+                $("#model").hide(); 
+                 loadclients();
+            } else {
+                $("#model").hide(); 
+                loadclients();
+               
+            }
+        }
+    });
+});
+
+
 
 
 
 
 
     //delete button api start from here 
-$(document).on("click", ".clientbtn", function() {
-    var clientid = $(this).data("id"); 
-    var element = this; 
 
-    
-    $.ajax({
-        url: "/cool/delete-client", 
-        type: "POST",            
-        data: { 
-            id: clientid 
-        },     
-        success: function(response) {
-            if (response.trim() === "success") {
-                $(element).closest("tr").fadeOut(); 
-            } else {
-               console.log(response) 
+
+$(document).on("click", ".clientbtn", function() {
+    var clientid = $(this).data("id");
+    var element = this;
+
+
+    var isConfirmed = confirm("Are you sure you want to delete this client?");
+
+   
+    if (isConfirmed) {
+        $.ajax({
+            url: "/cool/delete-client",
+            type: "POST",
+            data: {
+                id: clientid
+            },
+            success: function(response) {
+                if (response.trim() === "success") {
+                    $(element).closest("tr").fadeOut();
+                } else {
+                    console.log(response);
+                }
             }
-        }
-    });
+        });
+    } else{
+        console.log("error in deleting")
+    }
 });
+
+
 
 
 
@@ -288,7 +395,7 @@ loadStates();
     
 
 
-// });
+// insert start form here 
 $(document).on("click","#submit",function(){
 
     var name    = $("#name").val();
