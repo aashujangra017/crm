@@ -1,0 +1,44 @@
+
+
+   html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+  
+
+        .first{
+            width: 18%;
+            height:100vh;
+            border:1px solid black;
+        }
+
+        .second{
+            display:flex;
+            flex-direction: column;
+            align-items:center
+            
+        }
+
+        
+.firsts{
+    width: 82%;
+    border: 1px solid black;
+
+}
+
+.box{
+    display: flex;
+    flex-direction:row;
+
+}
+
+
+.table-dark{
+    position : fixed
+}

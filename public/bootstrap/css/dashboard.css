@@ -1,0 +1,346 @@
+*{
+
+
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+
+
+}
+
+body{
+     margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+}
+
+
+
+
+
+html, body {
+    height: 100%;
+}
+
+
+
+
+
+.main{
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    height: calc(100vh - 60px);
+    
+
+}
+
+
+.left{
+    width: 10%;
+    border-right: 1px solid black;
+    height: 100vh;
+     width: 15%;
+    border-right: 1px solid black;
+    height: 100vh;
+    transition: width 0.3s ease;
+
+    
+}
+
+
+
+
+/* .left.collapsed {
+    width: 7%;
+    overflow: hidden;
+} */
+
+/* .right{
+    width: 85%;
+    background-color: #ffff;
+     flex-grow: 1;
+    height: 100vh;
+} */
+
+.right {
+    flex-grow: 1;
+    min-width: 0;        
+    background-color: #ffff;
+    height: 100vh;
+    overflow: hidden;
+    width: 90%;
+}
+
+
+
+
+
+/* .right-inside{
+    border-style:solid;
+    border-color: #191919;
+    height: 100%;
+    border-width: 10px;
+    
+   
+   
+} */
+
+
+
+.first{
+   height: 80px;
+    width: 100%;
+    background-color:#EDE8D0;
+   border-radius: 8px;
+    margin:12px;
+      display: flex;
+
+    align-items: center;       
+    gap: 10px;
+}
+
+
+
+
+
+
+
+.second{
+    height: 100px;
+    width: 100%;
+    background-color: #EDE8D0;
+     margin:12px;
+     border-radius: 10px;
+     gap: 10px;
+     display: flex;
+    align-items: center;
+}
+
+
+.second #status.form-select {
+    width: 160px;
+}
+
+
+
+
+/* .third{
+    height: 70px;
+    width: 100vw;
+    background-color: #e4edf7;
+        margin:12px;
+           border-radius: 10px;
+           display: flex;
+           align-items: center;
+           gap:30px;
+           padding-left:10px;
+           
+} */
+
+.third {
+    height: 70px;
+    width: 100%;
+    background-color: #EDE8D0;
+    margin: 12px;
+    border-radius: 10px;
+    display: flex;
+       gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+
+.pagination {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination li {
+    padding: 6px 12px;
+    border: 1px solid #050505;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: white;
+    color: #0d6efd;
+   
+}
+
+.pagination li:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+
+.pagination li.active {
+    background-color: #0d6efd;
+    color: white;
+}
+
+
+
+
+
+.fourth {
+   height: calc(100vh - 400px);
+    width: 100%;
+    background-color: #e4edf7;
+    margin: 12px;
+    border-radius: 10px;
+    overflow-y: auto;
+  
+}
+
+
+
+              
+
+ button{
+    margin-left: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+
+
+.second .form-control{
+    width:160px;
+}
+
+#status{
+    width:160px;
+}
+
+
+.form-group{
+    margin-left: 10px;
+}
+
+
+
+
+
+
+.left ul {
+    list-style: none;
+    padding: 0px;
+    margin-top: 35px;
+}
+
+
+.left ul li {
+    margin-bottom: 15px;
+    /* padding: 5px; */
+   
+    
+}
+
+
+.left ul li a {
+    text-decoration: none;
+  
+    display: block;
+    /* padding: 8px 10px; */
+    border-radius: 5px;
+ 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #346dc4;
+}
+
+
+.left ul li a:hover {
+    background-color: #4d90d3;
+}
+
+
+
+.left ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 8px 10px;
+    border-bottom: 2px solid black; 
+}
+
+
+
+/* model css start form here */
+
+#model{
+    background:rgba(0,0,0,0.7);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: none;
+ 
+}
+
+#model h2{
+    display: flex;
+    justify-content: center;
+}
+
+#model-form{
+    background: #fff;
+    width: 40%;
+    position: relative;
+    top: 20%;
+    left: calc(50% - 20%);
+    padding: 15px;
+    border-radius: 4px;
+}
+
+#model-form h2{
+    margin: 0 0 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #000;
+}
+
+
+
+#close-btn{
+    background: red;
+   
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* toggle button  */
+
+#toggleSidebar{
+    margin-left: 0px;
+}
