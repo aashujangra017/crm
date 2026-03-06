@@ -255,6 +255,10 @@ $router->addRoute('/cool/item',function(){
     $controller->itemhome();
 });
 
+$router->addRoute('/cool/home',function(){
+    $controller = new itemController();
+    $controller->itemhome();
+});
 
 
 

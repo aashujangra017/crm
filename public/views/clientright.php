@@ -52,7 +52,7 @@ Show Client
 id="home-tab-pane"
 role="tabpanel">
 
-<div class="form-container">
+<div class="form-container bg-dark-subtle">
 
 <h4>Add Client</h4>
 
@@ -82,7 +82,7 @@ role="tabpanel">
 
 <div class="stat">
     <label for="state " class="fw-bold">State:</label>
-  <!-- <select class="form-select" id="states" name="states" required> -->
+  <select class="form-select" id="states" name="states" required>
     <select class="form-select" id="state" name="state">
     <option value="">Select state</option>
 

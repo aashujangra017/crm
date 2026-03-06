@@ -10,6 +10,10 @@ public function itemhome() {
        require __DIR__ . "/../../public/views/itemhome.php";
     }
 
+    
+public function itemstart() {
+       require __DIR__ . "/../../public/views/itemhome.php";
+    }
 
  public function  iteminsert(){
 

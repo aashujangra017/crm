@@ -33,10 +33,10 @@ require "navbar.php";
        <button onclick="window.location.href='/cool/home';"  class="nav-link" id="userMaster">
             <i class="bi bi-people-fill"></i> <span class="link-text">User Master</span>
         </button>
-        <button class="nav-link" id="clientMaster">
+        <button    class="nav-link" id="clientMaster">
             <i class="bi bi-person-lines-fill"></i> <span class="link-text">Client Master</span>
         </button>
-        <button class="nav-link" id="itemMaster">
+        <button  onclick="window.location.href='/cool/item';"  class="nav-link" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
         <button class="nav-link" id="logout">
@@ -90,7 +90,7 @@ Show Client
 id="home-tab-pane"
 role="tabpanel">
 
-<div class="form-container">
+<div class="form-container bg-dark-subtle">
 
 <h4>Add Client</h4>
 
