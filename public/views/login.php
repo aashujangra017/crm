@@ -71,7 +71,7 @@ function loginbtn() {
             if (response.trim() === "success") {
 
               
-                window.location.href = "/cool/home";
+                window.location.href = "/cool/userhome";
 
             } else {
 

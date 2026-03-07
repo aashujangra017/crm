@@ -153,32 +153,6 @@ public function deleteusers($id) {
 
         
 
-        //pagination start form here
-
-
-        public function getuser(){
-             $sql = "select count(*) as total from user";
-    $cool = $this->conn->prepare($sql);
-    $cool->execute();
-    $result = $cool->get_result();
-    $row = $result->fetch_assoc();
-
-    return $row['total'];
-}
-
-
-
-public function  pagination ($limit,$offset){
-     $sql = "select id, name, email, phone, status from user order by id ASC limit ? offset ?";
-
-    $cool = $this->conn->prepare($sql);
-    $cool->bind_param("ii", $limit, $offset);
-    $cool->execute();
-
-    return $cool->get_result();
-    
-
-}
 
 
 public function selectuser ($id){
@@ -219,6 +193,31 @@ public function getallstatus(){
 
         return $result;
     }
+
+
+
+
+    // search start from here 
+
+    public function searchusers($keyword){
+       $sql = "select * from user 
+            where name like ? OR email like ? OR phone like ? OR status like ?";
+
+    $cool = $this->conn->prepare($sql);
+
+    $search = "%".$keyword."%";
+
+    // bind 4 parameters
+    $cool->bind_param("ssss", $search, $search, $search, $search);
+
+    $cool->execute();
+
+    return $cool->get_result();
+}
+
+
+
+    
 
 
 }

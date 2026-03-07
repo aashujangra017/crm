@@ -185,6 +185,28 @@ $router->addRoute('/cool/status',function(){
 
 
 
+
+
+
+//again user master start form here 
+
+$router->addRoute('/cool/userhome',function(){
+    $controller = new userController();
+    $controller->userhome();
+});
+
+$router->addRoute('/cool/user-search',function(){
+    $controller = new userController();
+    $controller->search();
+});
+
+
+
+
+
+
+
+
 //client master start form here 
 $router->addRoute('/cool/client',function(){
     $controller = new clientController();

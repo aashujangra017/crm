@@ -30,16 +30,16 @@ require "navbar.php";
   
 
     <div class="nav flex-column mt-3" id="sidebarMenu">
-       <button onclick="location.href='/cool/homes'"  class="nav-link" id="userMaster">
-            <i class="bi bi-people-fill"></i> <span class="link-text">User Master</span>
+        <button onclick="location.href='/cool/userhome'"  class="nav-link text-dark " id="userMaster">
+            <i class="bi bi-people-fill"></i> <span class="link-text text-dark">User Master</span>
         </button>
-        <button onclick="location.href='/cool/client'" class="nav-link" id="clientMaster">
-            <i class="bi bi-person-lines-fill"></i> <span class="link-text">Client Master</span>
+        <button onclick="location.href='/cool/client'"   class="nav-link text-dark " id="clientMaster">
+            <i class="bi bi-person-lines-fill"></i> <span class="link-text text-dark">Client Master</span>
         </button>
-        <button onclick="location.href='/cool/home'" class="nav-link" id="itemMaster">
+        <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
-        <button  class="nav-link" id="logout">
+        <button  class="nav-link text-dark" id="logout">
             <span class="link-text">logout</span>
         </button>
     </div>
@@ -54,31 +54,31 @@ require "navbar.php";
 
 <div class="container ">
 
-<h3 class="mb-3">Welcome To Client Master Home Page</h3>
+<h3 class="mb-3">Welcome To Item Master Home Page</h3>
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
 
-<li class="nav-item" role="presentation">
-<button class="nav-link active"
-id="addclient"
-data-bs-toggle="tab"
-data-bs-target="#home-tab-pane"
-type="button"
-role="tab">
-Add Client
-</button>
-</li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="addclient"
+                data-bs-toggle="tab"
+                data-bs-target="#home-tab-pane"
+                type="button"
+                role="tab">
+            Add items
+        </button>
+    </li>
 
-<li class="nav-item" role="presentation">
-<button class="nav-link"
-id="showclient"
-data-bs-toggle="tab"
-data-bs-target="#profile-tab-pane"
-type="button"
-role="tab">
-Show Client
-</button>
-</li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active"
+                id="showclient"
+                data-bs-toggle="tab"
+                data-bs-target="#profile-tab-pane"
+                type="button"
+                role="tab">
+            Show items
+        </button>
+    </li>
 
 </ul>
 
@@ -86,34 +86,34 @@ Show Client
 <div class="tab-content border border-top-0 p-3" id="myTabContent">
 
 <!-- Add Client Tab -->
-<div class="tab-pane fade show active"
+<div class="tab-pane fade "
 id="home-tab-pane"
 role="tabpanel">
 
 <div class="form-container bg-dark-subtle">
 
-<h4>Add Client</h4>
+<h4>Add items</h4>
 
 <div class="form-wrapper" id="setup">
 
 <form  id="clientForm">
 <div class="form-group">
-  <label for="itemname" class="fw-bold">Itemname</label>
+  <label for="itemname"  class="fw-bold mt-2">Itemname</label>
   <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Enter your itemname here" required>
 </div>
 
 <div class="form-group">
-  <label for="price" class="fw-bold">Price:</label>
+  <label for="price"  class="fw-bold mt-2">Price:</label>
   <input type="number" class="form-control" id="price" name="price" placeholder="Enter the price" required>
 </div>
 
 <div class="form-group">
-  <label for="description" class="fw-bold">Description:</label>
-  <textarea class="form-control" id="description" name="description" placeholder="Enter item description" rows="4" required></textarea>
+  <label for="description" class="fw-bold mt-2">Description:</label>
+  <textarea class="form-control" id="description" name="description" placeholder="Enter item description" rows="5" required></textarea>
 </div>
 
 <div class="form-group">
-  <label for="image" class="fw-bold">Image:</label>
+  <label for="image" class="fw-bold mt-2">Image:</label>
   <input type="file" class="form-control" id="image" name="image"  required>
 </div>
 
@@ -126,11 +126,11 @@ role="tabpanel">
 </div>
 
 <!-- Show Client Tab -->
-<div class="tab-pane fade"
+<div class="tab-pane fade show active"
 id="profile-tab-pane"
 role="tabpanel">
 
-<h4>Show client</h4>
+<h4>Show items</h4>
 
 <div>
 <div class="first bg-body-secondary co-12">
@@ -209,104 +209,106 @@ role="tabpanel">
 
 
 <script src="/cool/public/bootstrap/js/jquery.js"></script>
+<script src="/cool/js/itemapi.js"></script>
+
 
 <script>
-  $(document).ready(function(){
+//   $(document).ready(function(){
 
-// $("#itemMaster").click(function(){
+// // $("#itemMaster").click(function(){
 
-// $("#rightPanel").load("/cool/public/views/itemright.php");
+// // $("#rightPanel").load("/cool/public/views/itemright.php");
 
+// // });
+
+
+// //reset form 
+// $("#reset").click(function(){
+//     $("#clientForm")[0].reset();
 // });
 
 
-//reset form 
-$("#reset").click(function(){
-    $("#clientForm")[0].reset();
-});
+
+// //toggle side bar
+// $("#toggleSidebar").click(function(){
+//         $(".left").toggleClass("collapsed"); 
+//         // $(".right").toggleClass("expanded");   
+//     });
+
+//   });
+
+//   $(".nav-link").click(function(){
+//         $(".nav-link").removeClass("active"); 
+//         $(this).addClass("active");
+
+// })
+
+
+// //update select and update api start from her 
+
+// $(document).on("click",".update-btn", function(){
+//     $("#model").show();
+// });
 
 
 
-//toggle side bar
-$("#toggleSidebar").click(function(){
-        $(".left").toggleClass("collapsed"); 
-        // $(".right").toggleClass("expanded");   
-    });
-
-  });
-
-  $(".nav-link").click(function(){
-        $(".nav-link").removeClass("active"); 
-        $(this).addClass("active");
-
-})
+// $(document).on("click","#close-btn",function(){
+//     $("#model").hide();
+// });
 
 
-//update select and update api start from her 
+//  $(document).on("click", ".update-btn", function() {
+//     $("#model").show();
 
-$(document).on("click",".update-btn", function(){
-    $("#model").show();
-});
+//     var id = $(this).data("eid");
 
+//     $.ajax({
+//         url: "/cool/itemid",
+//         type: "POST",
+//         data: { 
+//             id: id
+//         },
+//         success: function(response){
+//             $("#update-form").html(response);
+//         } 
+//     });
+// });
 
+// $(document).on('click', '#update-item', function() { 
+//         var formData = new FormData();
+//         var id = $('#edit-id').val();
+//         var itemname = $('#edit-itemname').val();
+//         var price = $('#edit-price').val();
+//         var description = $('#edit-description').val();
+//         var fileInput = $('#edit-image')[0].files[0];
 
-$(document).on("click","#close-btn",function(){
-    $("#model").hide();
-});
+//         formData.append('id', id);
+//         formData.append('itemname', itemname);
+//         formData.append('price', price);
+//         formData.append('description', description);
 
+//         if (fileInput) {
+//             formData.append('image', fileInput);
+//         }
 
- $(document).on("click", ".update-btn", function() {
-    $("#model").show();
-
-    var id = $(this).data("eid");
-
-    $.ajax({
-        url: "/cool/itemid",
-        type: "POST",
-        data: { 
-            id: id
-        },
-        success: function(response){
-            $("#update-form").html(response);
-        } 
-    });
-});
-
-$(document).on('click', '#update-item', function() { 
-        var formData = new FormData();
-        var id = $('#edit-id').val();
-        var itemname = $('#edit-itemname').val();
-        var price = $('#edit-price').val();
-        var description = $('#edit-description').val();
-        var fileInput = $('#edit-image')[0].files[0];
-
-        formData.append('id', id);
-        formData.append('itemname', itemname);
-        formData.append('price', price);
-        formData.append('description', description);
-
-        if (fileInput) {
-            formData.append('image', fileInput);
-        }
-
-        $.ajax({
-            url: '/cool/item-update', 
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-          success: function(response) {
-        if (response.trim() === 'success') {
+//         $.ajax({
+//             url: '/cool/item-update', 
+//             type: 'POST',
+//             data: formData,
+//             contentType: false,
+//             processData: false,
+//           success: function(response) {
+//         if (response.trim() === 'success') {
            
-            $("#model").hide(); 
-            loaditems();
-        } else {
-            $("#model").hide(); 
-            loaditems();
-        }
-    }
-        });
-    });
+//             $("#model").hide(); 
+//             loaditems();
+//         } else {
+//             $("#model").hide(); 
+//             loaditems();
+//         }
+//     }
+//         });
+//     });
 
 
 
@@ -316,58 +318,58 @@ $(document).on('click', '#update-item', function() {
 
 
 
-//search api start form here
+// //search api start form here
 
-$(document).on("click","#serach",function(){
+// $(document).on("click","#serach",function(){
 
-    var searchvalue = $("#searchname").val();
+//     var searchvalue = $("#searchname").val();
 
-    $.ajax({
-        url:"/cool/item-search",
-        type:"POST",
-        data:{
-            search:searchvalue
-        },
-        success:function(response){
+//     $.ajax({
+//         url:"/cool/item-search",
+//         type:"POST",
+//         data:{
+//             search:searchvalue
+//         },
+//         success:function(response){
 
-            $("#bodydata").html(response);
+//             $("#bodydata").html(response);
 
-        }
-    });
+//         }
+//     });
 
-});
+// });
 
-//delete api start form here 
-
-
-
-$(document).on("click", ".deletebutton", function() {
-    var itemid = $(this).data("id");
-    var element = this;
+// //delete api start form here 
 
 
-    var isConfirmed = confirm("Are you sure you want to delete this item?");
+
+// $(document).on("click", ".deletebutton", function() {
+//     var itemid = $(this).data("id");
+//     var element = this;
+
+
+//     var isConfirmed = confirm("Are you sure you want to delete this item?");
 
    
-    if (isConfirmed) {
-        $.ajax({
-            url: "/cool/item-delete",
-            type: "POST",
-            data: {
-                id: itemid
-            },
-            success: function(response) {
-                if (response.trim() === "success") {
-                    $(element).closest("tr").fadeOut();
-                } else {
-                    console.log(response);
-                }
-            }
-        });
-    } else{
-        console.log("error in deleting")
-    }
-});
+//     if (isConfirmed) {
+//         $.ajax({
+//             url: "/cool/item-delete",
+//             type: "POST",
+//             data: {
+//                 id: itemid
+//             },
+//             success: function(response) {
+//                 if (response.trim() === "success") {
+//                     $(element).closest("tr").fadeOut();
+//                 } else {
+//                     console.log(response);
+//                 }
+//             }
+//         });
+//     } else{
+//         console.log("error in deleting")
+//     }
+// });
 
 
 
@@ -376,64 +378,64 @@ $(document).on("click", ".deletebutton", function() {
 
 
 
-//fetch item start form here
+// //fetch item start form here
 
 
 
-  loaditems();
+//   loaditems();
 
-    function loaditems() {
-        $.ajax({
-            url: "/cool/item-fetch",   
-            type: "GET",
-            success: function(data) {
-                $("#bodydata").html(data); 
-            }
-        });
-    }
-
-
+//     function loaditems() {
+//         $.ajax({
+//             url: "/cool/item-fetch",   
+//             type: "GET",
+//             success: function(data) {
+//                 $("#bodydata").html(data); 
+//             }
+//         });
+//     }
 
 
 
-  //insert item start form here
-$(document).on("click", "#submit", function(e) {
-    e.preventDefault();
-
-    var itemname    = $("#itemname").val();
-    var price       = $("#price").val();
-    var description = $("#description").val();
-    var image       = $("#image")[0].files[0];
-
-    if (itemname == "" || price == "" || description == "" || !image) {
-        alert("Please fill all fields and upload an image.");
-        return;
-    }
 
 
-    var formData = new FormData();
-    formData.append("itemname", itemname);
-    formData.append("price", price);
-    formData.append("description", description);
-    formData.append("image", image);
-    formData.append("submit", "1"); 
+//   //insert item start form here
+// $(document).on("click", "#submit", function(e) {
+//     e.preventDefault();
 
-    $.ajax({
-        url: "/cool/item-insert",
-        type: "POST",
-        data: formData,                 
-        contentType: false,              
-        processData: false,          
-        success: function(response) {
-            if (response == "success") {
-                alert("Item added successfully!");
-                $("#clientForm")[0].reset(); 
-            } else {
+//     var itemname    = $("#itemname").val();
+//     var price       = $("#price").val();
+//     var description = $("#description").val();
+//     var image       = $("#image")[0].files[0];
+
+//     if (itemname == "" || price == "" || description == "" || !image) {
+//         alert("Please fill all fields and upload an image.");
+//         return;
+//     }
+
+
+//     var formData = new FormData();
+//     formData.append("itemname", itemname);
+//     formData.append("price", price);
+//     formData.append("description", description);
+//     formData.append("image", image);
+//     formData.append("submit", "1"); 
+
+//     $.ajax({
+//         url: "/cool/item-insert",
+//         type: "POST",
+//         data: formData,                 
+//         contentType: false,              
+//         processData: false,          
+//         success: function(response) {
+//             if (response == "success") {
+//                 alert("Item added successfully!");
+//                 $("#clientForm")[0].reset(); 
+//             } else {
               
-            }
-        }
-    });
-});
+//             }
+//         }
+//     });
+// });
 
 
 

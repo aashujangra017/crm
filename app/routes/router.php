@@ -1,17 +1,6 @@
 <?php
 
-// class route{
 
-// private $router = [];
-
-// function __construct(){
-//     $url = $_SERVER['REQUEST_URI'];
-//     echo $url;
-// }
-
-
-
-// }
 
 
 

@@ -30,16 +30,16 @@ require "navbar.php";
   
 
     <div class="nav flex-column mt-3" id="sidebarMenu">
-       <button onclick="location.href='/cool/homes'"  class="nav-link" id="userMaster">
-            <i class="bi bi-people-fill"></i> <span class="link-text">User Master</span>
+       <button onclick="location.href='/cool/userhome'"  class="nav-link text-dark " id="userMaster">
+            <i class="bi bi-people-fill"></i> <span class="link-text text-dark">User Master</span>
         </button>
-        <button onclick="location.href='/cool/client'"   class="nav-link" id="clientMaster">
-            <i class="bi bi-person-lines-fill"></i> <span class="link-text">Client Master</span>
+        <button onclick="location.href='/cool/client'"   class="nav-link text-dark " id="clientMaster">
+            <i class="bi bi-person-lines-fill"></i> <span class="link-text text-dark">Client Master</span>
         </button>
-        <button  onclick="location.href='/cool/home'"  class="nav-link" id="itemMaster">
+        <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
-        <button class="nav-link" id="logout">
+        <button class="nav-link text-dark" id="logout">
             <span class="link-text">logout</span>
         </button>
     </div>
@@ -57,27 +57,27 @@ require "navbar.php";
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
 
-<li class="nav-item" role="presentation">
-<button class="nav-link active"
-id="addclient"
-data-bs-toggle="tab"
-data-bs-target="#home-tab-pane"
-type="button"
-role="tab">
-Add Client
-</button>
-</li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="addclient"
+                data-bs-toggle="tab"
+                data-bs-target="#home-tab-pane"
+                type="button"
+                role="tab">
+            Add Client
+        </button>
+    </li>
 
-<li class="nav-item" role="presentation">
-<button class="nav-link"
-id="showclient"
-data-bs-toggle="tab"
-data-bs-target="#profile-tab-pane"
-type="button"
-role="tab">
-Show Client
-</button>
-</li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active"
+                id="showclient"
+                data-bs-toggle="tab"
+                data-bs-target="#profile-tab-pane"
+                type="button"
+                role="tab">
+            Show Client
+        </button>
+    </li>
 
 </ul>
 
@@ -85,7 +85,7 @@ Show Client
 <div class="tab-content border border-top-0 p-3" id="myTabContent">
 
 <!-- Add Client Tab -->
-<div class="tab-pane fade show active"
+<div class="tab-pane fade "
 id="home-tab-pane"
 role="tabpanel">
 
@@ -98,17 +98,17 @@ role="tabpanel">
 <form  id="clientForm">
 
 <div class="form-group">
-<label for="name" class="fw-bold">Name</label>
+<label for="name" class="fw-bold mt-2">Name</label>
 <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name here" required>
 </div>
 
 <div class="form-group">
-<label for="phone" class="fw-bold">Phone Number:</label>
+<label for="phone" class="fw-bold mt-2">Phone Number:</label>
 <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
 </div>
 
 <div class="form-group">
-<label for="address" class="fw-bold">Address</label>
+<label for="address" class="fw-bold mt-2">Address</label>
 <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" required>
 </div>
 
@@ -117,29 +117,36 @@ role="tabpanel">
 <input type="text" class="form-control" id="state" name="state" placeholder="Enter your state" required>
 </div> -->
 
-<div class="stat">
-    <label for="state " class="fw-bold">State:</label>
+<!-- <div class="stat">
+    <label for="state " class="fw-bold mt-2">State:</label>
   <select class="form-select" id="states" name="states" required>
     <select class="form-select" id="state" name="state">
     <option value="">Select state</option>
 
 </select>
+</div> -->
+<div class="stat">
+    <label for="states" class="fw-bold mt-2">State:</label>
+    <select class="form-select" id="states" name="states" required>
+        <option value="">Select state</option>
+        
+    </select>
 </div>
 
 
 
 <div class="form-group">
-<label for="city" class="fw-bold">City</label>
+<label for="city" class="fw-bold mt-2">City</label>
 <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city" required>
 </div>
 
 
 <div class="form-group">
-<label for="pin" class="fw-bold" >Pin</label>
+<label for="pin" class="fw-bold mt-2" >Pin</label>
 <input type="text" class="form-control" id="pin" name="pin" placeholder="Enter your pin" required>
 </div>
 
-<button type="button" name="submit" id="submit" class="btn btn-danger mt-3 ">Submit</button>
+<button type="button" name="submit" id="submit" class="btn btn-danger mt-3 mx-2 ">Submit</button>
 <button type="reset" name="reset" id="reset" class="btn btn-success mt-3">Reset</button>
 
 </form>
@@ -149,7 +156,7 @@ role="tabpanel">
 </div>
 
 <!-- Show Client Tab -->
-<div class="tab-pane fade"
+<div class="tab-pane fade show active"
 id="profile-tab-pane"
 role="tabpanel">
 
@@ -232,8 +239,9 @@ role="tabpanel">
 
 
 <script src="/cool/public/bootstrap/js/jquery.js"></script>
+<script src="/cool/js/clientapi.js"></script>
 <script>
-  $(document).ready(function(){
+//   $(document).ready(function(){
 
 // $("#clientMaster").click(function(){
 
@@ -242,54 +250,26 @@ role="tabpanel">
 // });
 
 
-//reset form 
-$("#reset").click(function(){
-    $("#clientForm")[0].reset();
-});
+// //reset form 
+// $("#reset").click(function(){
+//     $("#clientForm")[0].reset();
+// });
 
 
 
-//toggle side bar
-$("#toggleSidebar").click(function(){
-        $(".left").toggleClass("collapsed"); 
-        // $(".right").toggleClass("expanded");   
-    });
+// //toggle side bar
+// $("#toggleSidebar").click(function(){
+//         $(".left").toggleClass("collapsed"); 
+//         $(".right").toggleClass("expanded");   
+//     });
 
-  });
+//   });
 
-  $(".nav-link").click(function(){
-        $(".nav-link").removeClass("active"); 
-        $(this).addClass("active");
+//   $(".nav-link").click(function(){
+//         $(".nav-link").removeClass("active"); 
+//         $(this).addClass("active");
 
-})
-
-
-
-
-
-
-
-//search start form here
-// Search client
-
-$(document).on("click","#serach",function(){
-
-    var searchvalue = $("#searchname").val();
-
-    $.ajax({
-        url:"/cool/search-client",
-        type:"POST",
-        data:{
-            search:searchvalue
-        },
-        success:function(response){
-
-            $("#bodydata").html(response);
-
-        }
-    });
-
-});
+// })
 
 
 
@@ -297,80 +277,108 @@ $(document).on("click","#serach",function(){
 
 
 
-//update start from here 
+// //search start form here
+// // Search client
 
-$(document).on("click",".update-btn", function(){
-    $("#model").show();
-});
+// $(document).on("click","#serach",function(){
 
+//     var searchvalue = $("#searchname").val();
 
+//     $.ajax({
+//         url:"/cool/search-client",
+//         type:"POST",
+//         data:{
+//             search:searchvalue
+//         },
+//         success:function(response){
 
-$(document).on("click","#close-btn",function(){
-    $("#model").hide();
-});
+//             $("#bodydata").html(response);
 
+//         }
+//     });
 
- $(document).on("click", ".update-btn", function() {
-    $("#model").show();
-
-    var id = $(this).data("eid");
-
-    $.ajax({
-        url: "/cool/clientid",
-        type: "POST",
-        data: { 
-            id: id
-        },
-        success: function(response){
-            $("#update-form").html(response);
-        } 
-    });
-});
+// });
 
 
-$(document).on("click", "#update-client", function() {
+
+
+
+
+
+// //update start from here 
+
+// $(document).on("click",".update-btn", function(){
+//     $("#model").show();
+// });
+
+
+
+// $(document).on("click","#close-btn",function(){
+//     $("#model").hide();
+// });
+
+
+//  $(document).on("click", ".update-btn", function() {
+//     $("#model").show();
+
+//     var id = $(this).data("eid");
+
+//     $.ajax({
+//         url: "/cool/clientid",
+//         type: "POST",
+//         data: { 
+//             id: id
+//         },
+//         success: function(response){
+//             $("#update-form").html(response);
+//         } 
+//     });
+// });
+
+
+// $(document).on("click", "#update-client", function() {
    
-    var id = $("#edit-id").val();
-    var name = $("#edit-name").val();
-    var phone = $("#edit-phone").val();
-    var address = $("#edit-address").val();
-    var state = $("#edit-state").val();
-    var city = $("#edit-city").val();
-    var pincode = $("#edit-pin").val();
+//     var id = $("#edit-id").val();
+//     var name = $("#edit-name").val();
+//     var phone = $("#edit-phone").val();
+//     var address = $("#edit-address").val();
+//     var state = $("#edit-state").val();
+//     var city = $("#edit-city").val();
+//     var pincode = $("#edit-pin").val();
 
-    // Validate required fields
-    if (!name || !phone || !address || !state || !city || !pincode) {
-        alert("Please fill in all fields.");
-        return;
-    }
+//     // Validate required fields
+//     if (!name || !phone || !address || !state || !city || !pincode) {
+//         alert("Please fill in all fields.");
+//         return;
+//     }
 
    
-    $.ajax({
-        url: '/cool/update-client',  
-        type: 'POST',
-        data: {
-            id: id,              
-            name: name,         
-            phone: phone,       
-            address: address,    
-            state: state,        
-            city: city,          
-            pincode: pincode   
-        },
-        success: function(response) {
+//     $.ajax({
+//         url: '/cool/update-client',  
+//         type: 'POST',
+//         data: {
+//             id: id,              
+//             name: name,         
+//             phone: phone,       
+//             address: address,    
+//             state: state,        
+//             city: city,          
+//             pincode: pincode   
+//         },
+//         success: function(response) {
           
-            if (response.trim() === 'success') {
-                alert("Client updated successfully!");  
-                $("#model").hide(); 
-                 loadclients();
-            } else {
-                $("#model").hide(); 
-                loadclients();
+//             if (response.trim() === 'success') {
+//                 alert("Client updated successfully!");  
+//                 $("#model").hide(); 
+//                  loadclients();
+//             } else {
+//                 $("#model").hide(); 
+//                 loadclients();
                
-            }
-        }
-    });
-});
+//             }
+//         }
+//     });
+// });
 
 
 
@@ -378,85 +386,85 @@ $(document).on("click", "#update-client", function() {
 
 
 
-    //delete button api start from here 
+//     //delete button api start from here 
 
 
-$(document).on("click", ".clientbtn", function() {
-    var clientid = $(this).data("id");
-    var element = this;
+// $(document).on("click", ".clientbtn", function() {
+//     var clientid = $(this).data("id");
+//     var element = this;
 
 
-    var isConfirmed = confirm("Are you sure you want to delete this client?");
+//     var isConfirmed = confirm("Are you sure you want to delete this client?");
 
    
-    if (isConfirmed) {
-        $.ajax({
-            url: "/cool/delete-client",
-            type: "POST",
-            data: {
-                id: clientid
-            },
-            success: function(response) {
-                if (response.trim() === "success") {
-                    $(element).closest("tr").fadeOut();
-                } else {
-                    console.log(response);
-                }
-            }
-        });
-    } else{
-        console.log("error in deleting")
-    }
-});
+//     if (isConfirmed) {
+//         $.ajax({
+//             url: "/cool/delete-client",
+//             type: "POST",
+//             data: {
+//                 id: clientid
+//             },
+//             success: function(response) {
+//                 if (response.trim() === "success") {
+//                     $(element).closest("tr").fadeOut();
+//                 } else {
+//                     console.log(response);
+//                 }
+//             }
+//         });
+//     } else{
+//         console.log("error in deleting")
+//     }
+// });
 
 
 
 
 
 
-    //reset form 
-$("#reset").click(function(){
-    $("#clientForm")[0].reset();
-});
+//     //reset form 
+// $("#reset").click(function(){
+//     $("#clientForm")[0].reset();
+// });
 
 
 
-  loadclients();
+//   loadclients();
 
 
      
-    $("#showuser").click(function(e){
-        e.preventDefault();
-        loadclients();
-    });
+//     $("#showuser").click(function(e){
+//         e.preventDefault();
+//         loadclients();
+//     });
 
-    function loadclients() {
-        $.ajax({
-            url: "/cool/fetch-client",   
-            type: "GET",
-            success: function(data) {
-                $("#bodydata").html(data); 
-            }
-        });
-    }
-
-
+//     function loadclients() {
+//         $.ajax({
+//             url: "/cool/fetch-client",   
+//             type: "GET",
+//             success: function(data) {
+//                 $("#bodydata").html(data); 
+//             }
+//         });
+//     }
 
 
 
-//load state in the form
 
-function loadStates(){
-    $.ajax({
-        url:"/cool/states",
-        type:"POST",
-        success:function(data){
-            $("#states").append(data);
-        }
-    });
-}
 
-loadStates();
+// //load state in the form
+
+// function loadStates(){
+//     $.ajax({
+//         url:"/cool/states",
+//         type:"POST",
+//         success:function(data){
+//             $("#states").append(data);
+//         }
+//     });
+// }
+
+// loadStates();
 
 
 
@@ -464,43 +472,43 @@ loadStates();
     
 
 
-// insert start form here 
-$(document).on("click","#submit",function(){
+// // insert start form here 
+// $(document).on("click","#submit",function(){
 
-    var name    = $("#name").val();
-    var phone   = $("#phone").val();
-    var address = $("#address").val();
-    var state   = $("#states").val();  
-    var city    = $("#city").val();
-    var pin     = $("#pin").val();
+//     var name    = $("#name").val();
+//     var phone   = $("#phone").val();
+//     var address = $("#address").val();
+//     var state   = $("#states").val();  
+//     var city    = $("#city").val();
+//     var pin     = $("#pin").val();
 
-    if(name=="" || phone=="" || address=="" || state=="" || city=="" || pin==""){
-        alert("Please fill all fields");
-        return;
-    }
+//     if(name=="" || phone=="" || address=="" || state=="" || city=="" || pin==""){
+//         alert("Please fill all fields");
+//         return;
+//     }
 
-    $.ajax({
-        url: "/cool/insert-client",
-        type: "POST",
-        data:{
-            name:name,
-            phone:phone,
-            address:address,
-            state:state,  
-            city:city,
-            pin:pin
-        },
-        success:function(response){
-            if(response=="success"){
-                alert("Client Added Successfully");
-                $("#clientForm")[0].reset();
-            }else{
-                 $("#clientForm")[0].reset();
+//     $.ajax({
+//         url: "/cool/insert-client",
+//         type: "POST",
+//         data:{
+//             name:name,
+//             phone:phone,
+//             address:address,
+//             state:state,  
+//             city:city,
+//             pin:pin
+//         },
+//         success:function(response){
+//             if(response=="success"){
+//                 alert("Client Added Successfully");
+//                 $("#clientForm")[0].reset();
+//             }else{
+//                  $("#clientForm")[0].reset();
                 
-            }
-        }
-    });
-});
+//             }
+//         }
+//     });
+// });
 
 
 

@@ -32,6 +32,11 @@ public function register(){
 }
 
 
+public function userhome(){
+    require __DIR__ . "/../../public/views/userhomes.php";
+}
+
+
 
 
 public function insert(){
@@ -220,54 +225,6 @@ if($column !='id' && $column !='name' && $column !='email'){
 }
 
 
-//  public function selectuserform() {
-
-//         if (isset($_POST['id'])) {
-
-//             $id = (int)$_POST['id'];  
-
-//             $object = new user();
-//             $userResult = $object->selectuser($id); 
-
-//             if ($userResult && $userResult->num_rows > 0) {
-//                 $row = $userResult->fetch_assoc();
-
-          
-//                 echo "
-//                 <tr>
-//                     <td>Name</td>
-//                     <td>
-//                         <input type='hidden' id='edit-id' value='{$row['id']}'>
-//                         <input type='text' id='edit-name' value='{$row['name']}'>
-//                     </td>
-//                 </tr>
-//                 <tr>
-//                     <td>Email</td>
-//                     <td><input type='text' id='edit-email' value='{$row['email']}'></td>
-//                 </tr>
-//                 <tr>
-//                     <td>Phone</td>
-//                     <td><input type='text' id='edit-phone' value='{$row['phone']}'></td>
-//                 </tr>
-//                 <tr>
-//                     <td>Status</td>
-//                     <td><input type='text' id='edit-status' value='{$row['status']}'></td>
-//                 </tr>
-//                 <tr>
-//                     <td></td>
-//                     <td><button id='update-user' class='btn btn-success  mt-3'>Save</button></td>
-//                 </tr>
-//                 ";
-//             } else {
-//                 echo "<tr><td colspan='2'>No Record Found</td></tr>";
-//             }
-
-//         } else {
-//             echo "<tr><td colspan='2'>User ID missing</td></tr>";
-//         }
-
-//     }
-
 
 public function selectuserform() {
 
@@ -343,6 +300,20 @@ public function status(){
     echo $options;
 }
 
+
+
+
+
+    public function search (){
+        if(isset($_POST['search'])){
+            $keyword = $_POST['search'];
+
+            $object = new user();
+           $users = $object->searchusers($keyword);
+
+           require_once 'usertable.php';
+        }
+    }
 
 
 

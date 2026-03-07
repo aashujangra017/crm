@@ -64,14 +64,14 @@ html, body {
     width: 7%;
 }
 
-/* .right {
+.right {
     width: 85%;
     transition: width 0.3s ease;
 }
 
 .right.expanded {
     width: 93%; 
-} */
+}
 
 
 .right{
@@ -120,6 +120,12 @@ html, body {
     background-color: #a8b3c7;
 }
 
+
+/* #userMaster,
+#clientMaster,
+#itemMaster {
+    font-size: 10px;  
+} */
 .first{
     border: 1px solid black;
     height: 70px;

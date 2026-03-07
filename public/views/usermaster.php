@@ -1,0 +1,466 @@
+<!-- <?php
+require "navbar.php";
+
+
+?> -->
+
+
+
+<head>
+        <link rel="stylesheet" href="/cool/public/bootstrap/css/client.css">
+    <link rel="stylesheet" href="/cool/public/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/cool/public/bootstrap/js/bootstrap.js">
+  
+
+
+
+   
+
+
+
+</head>
+<body>
+
+<!-- //left bar start form here  -->
+
+<!-- left bar start -->
+<div class="main">
+
+<div class="left bg-dark-subtle">
+  
+
+    <div class="nav flex-column mt-3" id="sidebarMenu">
+        <button onclick="location.href='/cool/userhome'"  class="nav-link text-dark " id="userMaster">
+            <i class="bi bi-people-fill"></i> <span class="link-text text-dark">User Master</span>
+        </button>
+        <button onclick="location.href='/cool/client'"   class="nav-link text-dark " id="clientMaster">
+            <i class="bi bi-person-lines-fill"></i> <span class="link-text text-dark">Client Master</span>
+        </button>
+        <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
+            <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
+        </button>
+        <button class="nav-link text-dark" id="logout">
+            <span class="link-text">logout</span>
+        </button>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+<!-- right bar start -->
+<div class="right  container"  id="rightPanel">
+
+<div class="container ">
+
+<h3 class="mb-3">Welcome To User Master Home Page</h3>
+
+<!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+<li class="nav-item" role="presentation">
+<button class="nav-link active"
+id="addclient"
+data-bs-toggle="tab"
+data-bs-target="#home-tab-pane"
+type="button"
+role="tab">
+Add User
+</button>
+</li>
+
+<li class="nav-item" role="presentation">
+<button class="nav-link"
+id="showclient"
+data-bs-toggle="tab"
+data-bs-target="#profile-tab-pane"
+type="button"
+role="tab">
+Show User
+</button>
+</li>
+
+</ul> -->
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+
+    <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="addclient"
+                data-bs-toggle="tab"
+                data-bs-target="#home-tab-pane"
+                type="button"
+                role="tab">
+            Add User
+        </button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active"
+                id="showclient"
+                data-bs-toggle="tab"
+                data-bs-target="#profile-tab-pane"
+                type="button"
+                role="tab">
+            Show User
+        </button>
+    </li>
+
+</ul>
+
+<!-- Tab content -->
+<div class="tab-content border border-top-0 p-3" id="myTabContent">
+
+<!-- Add Client Tab -->
+<div class="tab-pane fade "
+id="home-tab-pane"
+role="tabpanel">
+
+<div class="form-container bg-dark-subtle">
+
+<h4>Add User</h4>
+
+<div class="form-wrapper" id="setup">
+
+<form  id="clientForm">
+<div class="form-group">
+        <label for="name" class="fw-bold my-2">Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name here" required>
+    </div>
+    <div class="form-group">
+        <label for="email" class="fw-bold my-2">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email here" required>
+    </div>
+    <div class="form-group">
+        <label for="phone" class="fw-bold my-2">Phone Number:</label>
+        <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
+    </div>
+    <div class="form-group">
+                 <label for="status" class="fw-bold my-2">status</label>
+  <select id="status" name="status" class="form-select"  required>
+    <option value="" disabled selected  >Select state
+
+</option>
+</select>
+    </div>
+    <button type="submit" name="submit" id="submit" class="btn btn-danger mx-2 my-4">Submit</button>
+    <button type="reset" name="reset" id="reset" class="btn btn-success mx-2 my-4">Reset</button>
+
+</form>
+
+</div>
+</div>
+</div>
+
+<!-- Show Client Tab -->
+<div class="tab-pane fade show active"
+id="profile-tab-pane"
+role="tabpanel ">
+
+<h4>Show client</h4>
+
+<div>
+<div class="first bg-body-secondary co-12">
+
+
+                <label for="searchname" class="fw-bold">Search user:</label>
+                <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
+                <button id="search" class="btn btn-primary">Search</button>
+                
+
+</div>
+
+<div class="second bg-body-secondary col-12">
+<label class="fw-bold ">Limit</label>
+<select id="limit" class="form-select w-auto d-inline-block">
+    <option value="" disabled selected>Select Limit</option>
+    <option value="5">5</option>
+    <option value="10">10</option>
+      <option value="15">15</option>
+</select>
+</div>
+<div class="third bg-body-secondary col-12">
+<table class="table table-hover">
+
+        <thead>
+            
+            <tr class="table-dark">
+                <th> ID
+        <span class="sort" data-column="id" data-order="ASC" style="cursor:pointer">↑</span>
+ <span class="sort" data-column="id" data-order="DESC" style="cursor:pointer">↓</span>
+         </th>
+        <th>  Name
+         <span class="sort" data-column="name" data-order="ASC" style="cursor:pointer">↑</span>
+     <span class="sort" data-column="name" data-order="DESC" style="cursor:pointer">↓</span>
+                </th>
+        <th> Email
+         <span class="sort" data-column="email" data-order="ASC" style="cursor:pointer">↑</span>
+         <span class="sort" data-column="email" data-order="DESC" style="cursor:pointer">↓</span>
+        </th>
+                <th>Phone Number</th>
+                <th>Status</th>
+                <th>Delete</th>
+                <th>Update</th>
+       </tr>
+    </thead>
+
+
+  <tbody id="bodydata"></tbody>
+
+
+</table>
+</div>
+
+<div id="model">
+    <div id="model-form">
+        <h2>Edit Form</h2>
+        <div id="close-btn">X</div>
+
+        <div id="edit-form"></div>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script src="/cool/public/bootstrap/js/jquery.js"></script>
+
+<script src="/cool/js/userapi.js"></script>
+<script>
+
+
+// // toggle side bar
+// $("#toggleSidebar").click(function() {
+//         $(".left").toggleClass("collapsed");
+        
+//     });
+
+// // reset insert form 
+//     $("#reset").click(function(){
+//     $("#clientForm")[0].reset();
+// });
+
+    
+
+//     //insert start form here 
+//  $(document).on('click', '#submit', function(e) {
+//         e.preventDefault(); 
+
+//         var name = $("#name").val();
+//         var email = $("#email").val();
+//         var phone = $("#phone").val();
+//         var status = $("#status").val();
+
+//         console.log(name, email, phone, status);
+
+//         $.ajax({
+//             url: "/cool/insert/",
+//             type: "POST",
+//             data: {
+//                 name: name,
+//                 email: email,
+//                 phone: phone,
+//                 status: status
+//             },
+//              success:function(response){
+//             if(response.trim() == "success"){
+//     window.location.href = "/cool/userhome";
+//                 $("#clientForm")[0].reset();
+//             }else{
+//                  $("#clientForm")[0].reset();
+                
+//             }
+//         }
+//         });
+//     });
+
+
+    
+//     //loadstatus
+//      function loadStatus(){
+//             $.ajax({
+//                 url:"/cool/status",
+//                 type:"POST",
+//                 success:function (data){
+//                     $("#status").append(data)
+//                 }
+//             })
+//         }
+
+//         loadStatus()
+
+
+        
+//     //delete button api start from here 
+// $(document).on("click", ".deletebutton", function() {
+//     var userid = $(this).data("id");
+//     var element = this;
+//     var isdelete = confirm("Are you sure you want to delete this user?");
+
+//     if (isdelete) {
+//         $.ajax({
+//             url: "/cool/delete",
+//             type: "POST",
+//             data: {
+//                 id: userid
+//             },
+//             success: function(response) {
+//                 if (response.trim() === "success") {
+//                     $(element).closest("tr").fadeOut();
+//                 } else {
+//                     console.log(response);
+//                 }
+//             }
+//         });
+//     }
+// });
+
+
+
+// //update start form here for select and update api
+
+
+
+// //select and update start form here 
+
+//  $(document).on("click", ".edit-btn", function() {
+//     $("#model").show();
+
+//     var id = $(this).data("eid");
+
+//     $.ajax({
+//         url: "/cool/selectid",
+//         type: "POST",
+//         data: { 
+//             id: id
+//         },
+//         success: function(response){
+//             $("#edit-form").html(response);
+//         } 
+//     });
+// });
+
+
+
+// $("#close-btn").on("click",function(){
+//         $("#model").hide();
+//     })
+
+//     $(document).on("click","#update-user",function(){
+
+//      var id = $("#edit-id").val();
+//      var name = $("#edit-name").val();
+//      var email = $("#edit-email").val();
+//      var phone = $("#edit-phone").val();
+//      var status = $("#edit-status").val();
+
+
+//      $.ajax({
+//         url:"/cool/update",
+//         type:"POST",
+//         data:{
+//             id:id,
+//             name:name,
+//             email:email,
+//             phone:phone,
+//             status:status
+//         },
+//         success:function(response){
+//             if(response.trim() ==='success'){
+//                 $("#model").hide();
+//                 loadUsers();
+//             }else{
+//                 console.log(response)
+//             }
+//         }
+//      })
+
+
+//     })
+
+
+
+
+//     //loads user
+
+    
+//     function loadUsers() {
+//         $.ajax({
+//             url: "/cool/fetch-users",   
+//             type: "GET",
+//             success: function(data) {
+//                 $("#bodydata").html(data); 
+//             }
+//         });
+//     }
+//   loadUsers();
+
+
+//   //limit users
+    
+//  // limit api start from here
+
+//     $("#limit").change(function() {
+//         var limit = $(this).val(); 
+//         loadData(limit); 
+//     });
+
+//     function loadData(limit) {
+//         $.ajax({
+//             url: "/cool/limit",
+//             type: "POST",
+//             data: {
+//                 limit: limit
+//             },
+//             success: function(data) {
+//                 $("#bodydata").html(data); 
+//             }
+//         });
+//     }
+//         loadData(5);
+
+
+
+
+        
+
+
+        
+//     // search api start form here 
+    
+// $(document).on("click", "#search", function() {
+
+//  var searchvalue = $("#searchname").val();
+
+//     $.ajax({
+//         url:"/cool/user-search",
+//         type:"POST",
+//         data:{
+//             search:searchvalue
+//         },
+//         success:function(response){
+
+//             $("#bodydata").html(response);
+
+//         }
+//     });
+//  })
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
