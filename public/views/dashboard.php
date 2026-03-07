@@ -11,15 +11,31 @@
 <div class="main">
 
 <!-- left side bar start form here  -->
-<div class="left bg-light-subtle">
+<div class="left " style="background-color:#fffff">
    
 
-    <ul class="menu">
+    <!-- <ul class="menu">
         <li><a href="#" onclick="window.location.href='/cool/home'">User Master</a></li>
-        <li><a href="#" onclick="window.location.href='/cool/client'">Client Master</a></li>
+        <li><a href="#" >Client Master</a></li>
         <li><a href="#">Item Master</a></li>
         <li><a href="#"  style="background-color: #FF2E2E">Logout</a></li>
     </ul>
+</div> -->
+
+ <div class="nav flex-column mt-3" id="sidebarMenu">
+       <button   class="nav-link" id="userMaster">
+            <i class="bi bi-people-fill"></i> <span class="link-text">User Master</span>
+        </button>
+        <button    class="nav-link" id="clientMaster">
+            <i class="bi bi-person-lines-fill"></i> <span class="link-text">Client Master</span>
+        </button>
+        <button    class="nav-link" id="itemMaster">
+            <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
+        </button>
+        <!-- <button class="nav-link" id="logout">
+            <span class="link-text">logout</span>
+        </button> -->
+    </div>
 </div>
 
 

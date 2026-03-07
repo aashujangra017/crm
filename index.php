@@ -48,7 +48,7 @@ $router->addRoute('/cool/navbars', function() {
 
 
 
-$router->addRoute('/cool/home', function() {  
+$router->addRoute('/cool/homes', function() {  
     $controller = new userController();
     $controller->home();
 });
@@ -255,10 +255,39 @@ $router->addRoute('/cool/item',function(){
     $controller->itemhome();
 });
 
+//hoem page for item
+
 $router->addRoute('/cool/home',function(){
     $controller = new itemController();
     $controller->itemhome();
 });
+
+//insert routes start form here 
+$router->addRoute('/cool/item-insert',function(){
+    $controller = new itemController();
+    $controller->iteminsert();
+});
+
+
+//fetch routes start form here 
+$router->addRoute('/cool/item-fetch',function(){
+    $controller = new itemController();
+    $controller->fetchitem();
+});
+//search routes start from here 
+$router->addRoute('/cool/item-search',function(){
+    $controller = new itemController();
+    $controller->search();
+});
+
+
+// delete  routes start form here 
+$router->addRoute('/cool/item-delete',function(){
+    $controller = new itemController();
+    $controller->delete();
+});
+
+
 
 
 

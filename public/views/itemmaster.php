@@ -30,13 +30,13 @@ require "navbar.php";
   
 
     <div class="nav flex-column mt-3" id="sidebarMenu">
-       <button onclick="window.location.href='/cool/home';"  class="nav-link" id="userMaster">
+       <button   class="nav-link" id="userMaster">
             <i class="bi bi-people-fill"></i> <span class="link-text">User Master</span>
         </button>
-        <button onclick="window.location.href='/cool/client';" class="nav-link" id="clientMaster">
+        <button class="nav-link" id="clientMaster">
             <i class="bi bi-person-lines-fill"></i> <span class="link-text">Client Master</span>
         </button>
-        <button onclick="window.location.href='/cool/item';" class="nav-link" id="itemMaster">
+        <button  class="nav-link" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
         <button  class="nav-link" id="logout">
@@ -208,9 +208,9 @@ role="tabpanel">
 <script>
   $(document).ready(function(){
 
-$("#clientMaster").click(function(){
+$("#itemMaster").click(function(){
 
-$("#rightPanel").load("/cool/public/views/clientright.php");
+$("#rightPanel").load("/cool/public/views/itemright.php");
 
 });
 

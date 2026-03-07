@@ -52,7 +52,7 @@ Show Client
 id="home-tab-pane"
 role="tabpanel">
 
-<div class="form-container">
+<div class="form-container bg-dark-subtle">
 
 <h4>Add Client</h4>
 
@@ -124,20 +124,19 @@ role="tabpanel">
         <span class="sort" data-column="id" data-order="ASC" style="cursor:pointer">↑</span>
  <span class="sort" data-column="id" data-order="DESC" style="cursor:pointer">↓</span>
          </th>
-        <th>  Name
+        <th>  itemname
          <span class="sort" data-column="name" data-order="ASC" style="cursor:pointer">↑</span>
      <span class="sort" data-column="name" data-order="DESC" style="cursor:pointer">↓</span>
                 </th>
-        <th> Phone
+        <th> Price
          <span class="sort" data-column="email" data-order="ASC" style="cursor:pointer">↑</span>
          <span class="sort" data-column="email" data-order="DESC" style="cursor:pointer">↓</span>
         </th>
-         <th>Address</th>
-                <th>State</th>
-                <th>City</th>
-                <th>pincode</th>
-                <th>delete</th>
-                <th>update</th>
+         <th>Description</th>
+                <th>Image</th>
+                <th>Delete</th>
+                <th>Update</th>
+                
        </tr>
     </thead>
 
@@ -168,6 +167,109 @@ role="tabpanel">
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+
+
+//seach api start from here
+
+
+$(document).on("click","#serach",function(){
+
+    var searchvalue = $("#searchname").val();
+
+    $.ajax({
+        url:"/cool/item-search",
+        type:"POST",
+        data:{
+            search:searchvalue
+        },
+        success:function(response){
+
+            $("#bodydata").html(response);
+
+        }
+    });
+
+});
+
+//delete api start form here 
+
+
+
+$(document).on("click",".delete-btn",function(){
+  
+})
+
+
+
+
+
+
+
+
+//fetch item start form here
+
+
+
+  loaditems();
+
+    function loaditems() {
+        $.ajax({
+            url: "/cool/item-fetch",   
+            type: "GET",
+            success: function(data) {
+                $("#bodydata").html(data); 
+            }
+        });
+    }
+
+
+
+
+
+  //insert item start form here
+$(document).on("click", "#submit", function(e) {
+    e.preventDefault();
+
+    var itemname    = $("#itemname").val();
+    var price       = $("#price").val();
+    var description = $("#description").val();
+    var image       = $("#image")[0].files[0];
+
+    if (itemname == "" || price == "" || description == "" || !image) {
+        alert("Please fill all fields and upload an image.");
+        return;
+    }
+
+
+    var formData = new FormData();
+    formData.append("itemname", itemname);
+    formData.append("price", price);
+    formData.append("description", description);
+    formData.append("image", image);
+    formData.append("submit", "1"); 
+
+    $.ajax({
+        url: "/cool/item-insert",
+        type: "POST",
+        data: formData,                 
+        contentType: false,              
+        processData: false,          
+        success: function(response) {
+            if (response == "success") {
+                alert("Item added successfully!");
+                $("#clientForm")[0].reset(); 
+            } else {
+              
+            }
+        }
+    });
+});
+
+
+</script>
 
 
 </body>
