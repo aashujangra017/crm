@@ -286,6 +286,17 @@ $router->addRoute('/cool/item-delete',function(){
     $controller = new itemController();
     $controller->delete();
 });
+//select id for the update routes
+$router->addRoute('/cool/itemid',function(){
+    $controller = new itemController();
+    $controller->itemselect();
+});
+
+// udpate routes start 
+$router->addRoute('/cool/item-update',function(){
+    $controller = new itemController();
+    $controller->itemupdate();
+});
 
 
 

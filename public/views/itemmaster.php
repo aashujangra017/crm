@@ -30,13 +30,13 @@ require "navbar.php";
   
 
     <div class="nav flex-column mt-3" id="sidebarMenu">
-       <button   class="nav-link" id="userMaster">
+       <button onclick="location.href='/cool/homes'"  class="nav-link" id="userMaster">
             <i class="bi bi-people-fill"></i> <span class="link-text">User Master</span>
         </button>
-        <button class="nav-link" id="clientMaster">
+        <button onclick="location.href='/cool/client'" class="nav-link" id="clientMaster">
             <i class="bi bi-person-lines-fill"></i> <span class="link-text">Client Master</span>
         </button>
-        <button  class="nav-link" id="itemMaster">
+        <button onclick="location.href='/cool/home'" class="nav-link" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
         <button  class="nav-link" id="logout">
@@ -49,14 +49,14 @@ require "navbar.php";
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
 <!-- right bar start -->
-<div class="right " id="rightPanel">
 
-<div class="container mt-4">
+<div class="right  container" id="rightPanel">
+
+<div class="container ">
 
 <h3 class="mb-3">Welcome To Client Master Home Page</h3>
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
-  
 
 <li class="nav-item" role="presentation">
 <button class="nav-link active"
@@ -83,7 +83,7 @@ Show Client
 </ul>
 
 <!-- Tab content -->
-<div class="tab-content p-3" id="myTabContent">
+<div class="tab-content border border-top-0 p-3" id="myTabContent">
 
 <!-- Add Client Tab -->
 <div class="tab-pane fade show active"
@@ -96,8 +96,7 @@ role="tabpanel">
 
 <div class="form-wrapper" id="setup">
 
-<form id="clientForm">
-
+<form  id="clientForm">
 <div class="form-group">
   <label for="itemname" class="fw-bold">Itemname</label>
   <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Enter your itemname here" required>
@@ -134,19 +133,18 @@ role="tabpanel">
 <h4>Show client</h4>
 
 <div>
-<div class="first bg-body-tertiary co-12">
+<div class="first bg-body-secondary co-12">
 
 
                 <label for="searchname" class="fw-bold">Search Something:</label>
                 <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
-                <button class="btn btn-primary" id="search">Search</button>
+                <button id="serach" class="btn btn-primary">Search</button>
                 
 
 </div>
-</div>
 
-<div class="second col-12">
-<label class="fw-bold my-2 ">Limit</label>
+<div class="second bg-body-secondary col-12">
+<label class="fw-bold ">Limit</label>
 <select id="limit" class="form-select w-auto d-inline-block">
     <option value="" disabled selected>Select Limit</option>
     <option value="5">5</option>
@@ -154,30 +152,29 @@ role="tabpanel">
       <option value="15">15</option>
 </select>
 </div>
-<div class="third col-12">
+<div class="third bg-body-secondary col-12">
 <table class="table table-hover">
 
-        <thead class="col-12">
+        <thead>
             
             <tr class="table-dark">
                 <th> ID
         <span class="sort" data-column="id" data-order="ASC" style="cursor:pointer">↑</span>
  <span class="sort" data-column="id" data-order="DESC" style="cursor:pointer">↓</span>
          </th>
-        <th>  Name
+        <th>  itemname
          <span class="sort" data-column="name" data-order="ASC" style="cursor:pointer">↑</span>
      <span class="sort" data-column="name" data-order="DESC" style="cursor:pointer">↓</span>
                 </th>
-        <th> Phone
+        <th> Price
          <span class="sort" data-column="email" data-order="ASC" style="cursor:pointer">↑</span>
          <span class="sort" data-column="email" data-order="DESC" style="cursor:pointer">↓</span>
         </th>
-        <th>Address</th>
-                <th>State</th>
-                <th>City</th>
-                <th>pincode</th>
-                <th>delete</th>
-                <th>update</th>
+         <th>Description</th>
+                <th>Image</th>
+                <th>Delete</th>
+                <th>Update</th>
+                
        </tr>
     </thead>
 
@@ -187,6 +184,14 @@ role="tabpanel">
 
 </table>
 </div>
+
+<div id="model">
+    <div id="model-form">
+        <h2>Edit Form</h2>
+        <div id="close-btn">X</div>
+
+        <div id="update-form"></div>
+    </div>
 </div>
 
 </div>
@@ -208,11 +213,11 @@ role="tabpanel">
 <script>
   $(document).ready(function(){
 
-$("#itemMaster").click(function(){
+// $("#itemMaster").click(function(){
 
-$("#rightPanel").load("/cool/public/views/itemright.php");
+// $("#rightPanel").load("/cool/public/views/itemright.php");
 
-});
+// });
 
 
 //reset form 
@@ -235,6 +240,204 @@ $("#toggleSidebar").click(function(){
         $(this).addClass("active");
 
 })
+
+
+//update select and update api start from her 
+
+$(document).on("click",".update-btn", function(){
+    $("#model").show();
+});
+
+
+
+$(document).on("click","#close-btn",function(){
+    $("#model").hide();
+});
+
+
+ $(document).on("click", ".update-btn", function() {
+    $("#model").show();
+
+    var id = $(this).data("eid");
+
+    $.ajax({
+        url: "/cool/itemid",
+        type: "POST",
+        data: { 
+            id: id
+        },
+        success: function(response){
+            $("#update-form").html(response);
+        } 
+    });
+});
+
+$(document).on('click', '#update-item', function() { 
+        var formData = new FormData();
+        var id = $('#edit-id').val();
+        var itemname = $('#edit-itemname').val();
+        var price = $('#edit-price').val();
+        var description = $('#edit-description').val();
+        var fileInput = $('#edit-image')[0].files[0];
+
+        formData.append('id', id);
+        formData.append('itemname', itemname);
+        formData.append('price', price);
+        formData.append('description', description);
+
+        if (fileInput) {
+            formData.append('image', fileInput);
+        }
+
+        $.ajax({
+            url: '/cool/item-update', 
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+          success: function(response) {
+        if (response.trim() === 'success') {
+           
+            $("#model").hide(); 
+            loaditems();
+        } else {
+            $("#model").hide(); 
+            loaditems();
+        }
+    }
+        });
+    });
+
+
+
+
+
+
+
+
+
+//search api start form here
+
+$(document).on("click","#serach",function(){
+
+    var searchvalue = $("#searchname").val();
+
+    $.ajax({
+        url:"/cool/item-search",
+        type:"POST",
+        data:{
+            search:searchvalue
+        },
+        success:function(response){
+
+            $("#bodydata").html(response);
+
+        }
+    });
+
+});
+
+//delete api start form here 
+
+
+
+$(document).on("click", ".deletebutton", function() {
+    var itemid = $(this).data("id");
+    var element = this;
+
+
+    var isConfirmed = confirm("Are you sure you want to delete this item?");
+
+   
+    if (isConfirmed) {
+        $.ajax({
+            url: "/cool/item-delete",
+            type: "POST",
+            data: {
+                id: itemid
+            },
+            success: function(response) {
+                if (response.trim() === "success") {
+                    $(element).closest("tr").fadeOut();
+                } else {
+                    console.log(response);
+                }
+            }
+        });
+    } else{
+        console.log("error in deleting")
+    }
+});
+
+
+
+
+
+
+
+
+//fetch item start form here
+
+
+
+  loaditems();
+
+    function loaditems() {
+        $.ajax({
+            url: "/cool/item-fetch",   
+            type: "GET",
+            success: function(data) {
+                $("#bodydata").html(data); 
+            }
+        });
+    }
+
+
+
+
+
+  //insert item start form here
+$(document).on("click", "#submit", function(e) {
+    e.preventDefault();
+
+    var itemname    = $("#itemname").val();
+    var price       = $("#price").val();
+    var description = $("#description").val();
+    var image       = $("#image")[0].files[0];
+
+    if (itemname == "" || price == "" || description == "" || !image) {
+        alert("Please fill all fields and upload an image.");
+        return;
+    }
+
+
+    var formData = new FormData();
+    formData.append("itemname", itemname);
+    formData.append("price", price);
+    formData.append("description", description);
+    formData.append("image", image);
+    formData.append("submit", "1"); 
+
+    $.ajax({
+        url: "/cool/item-insert",
+        type: "POST",
+        data: formData,                 
+        contentType: false,              
+        processData: false,          
+        success: function(response) {
+            if (response == "success") {
+                alert("Item added successfully!");
+                $("#clientForm")[0].reset(); 
+            } else {
+              
+            }
+        }
+    });
+});
+
+
+
+
 
 
 

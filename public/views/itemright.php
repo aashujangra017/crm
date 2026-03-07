@@ -175,98 +175,122 @@ role="tabpanel">
 //seach api start from here
 
 
-$(document).on("click","#serach",function(){
+// $(document).on("click","#serach",function(){
 
-    var searchvalue = $("#searchname").val();
+//     var searchvalue = $("#searchname").val();
 
-    $.ajax({
-        url:"/cool/item-search",
-        type:"POST",
-        data:{
-            search:searchvalue
-        },
-        success:function(response){
+//     $.ajax({
+//         url:"/cool/item-search",
+//         type:"POST",
+//         data:{
+//             search:searchvalue
+//         },
+//         success:function(response){
 
-            $("#bodydata").html(response);
+//             $("#bodydata").html(response);
 
-        }
-    });
+//         }
+//     });
 
-});
+// });
 
-//delete api start form here 
-
-
-
-$(document).on("click",".delete-btn",function(){
-  
-})
+// //delete api start form here 
 
 
 
+// $(document).on("click", ".deletebutton", function() {
+//     var itemid = $(this).data("id");
+//     var element = this;
+
+
+//     var isConfirmed = confirm("Are you sure you want to delete this item?");
+
+   
+//     if (isConfirmed) {
+//         $.ajax({
+//             url: "/cool/item-delete",
+//             type: "POST",
+//             data: {
+//                 id: itemid
+//             },
+//             success: function(response) {
+//                 if (response.trim() === "success") {
+//                     $(element).closest("tr").fadeOut();
+//                 } else {
+//                     console.log(response);
+//                 }
+//             }
+//         });
+//     } else{
+//         console.log("error in deleting")
+//     }
+// });
 
 
 
 
 
-//fetch item start form here
 
 
 
-  loaditems();
-
-    function loaditems() {
-        $.ajax({
-            url: "/cool/item-fetch",   
-            type: "GET",
-            success: function(data) {
-                $("#bodydata").html(data); 
-            }
-        });
-    }
+// //fetch item start form here
 
 
 
+//   loaditems();
+
+//     function loaditems() {
+//         $.ajax({
+//             url: "/cool/item-fetch",   
+//             type: "GET",
+//             success: function(data) {
+//                 $("#bodydata").html(data); 
+//             }
+//         });
+//     }
 
 
-  //insert item start form here
-$(document).on("click", "#submit", function(e) {
-    e.preventDefault();
-
-    var itemname    = $("#itemname").val();
-    var price       = $("#price").val();
-    var description = $("#description").val();
-    var image       = $("#image")[0].files[0];
-
-    if (itemname == "" || price == "" || description == "" || !image) {
-        alert("Please fill all fields and upload an image.");
-        return;
-    }
 
 
-    var formData = new FormData();
-    formData.append("itemname", itemname);
-    formData.append("price", price);
-    formData.append("description", description);
-    formData.append("image", image);
-    formData.append("submit", "1"); 
 
-    $.ajax({
-        url: "/cool/item-insert",
-        type: "POST",
-        data: formData,                 
-        contentType: false,              
-        processData: false,          
-        success: function(response) {
-            if (response == "success") {
-                alert("Item added successfully!");
-                $("#clientForm")[0].reset(); 
-            } else {
+//   //insert item start form here
+// $(document).on("click", "#submit", function(e) {
+//     e.preventDefault();
+
+//     var itemname    = $("#itemname").val();
+//     var price       = $("#price").val();
+//     var description = $("#description").val();
+//     var image       = $("#image")[0].files[0];
+
+//     if (itemname == "" || price == "" || description == "" || !image) {
+//         alert("Please fill all fields and upload an image.");
+//         return;
+//     }
+
+
+//     var formData = new FormData();
+//     formData.append("itemname", itemname);
+//     formData.append("price", price);
+//     formData.append("description", description);
+//     formData.append("image", image);
+//     formData.append("submit", "1"); 
+
+//     $.ajax({
+//         url: "/cool/item-insert",
+//         type: "POST",
+//         data: formData,                 
+//         contentType: false,              
+//         processData: false,          
+//         success: function(response) {
+//             if (response == "success") {
+//                 alert("Item added successfully!");
+//                 $("#clientForm")[0].reset(); 
+//             } else {
               
-            }
-        }
-    });
-});
+//             }
+//         }
+//     });
+// });
 
 
 </script>

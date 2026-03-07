@@ -16,7 +16,7 @@ if ($items && $items->num_rows > 0) {
                     </button>
                 </td>
                 <td>
-                    <button class='edit-btn btn btn-primary' data-eid='{$row['id']}'>
+                    <button class='update-btn btn btn-primary' data-eid='{$row['id']}'>
                         Update
                     </button>
                 </td>

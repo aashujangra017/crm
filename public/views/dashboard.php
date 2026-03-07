@@ -11,7 +11,7 @@
 <div class="main">
 
 <!-- left side bar start form here  -->
-<div class="left " style="background-color:#fffff">
+<div class="left col-2 " style="background-color:#fffff">
    
 
     <!-- <ul class="menu">
@@ -23,13 +23,13 @@
 </div> -->
 
  <div class="nav flex-column mt-3" id="sidebarMenu">
-       <button   class="nav-link" id="userMaster">
+      <button onclick="location.href='/cool/homes'"  class="nav-link" id="userMaster">
             <i class="bi bi-people-fill"></i> <span class="link-text">User Master</span>
         </button>
-        <button    class="nav-link" id="clientMaster">
+        <button onclick="location.href='/cool/client'" class="nav-link" id="clientMaster">
             <i class="bi bi-person-lines-fill"></i> <span class="link-text">Client Master</span>
         </button>
-        <button    class="nav-link" id="itemMaster">
+        <button onclick="location.href='/cool/home'" class="nav-link" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
         <!-- <button class="nav-link" id="logout">
@@ -43,7 +43,7 @@
 
 <!-- right side bar start form here -->
 
-<div class="right bg-light">
+<div class="right bg-light col-10">
     <div class="first bg-dark-subtle" >
    <button class="btn btn-primary" onclick="window.location.href='/cool/'">Add client</button>
    <button class="btn btn-success" id="showuser" >Show Client</button>

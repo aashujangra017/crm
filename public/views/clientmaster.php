@@ -30,13 +30,13 @@ require "navbar.php";
   
 
     <div class="nav flex-column mt-3" id="sidebarMenu">
-       <button   class="nav-link" id="userMaster">
+       <button onclick="location.href='/cool/homes'"  class="nav-link" id="userMaster">
             <i class="bi bi-people-fill"></i> <span class="link-text">User Master</span>
         </button>
-        <button    class="nav-link" id="clientMaster">
+        <button onclick="location.href='/cool/client'"   class="nav-link" id="clientMaster">
             <i class="bi bi-person-lines-fill"></i> <span class="link-text">Client Master</span>
         </button>
-        <button    class="nav-link" id="itemMaster">
+        <button  onclick="location.href='/cool/home'"  class="nav-link" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
         <button class="nav-link" id="logout">
@@ -49,14 +49,13 @@ require "navbar.php";
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
 <!-- right bar start -->
-<div class="right " id="rightPanel">
+<div class="right  container"  id="rightPanel">
 
-<div class="container mt-4">
+<div class="container ">
 
 <h3 class="mb-3">Welcome To Client Master Home Page</h3>
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
-  
 
 <li class="nav-item" role="presentation">
 <button class="nav-link active"
@@ -83,7 +82,7 @@ Show Client
 </ul>
 
 <!-- Tab content -->
-<div class="tab-content p-3" id="myTabContent">
+<div class="tab-content border border-top-0 p-3" id="myTabContent">
 
 <!-- Add Client Tab -->
 <div class="tab-pane fade show active"
@@ -96,44 +95,51 @@ role="tabpanel">
 
 <div class="form-wrapper" id="setup">
 
-<form id="clientForm">
+<form  id="clientForm">
 
 <div class="form-group">
-<label for="name" class="mt-2 fw-bold">Name</label>
+<label for="name" class="fw-bold">Name</label>
 <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name here" required>
 </div>
 
 <div class="form-group">
-<label for="phone" class="mt-2 fw-bold">Phone Number:</label>
+<label for="phone" class="fw-bold">Phone Number:</label>
 <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
 </div>
 
 <div class="form-group">
-<label for="address" class="mt-2 fw-bold">Address</label>
+<label for="address" class="fw-bold">Address</label>
 <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" required>
+</div>
+
+<!-- <div class="form-group ">
+<label for="state" class="fw-bold">State</label>
+<input type="text" class="form-control" id="state" name="state" placeholder="Enter your state" required>
+</div> -->
+
+<div class="stat">
+    <label for="state " class="fw-bold">State:</label>
+  <select class="form-select" id="states" name="states" required>
+    <select class="form-select" id="state" name="state">
+    <option value="">Select state</option>
+
+</select>
 </div>
 
 
 
 <div class="form-group">
-<label for="city" class="mt-2 fw-bold">City</label>
+<label for="city" class="fw-bold">City</label>
 <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city" required>
 </div>
 
 
-<div class="form-group"> 
-<label for="state" class="fw-bold">State</label>
-<input type="text" class="form-control" id="state" name="state" placeholder="Enter your state" required>
-</div>
-
 <div class="form-group">
-<label for="pin" class="mt-2 fw-bold">Pin</label>
+<label for="pin" class="fw-bold" >Pin</label>
 <input type="text" class="form-control" id="pin" name="pin" placeholder="Enter your pin" required>
 </div>
 
-<button type="button" name="submit" id="submit" class="btn btn-danger mt-3" >Submit</button>
-
-
+<button type="button" name="submit" id="submit" class="btn btn-danger mt-3 ">Submit</button>
 <button type="reset" name="reset" id="reset" class="btn btn-success mt-3">Reset</button>
 
 </form>
@@ -150,19 +156,18 @@ role="tabpanel">
 <h4>Show client</h4>
 
 <div>
-<div class="first bg-body-tertiary co-12">
+<div class="first bg-body-secondary co-12">
 
 
                 <label for="searchname" class="fw-bold">Search Something:</label>
                 <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
-                <button class="btn btn-primary" id="search">Search</button>
+                <button id="serach" class="btn btn-primary">Search</button>
                 
 
 </div>
-</div>
 
-<div class="second col-12">
-<label class="fw-bold my-2 ">Limit</label>
+<div class="second bg-body-secondary col-12">
+<label class="fw-bold ">Limit</label>
 <select id="limit" class="form-select w-auto d-inline-block">
     <option value="" disabled selected>Select Limit</option>
     <option value="5">5</option>
@@ -170,10 +175,10 @@ role="tabpanel">
       <option value="15">15</option>
 </select>
 </div>
-<div class="third col-12">
+<div class="third bg-body-secondary col-12">
 <table class="table table-hover">
 
-        <thead class="col-12">
+        <thead>
             
             <tr class="table-dark">
                 <th> ID
@@ -188,7 +193,7 @@ role="tabpanel">
          <span class="sort" data-column="email" data-order="ASC" style="cursor:pointer">↑</span>
          <span class="sort" data-column="email" data-order="DESC" style="cursor:pointer">↓</span>
         </th>
-        <th>Address</th>
+         <th>Address</th>
                 <th>State</th>
                 <th>City</th>
                 <th>pincode</th>
@@ -203,6 +208,14 @@ role="tabpanel">
 
 </table>
 </div>
+
+<div id="model">
+    <div id="model-form">
+        <h2>Edit Form</h2>
+        <div id="close-btn">X</div>
+
+        <div id="update-form"></div>
+    </div>
 </div>
 
 </div>
@@ -214,7 +227,6 @@ role="tabpanel">
 </div>
 
 </div>
-
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -223,11 +235,11 @@ role="tabpanel">
 <script>
   $(document).ready(function(){
 
-$("#clientMaster").click(function(){
+// $("#clientMaster").click(function(){
 
-$("#rightPanel").load("/cool/public/views/clientright.php");
+// $("#rightPanel").load("/cool/public/views/clientright.php");
 
-});
+// });
 
 
 //reset form 
@@ -250,6 +262,247 @@ $("#toggleSidebar").click(function(){
         $(this).addClass("active");
 
 })
+
+
+
+
+
+
+
+//search start form here
+// Search client
+
+$(document).on("click","#serach",function(){
+
+    var searchvalue = $("#searchname").val();
+
+    $.ajax({
+        url:"/cool/search-client",
+        type:"POST",
+        data:{
+            search:searchvalue
+        },
+        success:function(response){
+
+            $("#bodydata").html(response);
+
+        }
+    });
+
+});
+
+
+
+
+
+
+
+//update start from here 
+
+$(document).on("click",".update-btn", function(){
+    $("#model").show();
+});
+
+
+
+$(document).on("click","#close-btn",function(){
+    $("#model").hide();
+});
+
+
+ $(document).on("click", ".update-btn", function() {
+    $("#model").show();
+
+    var id = $(this).data("eid");
+
+    $.ajax({
+        url: "/cool/clientid",
+        type: "POST",
+        data: { 
+            id: id
+        },
+        success: function(response){
+            $("#update-form").html(response);
+        } 
+    });
+});
+
+
+$(document).on("click", "#update-client", function() {
+   
+    var id = $("#edit-id").val();
+    var name = $("#edit-name").val();
+    var phone = $("#edit-phone").val();
+    var address = $("#edit-address").val();
+    var state = $("#edit-state").val();
+    var city = $("#edit-city").val();
+    var pincode = $("#edit-pin").val();
+
+    // Validate required fields
+    if (!name || !phone || !address || !state || !city || !pincode) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+   
+    $.ajax({
+        url: '/cool/update-client',  
+        type: 'POST',
+        data: {
+            id: id,              
+            name: name,         
+            phone: phone,       
+            address: address,    
+            state: state,        
+            city: city,          
+            pincode: pincode   
+        },
+        success: function(response) {
+          
+            if (response.trim() === 'success') {
+                alert("Client updated successfully!");  
+                $("#model").hide(); 
+                 loadclients();
+            } else {
+                $("#model").hide(); 
+                loadclients();
+               
+            }
+        }
+    });
+});
+
+
+
+
+
+
+
+    //delete button api start from here 
+
+
+$(document).on("click", ".clientbtn", function() {
+    var clientid = $(this).data("id");
+    var element = this;
+
+
+    var isConfirmed = confirm("Are you sure you want to delete this client?");
+
+   
+    if (isConfirmed) {
+        $.ajax({
+            url: "/cool/delete-client",
+            type: "POST",
+            data: {
+                id: clientid
+            },
+            success: function(response) {
+                if (response.trim() === "success") {
+                    $(element).closest("tr").fadeOut();
+                } else {
+                    console.log(response);
+                }
+            }
+        });
+    } else{
+        console.log("error in deleting")
+    }
+});
+
+
+
+
+
+
+    //reset form 
+$("#reset").click(function(){
+    $("#clientForm")[0].reset();
+});
+
+
+
+  loadclients();
+
+
+     
+    $("#showuser").click(function(e){
+        e.preventDefault();
+        loadclients();
+    });
+
+    function loadclients() {
+        $.ajax({
+            url: "/cool/fetch-client",   
+            type: "GET",
+            success: function(data) {
+                $("#bodydata").html(data); 
+            }
+        });
+    }
+
+
+
+
+
+//load state in the form
+
+function loadStates(){
+    $.ajax({
+        url:"/cool/states",
+        type:"POST",
+        success:function(data){
+            $("#states").append(data);
+        }
+    });
+}
+
+loadStates();
+
+
+
+
+    
+
+
+// insert start form here 
+$(document).on("click","#submit",function(){
+
+    var name    = $("#name").val();
+    var phone   = $("#phone").val();
+    var address = $("#address").val();
+    var state   = $("#states").val();  
+    var city    = $("#city").val();
+    var pin     = $("#pin").val();
+
+    if(name=="" || phone=="" || address=="" || state=="" || city=="" || pin==""){
+        alert("Please fill all fields");
+        return;
+    }
+
+    $.ajax({
+        url: "/cool/insert-client",
+        type: "POST",
+        data:{
+            name:name,
+            phone:phone,
+            address:address,
+            state:state,  
+            city:city,
+            pin:pin
+        },
+        success:function(response){
+            if(response=="success"){
+                alert("Client Added Successfully");
+                $("#clientForm")[0].reset();
+            }else{
+                 $("#clientForm")[0].reset();
+                
+            }
+        }
+    });
+});
+
+
 
 
 

@@ -12,6 +12,7 @@ class item {
         $this->conn = $db->connection();
     }
 
+  //insert for the clinet start form here
 
     public function insertitem($itemname, $price, $description, $file) {
         $fileName = $file['name'];
@@ -96,6 +97,43 @@ class item {
          
 
     }
+
+
+    //update for select the user for ther id update start from here 
+
+
+ public function selectitem($id) {
+    $sql = "SELECT * FROM items WHERE id = ?";
+    $cool = $this->conn->prepare($sql);
+   
+    $cool->bind_param("i", $id);
+    $cool->execute();
+    $result = $cool->get_result();
+  
+    return $result;
+}
+
+  public function updateitem($itemname,$price,$description,$image,$id){
+    $sql = "update items set itemname = ?, price = ? , description = ?, image = ? where id = ? ";
+
+    $cool = $this->conn->prepare($sql);
+     
+    $cool->bind_param("sdssi", $itemname, $price, $description, $image, $id);
+     if ($cool->execute()) {
+        echo "success";
+    } else {
+        echo "error";
+    }
+      }
+
+
+
+
+
+
+
+
+
 
 
 
