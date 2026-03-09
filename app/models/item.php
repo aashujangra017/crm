@@ -159,6 +159,36 @@ public function searchitem($keyword){
 
 
         
+
+// pagination start form here for the item firstly make the order and limit
+
+
+public function getitempage($limit, $offset){
+    $sql = "select id, itemname, price, description, image FROM items limit ? offset ?";
+   $cool = $this->conn->prepare($sql);
+
+    $cool->bind_param("ii",$limit,$offset);
+
+    $cool->execute();
+
+    return $cool->get_result();
+
+}
+
+
+public function countitem(){
+    $sql = "select count(*) as total from items";
+
+    $cool = $this->conn->prepare($sql);
+
+    $cool->execute();
+
+      $result = $cool->get_result();
+
+     $row = $result->fetch_assoc();
+
+     return $row['total'];
+}
  
 
 

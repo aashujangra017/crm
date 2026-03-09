@@ -8,7 +8,7 @@
 </head>
 <body>
     <div>
-<nav class="navbar navbar-expand-sm bg-dark-subtle" style="background-color: #69a0d3b6">
+<nav class="navbar navbar-expand-sm bg-dark-subtle " style="background-color: #6ba2d6b6">
     <div class="container-fluid d-flex align-items-center">
 
        
@@ -22,7 +22,7 @@
         </a>
 
       
-        <button class="btn btn-dark ms-auto" type="button" id="logout" onclick="logout()" value="logout">
+        <button class="btn btn-danger ms-auto" type="button" id="logout" onclick="logout()" value="logout">
             Logout
         </button>
 

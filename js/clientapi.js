@@ -28,7 +28,23 @@ $("#toggleSidebar").click(function(){
 
 })
 
-
+   //logout api start form here 
+    
+$('#logout').on('click', function() {
+    $.ajax({
+        url: '/cool/logout',      
+        type: 'POST',            
+        success: function(response) {
+            if(response.trim() === "logout") { 
+               
+                window.location.href = '/cool/login'; 
+            } else {
+                alert("Something went wrong: " + response); 
+            }
+        }
+    });
+});
+    
 
 
 

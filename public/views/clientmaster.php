@@ -10,6 +10,7 @@ require "navbar.php";
         <link rel="stylesheet" href="/cool/public/bootstrap/css/client.css">
     <link rel="stylesheet" href="/cool/public/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/cool/public/bootstrap/js/bootstrap.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
 
 
@@ -26,7 +27,7 @@ require "navbar.php";
 <!-- left bar start -->
 <div class="main">
 
-<div class="left bg-dark-subtle">
+<div class="left bg-dark-subtle " style="background-color: #6ba2d6b6">
   
 
     <div class="nav flex-column mt-3" id="sidebarMenu">
@@ -39,8 +40,8 @@ require "navbar.php";
         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
-        <button class="nav-link text-dark" id="logout">
-            <span class="link-text">logout</span>
+         <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
+           <i class="fa fa-sign-out" aria-hidden="true"></i> <span class="link-text">logout Session</span>
         </button>
     </div>
 </div>
@@ -89,7 +90,7 @@ require "navbar.php";
 id="home-tab-pane"
 role="tabpanel">
 
-<div class="form-container bg-dark-subtle">
+<div class="form-container" style="background-color: #cadcecb6">
 
 <h4>Add Client</h4>
 
@@ -163,18 +164,19 @@ role="tabpanel">
 <h4>Show client</h4>
 
 <div>
-<div class="first bg-body-secondary co-12">
+<div class="first  co-12"  style="background-color: #cadcecb6">
 
 
-                <label for="searchname" class="fw-bold">Search Something:</label>
+                <label for="searchname" class="fw-bold mx-3">Search Client:</label>
                 <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
                 <button id="serach" class="btn btn-primary">Search</button>
                 
 
 </div>
 
-<div class="second bg-body-secondary col-12">
-<label class="fw-bold ">Limit</label>
+<div class="second col-12 d-flex justify-content-between"  style="background-color: #cadcecb6" >
+    <div>
+        <label class="fw-bold mx-3">Limit</label>
 <select id="limit" class="form-select w-auto d-inline-block">
     <option value="" disabled selected>Select Limit</option>
     <option value="5">5</option>
@@ -182,7 +184,19 @@ role="tabpanel">
       <option value="15">15</option>
 </select>
 </div>
-<div class="third bg-body-secondary col-12">
+<!-- <label class="fw-bold ">Limit</label>
+<select id="limit" class="form-select w-auto d-inline-block">
+    <option value="" disabled selected>Select Limit</option>
+    <option value="5">5</option>
+    <option value="10">10</option>
+      <option value="15">15</option>
+</select> -->
+
+<div class="paging mx-5">
+    <h5>hello</h5>
+</div>
+</div>
+<div class="third col-12"  style="background-color: #cadcecb6">
 <table class="table table-hover">
 
         <thead>

@@ -217,6 +217,41 @@ public function getallstatus(){
 
 
 
+
+//pagination start form here 
+
+
+public function getuserbypage($limit,$offset){
+    $sql = "select id,name,email,phone,status from user LIMIT ? OFFSET ?";
+
+    $cool = $this->conn->prepare($sql);
+
+    $cool->bind_param("ii",$limit,$offset);
+
+    $cool->execute();
+
+    return $cool->get_result();
+}
+
+
+
+//now count the user 
+
+
+public function countuser(){
+    $sql = "select count(*) as total from user ";
+    
+     $cool = $this->conn->prepare($sql);
+
+     $cool->execute();
+
+     $result = $cool->get_result();
+
+     $row = $result->fetch_assoc();
+
+     return $row['total'];
+
+}
     
 
 

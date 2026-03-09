@@ -13,6 +13,10 @@ $("#reset").click(function(){
 });
 
 
+$("#reset-user").click(function(){
+    $("#clientForm")[0].reset();
+});
+
 
 //toggle side bar
 $("#toggleSidebar").click(function(){
@@ -100,7 +104,23 @@ $(document).on('click', '#update-item', function() {
 
 
 
-
+   //logout api start form here 
+    
+$('#logout').on('click', function() {
+    $.ajax({
+        url: '/cool/logout',      
+        type: 'POST',            
+        success: function(response) {
+            if(response.trim() === "logout") { 
+               
+                window.location.href = '/cool/login'; 
+            } else {
+                alert("Something went wrong: " + response); 
+            }
+        }
+    });
+});
+    
 
 
 //search api start form here
@@ -167,17 +187,17 @@ $(document).on("click", ".deletebutton", function() {
 
 
 
-  loaditems();
+//   loaditems();
 
-    function loaditems() {
-        $.ajax({
-            url: "/cool/item-fetch",   
-            type: "GET",
-            success: function(data) {
-                $("#bodydata").html(data); 
-            }
-        });
-    }
+//     function loaditems() {
+//         $.ajax({
+//             url: "/cool/item-fetch",   
+//             type: "GET",
+//             success: function(data) {
+//                 $("#bodydata").html(data); 
+//             }
+//         });
+//     }
 
 
 
@@ -224,4 +244,63 @@ $(document).on("click", "#submit", function(e) {
 });
 
 
+
+
+// pagintaion api start from here 
+
+let page = 1;
+let limit = 5;
+
+function loaditems (){
+         let limit = $("#limit").val() || 5;
+
+ $.ajax({
+        url: "/cool/item-pagination",
+        type: "POST",
+        data: {
+            page: page,
+            limit: limit
+        },
+        success: function(response){
+            let data = typeof response === "string" ? JSON.parse(response) : response;
+
+            $("#bodydata").html(data.table);
+
+            let pagination = "";
+            pagination += `<button class='btn btn-secondary mx-1' id='prev' ${data.page <= 1 ? 'disabled' : ''}>Prev</button>`;
+            pagination += `<span class='mx-2 fw-bold'> Page ${data.page} of ${data.totalPages} </span>`;
+            pagination += `<button class='btn btn-secondary mx-1' id='next' ${data.page >= data.totalPages ? 'disabled' : ''}>Next</button>`;
+
+            $(".paging").html(pagination);
+        }
+    });
+}
+
+loaditems();
+
+
+$(document).on("click","#prev",function(){
+
+if(page > 1){
+page--;
+loaditems();
+}
+
+});
+
+$(document).on("click","#next",function(){
+
+
+page++;
+
+loaditems();
+
+});
+
+$("#limit").change(function(){
+
+page = 1;
+loaditems();
+
+});
 

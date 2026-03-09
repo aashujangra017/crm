@@ -206,23 +206,23 @@ if($column !='id' && $column !='name' && $column !='email'){
  }
 
 
- public function pagination() {
+//  public function pagination() {
 
-    $limit = isset($_POST['limit']) ? (int)$_POST['limit'] : 5;
-    $page  = isset($_POST['page']) ? (int)$_POST['page'] : 1;
+//     $limit = isset($_POST['limit']) ? (int)$_POST['limit'] : 5;
+//     $page  = isset($_POST['page']) ? (int)$_POST['page'] : 1;
 
-    if ($page < 1) $page = 1;
+//     if ($page < 1) $page = 1;
 
-    $offset = ($page - 1) * $limit;
+//     $offset = ($page - 1) * $limit;
 
-    $object = new user();
+//     $object = new user();
 
-    $users = $object->getUsersByPage($limit, $offset);
-    $totalUsers = $object->getTotalUsers();
-    $totalPages = ceil($totalUsers / $limit);
+//     $users = $object->getUsersByPage($limit, $offset);
+//     $totalUsers = $object->getTotalUsers();
+//     $totalPages = ceil($totalUsers / $limit);
 
     
-}
+// }
 
 
 
@@ -239,31 +239,42 @@ public function selectuserform() {
             $row = $userResult->fetch_assoc();
 
             echo "
-            <form id='edit-user-form' >
+            <form id='edit-user-form'>
                 <input type='hidden' id='edit-id' value='{$row['id']}'>
+
+                <div class='container'>
                 
-                <div class='form-group'>
-                    <label for='edit-name'>Name</label>
-                    <input type='text' id='edit-name' class='form-control' value='{$row['name']}'>
-                </div>
+                    <div class='row'>
+                        <div class='col-md-6 mb-3'>
+                            <label for='edit-name' class='form-label'>Name</label>
+                            <input type='text' id='edit-name' class='form-control' value='{$row['name']}'>
+                        </div>
 
-                <div class='form-group'>
-                    <label for='edit-email'>Email</label>
-                    <input type='text' id='edit-email' class='form-control' value='{$row['email']}'>
-                </div>
+                        <div class='col-md-6 mb-3'>
+                            <label for='edit-email' class='form-label'>Email</label>
+                            <input type='text' id='edit-email' class='form-control' value='{$row['email']}'>
+                        </div>
+                    </div>
 
-                <div class='form-group'>
-                    <label for='edit-phone'>Phone</label>
-                    <input type='text' id='edit-phone' class='form-control' value='{$row['phone']}'>
-                </div>
+                    <div class='row'>
+                        <div class='col-md-6 mb-3'>
+                            <label for='edit-phone' class='form-label'>Phone</label>
+                            <input type='text' id='edit-phone' class='form-control' value='{$row['phone']}'>
+                        </div>
 
-                <div class='form-group'>
-                    <label for='edit-status'>Status</label>
-                    <input type='text' id='edit-status' class='form-control' value='{$row['status']}'>
-                </div>
+                        <div class='col-md-6 mb-3'>
+                            <label for='edit-status' class='form-label'>Status</label>
+                            <input type='text' id='edit-status' class='form-control' value='{$row['status']}'>
+                        </div>
+                    </div>
 
-                <div class='form-group mt-3'>
-                    <button type='button' id='update-user' class='btn btn-success'>Save</button>
+                    <div class='row'>
+                        <div class='col-3 mt-2'>
+                            <button type='button' id='update-user' class='btn btn-danger w-100'>Save</button>
+                        </div>
+                        
+                    </div>
+
                 </div>
             </form>
             ";
@@ -316,6 +327,81 @@ public function status(){
     }
 
 
+
+
+// pagination controller start form here 
+
+
+public function pagination (){
+
+ header('Content-Type: application/json');
+    $page = isset($_POST['page']) ? (int) $_POST['page'] :1;
+
+    $limit = isset($_POST['limit']) ? (int)$_POST['limit'] :5;
+
+    if($page <1){
+        $page = 1;
+    }
+     
+
+    $offset = ($page -1) * $limit;
+
+
+    $object = new user();
+    $users = $object->getuserbypage($limit,$offset);
+
+    $totalUsers = $object->countuser();
+
+    $totalPages = ceil($totalUsers / $limit);
+    
+$table = "";
+
+if($users->num_rows > 0){
+
+while($row = $users->fetch_assoc()){
+
+ $statusText = ($row['status'] == 1) ? 'Active' : 'Inactive';
+
+$table .= "<tr>
+
+<td>{$row['id']}</td>
+
+<td>{$row['name']}</td>
+
+<td>{$row['email']}</td>
+
+<td>{$row['phone']}</td>
+
+<td>{$statusText}</td>
+
+ <td>
+                    <button class='deletebutton btn btn-danger' data-id='{$row['id']}'>
+                        Delete
+                    </button>
+                </td>
+                <td>
+                    <button class='edit-btn btn btn-primary' data-eid='{$row['id']}'>
+                        Update
+                    </button>
+                </td>
+
+</tr>";
+
+}
+
+}
+
+$response = [
+
+"table"=>$table,
+"page"=>$page,
+"totalPages"=>$totalPages
+
+];
+
+echo json_encode($response);
+
+}
 
 
 

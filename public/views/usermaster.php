@@ -10,6 +10,8 @@ require "navbar.php";
         <link rel="stylesheet" href="/cool/public/bootstrap/css/client.css">
     <link rel="stylesheet" href="/cool/public/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/cool/public/bootstrap/js/bootstrap.js">
+    <!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
 
 
@@ -26,12 +28,13 @@ require "navbar.php";
 <!-- left bar start -->
 <div class="main">
 
-<div class="left bg-dark-subtle">
+<div class="left bg-dark-subtle " style="background-color: #6ba2d6b6">
   
 
-    <div class="nav flex-column mt-3" id="sidebarMenu">
+    <div class="nav flex-column mt-3 " id="sidebarMenu">
+     
         <button onclick="location.href='/cool/userhome'"  class="nav-link text-dark " id="userMaster">
-            <i class="bi bi-people-fill"></i> <span class="link-text text-dark">User Master</span>
+            <i class="fa-solid fa-user"></i> <span class="link-text text-dark">User Master</span>
         </button>
         <button onclick="location.href='/cool/client'"   class="nav-link text-dark " id="clientMaster">
             <i class="bi bi-person-lines-fill"></i> <span class="link-text text-dark">Client Master</span>
@@ -39,19 +42,22 @@ require "navbar.php";
         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
-        <button class="nav-link text-dark" id="logout">
-            <span class="link-text">logout</span>
+      
+    
+        <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
+           <i class="fa fa-sign-out" aria-hidden="true"></i> <span class="link-text">logout Session</span>
         </button>
-    </div>
+        </div>
+  
 </div>
 
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
 <!-- right bar start -->
-<div class="right  container"  id="rightPanel">
+<div class="right  container"   id="rightPanel" >
 
-<div class="container ">
+<div class="container  ">
 
 <h3 class="mb-3">Welcome To User Master Home Page</h3>
 
@@ -115,7 +121,7 @@ Show User
 id="home-tab-pane"
 role="tabpanel">
 
-<div class="form-container bg-dark-subtle">
+<div class="form-container" style="background-color: #cadcecb6" >
 
 <h4>Add User</h4>
 
@@ -159,26 +165,47 @@ role="tabpanel ">
 <h4>Show client</h4>
 
 <div>
-<div class="first bg-body-secondary co-12">
+<div class="first  co-12"  style="background-color: #cadcecb6">
 
 
-                <label for="searchname" class="fw-bold">Search user:</label>
+                <label for="searchname" class="fw-bold mx-3">Search user:</label>
                 <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
                 <button id="search" class="btn btn-primary">Search</button>
                 
 
 </div>
 
-<div class="second bg-body-secondary col-12">
-<label class="fw-bold ">Limit</label>
+<!-- <div class="second bg-body-secondary col-12">
+<label class="fw-bold mx-3">Limit</label>
 <select id="limit" class="form-select w-auto d-inline-block">
     <option value="" disabled selected>Select Limit</option>
     <option value="5">5</option>
     <option value="10">10</option>
       <option value="15">15</option>
 </select>
+</div> -->
+
+<div class="second  col-12 d-flex justify-content-between"  style="background-color: #cadcecb6">
+    <div>
+        <label class="fw-bold mx-3">Limit</label>
+
+<select id="limit" class="form-select w-auto d-inline-block">
+    <option value="5" selected>5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+      <option value="25">25</option>
+</select>
 </div>
-<div class="third bg-body-secondary col-12">
+
+
+<div class="paging mx-3">
+
+
+</div>
+</div>
+</div>
+<div class="third col-12"  style="background-color: #cadcecb6">
 <table class="table table-hover">
 
         <thead>
@@ -212,7 +239,7 @@ role="tabpanel ">
 
 <div id="model">
     <div id="model-form">
-        <h2>Edit Form</h2>
+        <h2>Edit User Master Form</h2>
         <div id="close-btn">X</div>
 
         <div id="edit-form"></div>

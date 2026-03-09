@@ -204,8 +204,62 @@ public function itemupdate() {
     }
 
     
+// pagination for the item start from here 
+public function itempagination(){
+
+header('Content-Type: application/json');
+$page = isset($_POST['page']) ? (int) $_POST['page'] : 1;
+
+$limit = isset($_POST['limit']) ? (int) $_POST['limit'] : 5;
 
 
+if($page < 1){
+    $page = 1;
+}
+
+
+$offset = ($page - 1) * $limit;
+
+$object = new item();
+
+$users = $object->getitempage($limit,$offset); 
+
+$totalitems = $object->countitem();
+
+$totalPages = ceil($totalitems / $limit);
+
+$table = "";
+
+if($users->num_rows > 0){
+
+    while($row = $users->fetch_assoc()){
+
+        $table .= "<tr>
+            <td>{$row['id']}</td>
+            <td>{$row['itemname']}</td>
+            <td>{$row['price']}</td>
+            <td>{$row['description']}</td>
+            <td><img src='uploads/{$row['image']}' width='100'></td>
+            <td>
+                <button class='deletebutton btn btn-danger' data-id='{$row['id']}'>Delete</button>
+            </td>
+            <td>
+                <button class='update-btn btn btn-primary' data-eid='{$row['id']}'>Update</button>
+            </td>
+        </tr>";
+    }
+
+}
+
+$response = [
+    "table" => $table,
+    "page" => $page,
+    "totalPages" => $totalPages
+];
+
+echo json_encode($response);
+
+}
 
 
 

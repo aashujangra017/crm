@@ -172,6 +172,11 @@ $router->addRoute('/cool/status',function(){
     $controller->status();
 });
 
+$router->addRoute('/cool/user-pagination',function(){
+    $controller = new userController();
+    $controller->pagination();
+});
+
 
 
 
@@ -318,6 +323,12 @@ $router->addRoute('/cool/itemid',function(){
 $router->addRoute('/cool/item-update',function(){
     $controller = new itemController();
     $controller->itemupdate();
+});
+
+//limit and pagination 
+$router->addRoute('/cool/item-pagination',function(){
+    $controller = new itemController();
+    $controller->itempagination();
 });
 
 

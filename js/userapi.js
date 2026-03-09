@@ -6,11 +6,24 @@ $("#toggleSidebar").click(function() {
         
     });
 
-// reset insert form 
-    $("#reset").click(function(){
-    $("#clientForm")[0].reset();
-});
 
+
+    //logout api start form here 
+    
+$('#logout').on('click', function() {
+    $.ajax({
+        url: '/cool/logout',      
+        type: 'POST',            
+        success: function(response) {
+            if(response.trim() === "logout") { 
+               
+                window.location.href = '/cool/login'; 
+            } else {
+                alert("Something went wrong: " + response); 
+            }
+        }
+    });
+});
     
 
     //insert start form here 
@@ -22,7 +35,10 @@ $("#toggleSidebar").click(function() {
         var phone = $("#phone").val();
         var status = $("#status").val();
 
-        console.log(name, email, phone, status);
+      if(name=="" || email=="" || phone=="" || status==""){
+        alert("Please fill all fields");
+        return;
+    }
 
         $.ajax({
             url: "/cool/insert/",
@@ -155,40 +171,40 @@ $("#close-btn").on("click",function(){
     //loads user
 
     
-    function loadUsers() {
-        $.ajax({
-            url: "/cool/fetch-users",   
-            type: "GET",
-            success: function(data) {
-                $("#bodydata").html(data); 
-            }
-        });
-    }
-  loadUsers();
+//     function loadUsers() {
+//         $.ajax({
+//             url: "/cool/fetch-users",   
+//             type: "GET",
+//             success: function(data) {
+//                 $("#bodydata").html(data); 
+//             }
+//         });
+//     }
+//   loadUsers();
 
 
   //limit users
     
  // limit api start from here
 
-    $("#limit").change(function() {
-        var limit = $(this).val(); 
-        loadData(limit); 
-    });
+    // $("#limit").change(function() {
+    //     var limit = $(this).val(); 
+    //     loadData(limit); 
+    // });
 
-    function loadData(limit) {
-        $.ajax({
-            url: "/cool/limit",
-            type: "POST",
-            data: {
-                limit: limit
-            },
-            success: function(data) {
-                $("#bodydata").html(data); 
-            }
-        });
-    }
-        loadData(5);
+    // function loadData(limit) {
+    //     $.ajax({
+    //         url: "/cool/limit",
+    //         type: "POST",
+    //         data: {
+    //             limit: limit
+    //         },
+    //         success: function(data) {
+    //             $("#bodydata").html(data); 
+    //         }
+    //     });
+    // }
+    //     loadData(5);
 
 
 
@@ -216,3 +232,62 @@ $(document).on("click", "#search", function() {
         }
     });
  })
+
+
+
+ //pagination start from here 
+
+let page = 1;
+let limit = 5;
+
+function loadUsers(){
+    limit = $("#limit").val() || 5;
+
+    $.ajax({
+        url: "/cool/user-pagination",
+        type: "POST",
+        data: {
+            page: page,
+            limit: limit
+        },
+        success: function(response){
+            let data = typeof response === "string" ? JSON.parse(response) : response;
+
+            $("#bodydata").html(data.table);
+
+            let pagination = "";
+            pagination += `<button class='btn btn-secondary mx-1' id='prev' ${data.page <= 1 ? 'disabled' : ''}>Prev</button>`;
+            pagination += `<span class='mx-2 fw-bold'> Page ${data.page} of ${data.totalPages} </span>`;
+            pagination += `<button class='btn btn-secondary mx-1' id='next' ${data.page >= data.totalPages ? 'disabled' : ''}>Next</button>`;
+
+            $(".paging").html(pagination);
+        }
+    });
+}
+
+loadUsers();
+
+$(document).on("click","#prev",function(){
+
+if(page > 1){
+page--;
+loadUsers();
+}
+
+});
+
+$(document).on("click","#next",function(){
+
+
+page++;
+
+loadUsers();
+
+});
+
+$("#limit").change(function(){
+
+page = 1;
+loadUsers();
+
+});
