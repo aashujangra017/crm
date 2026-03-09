@@ -31,10 +31,12 @@
                 <div class="form-group">
                  <label for="email" class="fw-bold">Email address</label>
               <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+             <small id="emailcheck" class="text-danger"></small>
                  </div>
                 <div class="form-group">
                 <label for="password" class="fw-bold">Password</label>
                  <input type="password" class="form-control" id="password" placeholder="Enter Your Password" required >
+                 <small id="passwordcheck" class="text-danger"></small>
                  </div>
              <button type="button" class="btn btn-primary btn-block" onclick="loginbtn()" >Log In</button>
                     
@@ -50,12 +52,42 @@
     <script>
 
 
-
-
 function loginbtn() {
 
     var email = $("#email").val();
     var password = $("#password").val();
+
+    var valid = true;
+
+    $(".text-danger").text("");
+
+    var emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+
+    if(email === ""){
+        $("#emailcheck").text("please enter your email");
+        valid = false;
+
+    }else if(!emailpattern.test(email)){
+        $("#emailcheck").text("please enter valid email");
+        valid = false;
+    }
+
+
+    var passwordpattern = /^[A-Z][a-z0-9@#-]{6,}$/;
+
+    if(password === ""){
+        $("#passwordcheck").text("enter your password");
+        valid = false;
+
+    }else if(!passwordpattern.test(password)){
+        $("#passwordcheck").text("password contain 6 letter");
+        valid = false;
+    }
+
+     if (!valid) {
+        return;
+    }
+
 
     $.ajax({
         url: "/cool/userlogin",
@@ -70,7 +102,6 @@ function loginbtn() {
 
             if (response.trim() === "success") {
 
-              
                 window.location.href = "/cool/userhome";
 
             } else {
@@ -81,7 +112,6 @@ function loginbtn() {
     });
 
 }
-
 
 </script>
 

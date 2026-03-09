@@ -138,17 +138,17 @@ public function deleteusers($id) {
         //order asc and desc start form here
 
 
-        public function orderuser ($order , $column){
+    //     public function orderuser ($order , $column){
 
-        $sql = "select id, name, email,phone,status from user order by $column $order";
+    //     $sql = "select id, name, email,phone,status from user order by $column $order";
 
-        $cool = $this->conn->prepare($sql);
+    //     $cool = $this->conn->prepare($sql);
 
-      $cool->execute();
+    //   $cool->execute();
 
-        return $cool->get_result();
+    //     return $cool->get_result();
 
-        }
+    //     }
 
 
         
@@ -253,6 +253,33 @@ public function countuser(){
 
 }
     
+
+
+//order by model for the user master
+
+
+public function orderuser($column, $order){
+    $sql = "select id, name, email, phone, status  from user order by  $column $order";
+    
+    $cool = $this->conn->prepare($sql);
+    $cool->execute();
+
+    return $cool->get_result();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

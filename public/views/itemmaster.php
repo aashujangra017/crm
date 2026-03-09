@@ -41,9 +41,9 @@ require "navbar.php";
         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
-        <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
+        <!-- <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
            <i class="fa fa-sign-out" aria-hidden="true"></i> <span class="link-text">logout Session</span>
-        </button>
+        </button> -->
     </div>
 </div>
 
@@ -102,21 +102,25 @@ role="tabpanel">
 <div class="form-group">
   <label for="itemname"  class="fw-bold mt-2">Itemname</label>
   <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Enter your itemname here" required>
+  <small id="itemnameerror" class="text-danger"></small>
 </div>
 
 <div class="form-group">
   <label for="price"  class="fw-bold mt-2">Price:</label>
   <input type="number" class="form-control" id="price" name="price" placeholder="Enter the price" required>
+  <small id="priceerror" class="text-danger"></small>
 </div>
 
 <div class="form-group">
   <label for="description" class="fw-bold mt-2">Description:</label>
   <textarea class="form-control" id="description" name="description" placeholder="Enter item description" rows="5" required></textarea>
+  <small id="descriptionerror" class="text-danger"></span>
 </div>
 
 <div class="form-group">
   <label for="image" class="fw-bold mt-2">Image:</label>
   <input type="file" class="form-control" id="image" name="image"  required>
+  <small id="imageerror" class="text-danger"></small>
 </div>
 
 <button type="submit" name="submit" id="submit" class="btn btn-danger mt-3 mx-3">Submit</button>
@@ -132,13 +136,13 @@ role="tabpanel">
 id="profile-tab-pane"
 role="tabpanel">
 
-<h4>Show items</h4>
+<h4 class="text-black">Show items</h4>
 
 <div>
 <div class="first  co-12"  style="background-color: #cadcecb6">
 
 
-                <label for="searchname" class="fw-bold mx-3">Search Item:</label>
+                <label for="searchname" class="fw-bold mx-3 text-black">Search Item:</label>
                 <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
                 <button id="serach" class="btn btn-primary">Search</button>
                 
@@ -147,7 +151,7 @@ role="tabpanel">
 
 <div class="second  col-12 d-flex justify-content-between"  style="background-color: #cadcecb6">
     <div>
-        <label class="fw-bold mx-3">Limit</label>
+        <label class="fw-bold mx-3 text-black">Limit</label>
 
 <select id="limit" class="form-select w-auto d-inline-block">
     <option value="5" selected>5</option>
@@ -159,7 +163,7 @@ role="tabpanel">
 </div>
 
 
-<div class="paging mx-3">
+<div class="paging mx-3 text-black">
 
 
 </div>
@@ -168,28 +172,32 @@ role="tabpanel">
 <div class="third  col-12"  style="background-color: #cadcecb6">
 <table class="table table-hover">
 
-        <thead>
-            
-            <tr class="table-dark">
-                <th> ID
-        <span class="sort" data-column="id" data-order="ASC" style="cursor:pointer">↑</span>
- <span class="sort" data-column="id" data-order="DESC" style="cursor:pointer">↓</span>
-         </th>
-        <th>  itemname
-         <span class="sort" data-column="name" data-order="ASC" style="cursor:pointer">↑</span>
-     <span class="sort" data-column="name" data-order="DESC" style="cursor:pointer">↓</span>
-                </th>
-        <th> Price
-         <span class="sort" data-column="email" data-order="ASC" style="cursor:pointer">↑</span>
-         <span class="sort" data-column="email" data-order="DESC" style="cursor:pointer">↓</span>
-        </th>
-         <th>Description</th>
-                <th>Image</th>
-                <th>Delete</th>
-                <th>Update</th>
-                
-       </tr>
-    </thead>
+     
+<thead>
+<tr class="table-dark">
+
+<th>
+ID 
+<span class="sort" data-column="id" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>
+Item Name
+<span class="sort" data-column="itemname" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>
+Price
+<span class="sort" data-column="price" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>Description</th>
+<th>Image</th>
+<th>Delete</th>
+<th>Update</th>
+
+</tr>
+</thead>
 
 
   <tbody id="bodydata"></tbody>

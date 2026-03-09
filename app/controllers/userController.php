@@ -33,6 +33,7 @@ public function register(){
 
 
 public function userhome(){
+    
     require __DIR__ . "/../../public/views/userhomes.php";
 }
 
@@ -176,54 +177,7 @@ require_once 'usertable.php';
  
 
 
- //order by asc and desc controller start form here
-
-
-
-
-
- public function order(){
-
- if(isset($_POST['column'])){
-
- $column = $_POST['column'];
- $order = $_POST['order'];
-
-if($column !='id' && $column !='name' && $column !='email'){
-        $column ='id';
-    }
-    if($order !='ASC' && $order !='DESC'){
-        $order ='ASC';
-    }
-
- $object = new user();
- $users = $object->orderuser($order,$column);
-
- require 'usertable.php';
-
-
- }
- }
-
-
-//  public function pagination() {
-
-//     $limit = isset($_POST['limit']) ? (int)$_POST['limit'] : 5;
-//     $page  = isset($_POST['page']) ? (int)$_POST['page'] : 1;
-
-//     if ($page < 1) $page = 1;
-
-//     $offset = ($page - 1) * $limit;
-
-//     $object = new user();
-
-//     $users = $object->getUsersByPage($limit, $offset);
-//     $totalUsers = $object->getTotalUsers();
-//     $totalPages = ceil($totalUsers / $limit);
-
-    
-// }
-
+ //update select start from here 
 
 
 public function selectuserform() {
@@ -248,11 +202,13 @@ public function selectuserform() {
                         <div class='col-md-6 mb-3'>
                             <label for='edit-name' class='form-label'>Name</label>
                             <input type='text' id='edit-name' class='form-control' value='{$row['name']}'>
+                            <small class='text-danger' id='name-error'></small>
                         </div>
 
                         <div class='col-md-6 mb-3'>
                             <label for='edit-email' class='form-label'>Email</label>
                             <input type='text' id='edit-email' class='form-control' value='{$row['email']}'>
+                             <small class='text-danger' id='email-error'></small>
                         </div>
                     </div>
 
@@ -260,11 +216,14 @@ public function selectuserform() {
                         <div class='col-md-6 mb-3'>
                             <label for='edit-phone' class='form-label'>Phone</label>
                             <input type='text' id='edit-phone' class='form-control' value='{$row['phone']}'>
+                             <small class='text-danger' id='phone-error'></small>
+                            
                         </div>
 
                         <div class='col-md-6 mb-3'>
                             <label for='edit-status' class='form-label'>Status</label>
                             <input type='text' id='edit-status' class='form-control' value='{$row['status']}'>
+                            <small class='text-danger' id='status-error'></small>
                         </div>
                     </div>
 
@@ -403,6 +362,34 @@ echo json_encode($response);
 
 }
 
+
+
+//order controller start from here 
+
+
+public function userorder(){
+
+    if(isset($_POST['column'])){
+
+        $column = $_POST['column'];
+
+        $order = $_POST['order'];
+
+        if($column != 'id' && $column != 'name' && $column != 'email'){
+            $column ='id';
+        }
+
+        if($order != 'ASC' && $order != 'DESC'){
+            $order ='ASC';
+        }
+
+        $object = new user();
+
+        $users = $object->orderuser($column,$order);
+
+        require 'usertable.php';
+    }
+}
 
 
 

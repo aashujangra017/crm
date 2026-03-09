@@ -40,9 +40,9 @@ require "navbar.php";
         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
-         <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
+         <!-- <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
            <i class="fa fa-sign-out" aria-hidden="true"></i> <span class="link-text">logout Session</span>
-        </button>
+        </button> -->
     </div>
 </div>
 
@@ -230,8 +230,8 @@ role="tabpanel">
 </table>
 </div>
 
-<div id="model">
-    <div id="model-form">
+<div id="model" >
+    <div id="model-form" >
         <h2>Edit Form</h2>
         <div id="close-btn">X</div>
 

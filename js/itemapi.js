@@ -212,10 +212,46 @@ $(document).on("click", "#submit", function(e) {
     var description = $("#description").val();
     var image       = $("#image")[0].files[0];
 
-    if (itemname == "" || price == "" || description == "" || !image) {
-        alert("Please fill all fields and upload an image.");
-        return;
-    }
+    // if (itemname == "" || price == "" || description == "" || !image) {
+    //     alert("Please fill all fields and upload an image.");
+    //     return;
+    // }
+
+    // var valid = true;
+
+    // $(".text-danger").text("");
+
+
+    // if (itemname == "") {
+    //     $("#itemnameerror").text("Item name is required");
+    //     valid = false;
+    // }
+
+
+    // var pricePattern = /^\d+(\.\d+)?$/;
+    // if (price == "") {
+    //     $("#priceerror").text("Price is required");
+    //     valid = false;
+    // } else if (!pricePattern.test(price) || Number(price) <= 0) {
+    //     $("#priceerror").text("Enter a valid positive price");
+    //     valid = false;
+    // }
+
+   
+    // if (description == "") {
+    //     $("#descriptionerror").text("Description is required");
+    //     valid = false;
+    // }
+
+
+    // if (!image) {
+    //     $("#imageerror").text("Image is required");
+    //     valid = false;
+    // }
+
+    // if (!valid) {
+    //     return;
+    // }
 
 
     var formData = new FormData();
@@ -301,6 +337,35 @@ $("#limit").change(function(){
 
 page = 1;
 loaditems();
+
+});
+
+
+//order by start from here 
+
+$(document).on("click", ".sort", function(){
+
+    var column = $(this).data("column");
+    var order = $(this).data("order");
+
+    $.ajax({
+        url: "/cool/item-order",
+        type: "POST",
+        data: {
+            column: column,
+            order: order
+        },
+        success: function(response){
+            $("#bodydata").html(response);
+        }
+    });
+
+  
+    if(order === "ASC"){
+        $(this).data("order","DESC");
+    }else{
+        $(this).data("order","ASC");
+    }
 
 });
 

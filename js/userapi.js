@@ -26,40 +26,114 @@ $('#logout').on('click', function() {
 });
     
 
-    //insert start form here 
- $(document).on('click', '#submit', function(e) {
-        e.preventDefault(); 
+//     //insert start form here 
+//  $(document).on('click', '#submit', function(e) {
+//         e.preventDefault(); 
 
-        var name = $("#name").val();
-        var email = $("#email").val();
-        var phone = $("#phone").val();
-        var status = $("#status").val();
+//         var name = $("#name").val();
+//         var email = $("#email").val();
+//         var phone = $("#phone").val();
+//         var status = $("#status").val();
 
-      if(name=="" || email=="" || phone=="" || status==""){
-        alert("Please fill all fields");
+//       if(name=="" || email=="" || phone=="" || status==""){
+//         alert("Please fill all fields");
+//         return;
+//     }
+
+//         $.ajax({
+//             url: "/cool/insert/",
+//             type: "POST",
+//             data: {
+//                 name: name,
+//                 email: email,
+//                 phone: phone,
+//                 status: status
+//             },
+//              success:function(response){
+//             if(response.trim() == "success"){
+//     window.location.href = "/cool/userhome";
+//                 $("#clientForm")[0].reset();
+//             }else{
+//                  $("#clientForm")[0].reset();
+                
+//             }
+//         }
+//         });
+//     });
+
+
+$(document).on('click', '#submit', function(e) {
+    e.preventDefault();
+
+    var name = $("#name").val().trim();
+    var email = $("#email").val().trim();
+    var phone = $("#phone").val().trim();
+    var status = $("#status").val();
+
+    var valid = true;
+
+
+    $(".text-danger").text("");
+
+   
+    if (name == "") {
+        $("#nameerror").text("Name is required");
+        valid = false;
+    }
+
+
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email == "") {
+        $("#emailerror").text("email is required");
+        valid = false;
+    } else if (!emailPattern.test(email)) {
+        $("#emailerror").text("Please enter a valid email like abc@gmail.com");
+        valid = false;
+    }
+
+    var phonePattern = /^[0-9]{10}$/;
+    if (phone == "") {
+        $("#phoneerror").text("Phone number is required");
+        valid = false;
+    } else if (!phonePattern.test(phone)) {
+        $("#phoneerror").text("Phone number have  10 digits");
+        valid = false;
+    }
+
+
+    if (status == "" || status == null) {
+        $("#statuserror").text("Please select status");
+        valid = false;
+    }
+
+  
+    if (!valid) {
         return;
     }
 
-        $.ajax({
-            url: "/cool/insert/",
-            type: "POST",
-            data: {
-                name: name,
-                email: email,
-                phone: phone,
-                status: status
-            },
-             success:function(response){
-            if(response.trim() == "success"){
-    window.location.href = "/cool/userhome";
+  
+    $.ajax({
+        url: "/cool/insert/",
+        type: "POST",
+        data: {
+            name: name,
+            email: email,
+            phone: phone,
+            status: status
+        },
+        success: function(response) {
+            if (response.trim() == "success") {
+                window.location.href = "/cool/userhome";
                 $("#clientForm")[0].reset();
-            }else{
-                 $("#clientForm")[0].reset();
-                
+            } else {
+                alert("Insert failed");
             }
+        },
+        error: function() {
+            alert("Server error");
         }
-        });
     });
+});
 
 
     
@@ -133,37 +207,137 @@ $("#close-btn").on("click",function(){
         $("#model").hide();
     })
 
-    $(document).on("click","#update-user",function(){
+//     $(document).on("click","#update-user",function(){
 
-     var id = $("#edit-id").val();
-     var name = $("#edit-name").val();
-     var email = $("#edit-email").val();
-     var phone = $("#edit-phone").val();
-     var status = $("#edit-status").val();
+//      var id = $("#edit-id").val();
+//      var name = $("#edit-name").val();
+//      var email = $("#edit-email").val();
+//      var phone = $("#edit-phone").val();
+//      var status = $("#edit-status").val();
+
+//      var isValid = true;
+
+// $(".text-danger").text(""); 
+// on
+// if(name === ""){
+//     $("#name-error").text("Name is required");
+//     isValid = false;
+// }
 
 
-     $.ajax({
-        url:"/cool/update",
-        type:"POST",
-        data:{
-            id:id,
-            name:name,
-            email:email,
-            phone:phone,
-            status:status
-        },
-        success:function(response){
-            if(response.trim() ==='success'){
-                $("#model").hide();
-                loadUsers();
-            }else{
-                console.log(response)
-            }
+// var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+// if(email === ""){
+//     $("#email-error").text("Email is required");
+//     isValid = false;
+// }else if(!emailPattern.test(email)){
+//     $("#email-error").text("Invalid email format");
+//     isValid = false;
+// }
+
+
+// var phonePattern = /^[0-9]{10}$/;
+// if(phone === ""){
+//     $("#phone-error").text("Phone is required");
+//     isValid = false;
+// }else if(!phonePattern.test(phone)){
+//     $("#phone-error").text("Phone must be 10 digits");
+//     isValid = false;
+// }
+
+// // Status validation
+// if(status === ""){
+//     $("#status-error").text("Status is required");
+//     isValid = false;
+// }
+
+// if(!isValid){
+//     return;
+// }
+
+
+
+//      $.ajax({
+//         url:"/cool/update",
+//         type:"POST",
+//         data:{
+//             id:id,
+//             name:name,
+//             email:email,
+//             phone:phone,
+//             status:status
+//         },
+//         success:function(response){
+//             if(response.trim() ==='success'){
+//                 $("#model").hide();
+//                 loadUsers();
+//             }else{
+//                 console.log(response)
+//             }
+//         }
+//      })
+
+
+//     })
+
+$(document).on("click","#update-user",function(){
+
+$(".text-danger").text(""); // clear old errors
+
+var name = $("#edit-name").val().trim();
+var email = $("#edit-email").val().trim();
+var phone = $("#edit-phone").val().trim();
+var status = $("#edit-status").val().trim();
+var id = $("#edit-id").val();
+
+var valid = true;
+
+if(name == ""){
+    $("#name-error").text("Name is required");
+    valid = false;
+}
+
+if(email == ""){
+    $("#email-error").text("Email is required");
+    valid = false;
+}
+
+if(phone == ""){
+    $("#phone-error").text("Phone is required");
+    valid = false;
+}
+
+if(status == ""){
+    $("#status-error").text("Status is required");
+    valid = false;
+}
+
+if(!valid){
+return;
+}
+
+$.ajax({
+    url:"/cool/update",
+    type:"POST",
+    data:{
+        id:id,
+        name:name,
+        email:email,
+        phone:phone,
+        status:status
+    },
+    success:function(response){
+
+        if(response.trim() === "success"){
+            $("#model").hide();
+            loadUsers();
+        }else{
+            console.log(response);
         }
-     })
 
+    }
+});
 
-    })
+});
 
 
 
@@ -289,5 +463,34 @@ $("#limit").change(function(){
 
 page = 1;
 loadUsers();
+
+});
+
+
+//order user api start from here 
+
+$(document).on("click", ".sort", function(){
+
+    var column = $(this).data("column");
+    var order = $(this).data("order");
+
+    $.ajax({
+        url: "/cool/user-order",
+        type: "POST",
+        data: {
+            column: column,
+            order: order
+        },
+        success: function(response){
+            $("#bodydata").html(response);
+        }
+    });
+
+  
+    if(order === "ASC"){
+        $(this).data("order","DESC");
+    }else{
+        $(this).data("order","ASC");
+    }
 
 });

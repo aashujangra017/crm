@@ -44,9 +44,9 @@ require "navbar.php";
         </button>
       
     
-        <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
+        <!-- <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
            <i class="fa fa-sign-out" aria-hidden="true"></i> <span class="link-text">logout Session</span>
-        </button>
+        </button> -->
         </div>
   
 </div>
@@ -129,24 +129,28 @@ role="tabpanel">
 
 <form  id="clientForm">
 <div class="form-group">
-        <label for="name" class="fw-bold my-2">Name</label>
+        <label for="name" class="fw-bold mt-4">Name</label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name here" required>
+        <small id="nameerror" class="text-danger"></small>
     </div>
     <div class="form-group">
-        <label for="email" class="fw-bold my-2">Email</label>
+        <label for="email" class="fw-bold mt-4">Email</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email here" required>
+        <small id="emailerror" class="text-danger"></small>
     </div>
     <div class="form-group">
-        <label for="phone" class="fw-bold my-2">Phone Number:</label>
+        <label for="phone" class="fw-bold mt-4">Phone Number:</label>
         <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
+         <small id="phoneerror" class="text-danger"></small>
     </div>
     <div class="form-group">
-                 <label for="status" class="fw-bold my-2">status</label>
+                 <label for="status" class="fw-bold mt-4">status</label>
   <select id="status" name="status" class="form-select"  required>
     <option value="" disabled selected  >Select state
 
 </option>
 </select>
+ <small id="statuserror" class="text-danger"></small>
     </div>
     <button type="submit" name="submit" id="submit" class="btn btn-danger mx-2 my-4">Submit</button>
     <button type="reset" name="reset" id="reset" class="btn btn-success mx-2 my-4">Reset</button>
@@ -208,27 +212,31 @@ role="tabpanel ">
 <div class="third col-12"  style="background-color: #cadcecb6">
 <table class="table table-hover">
 
-        <thead>
-            
-            <tr class="table-dark">
-                <th> ID
-        <span class="sort" data-column="id" data-order="ASC" style="cursor:pointer">↑</span>
- <span class="sort" data-column="id" data-order="DESC" style="cursor:pointer">↓</span>
-         </th>
-        <th>  Name
-         <span class="sort" data-column="name" data-order="ASC" style="cursor:pointer">↑</span>
-     <span class="sort" data-column="name" data-order="DESC" style="cursor:pointer">↓</span>
-                </th>
-        <th> Email
-         <span class="sort" data-column="email" data-order="ASC" style="cursor:pointer">↑</span>
-         <span class="sort" data-column="email" data-order="DESC" style="cursor:pointer">↓</span>
-        </th>
-                <th>Phone Number</th>
-                <th>Status</th>
-                <th>Delete</th>
-                <th>Update</th>
-       </tr>
-    </thead>
+       <thead>
+<tr class="table-dark">
+
+<th>
+    ID 
+    <span class="sort" data-column="id" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>
+    Name 
+    <span class="sort" data-column="name" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>
+    Email 
+    <span class="sort" data-column="email" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>Phone Number</th>
+<th>Status</th>
+<th>Delete</th>
+<th>Update</th>
+
+</tr>
+</thead>
 
 
   <tbody id="bodydata"></tbody>

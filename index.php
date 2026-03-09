@@ -49,6 +49,7 @@ $router->addRoute('/cool/navbars', function() {
 
 
 $router->addRoute('/cool/homes', function() {  
+require_once __DIR__ . '/../app/controllers/routesprotected.php';
     $controller = new userController();
     $controller->home();
 });
@@ -177,6 +178,13 @@ $router->addRoute('/cool/user-pagination',function(){
     $controller->pagination();
 });
 
+// order by asc and desc for the user master start from here 
+
+$router->addRoute('/cool/user-order',function(){
+    $controller = new userController();
+    $controller->userorder();
+});
+
 
 
 
@@ -196,6 +204,7 @@ $router->addRoute('/cool/user-pagination',function(){
 //again user master start form here 
 
 $router->addRoute('/cool/userhome',function(){
+// require_once __DIR__ . '/app/controllers/routesprotected.php';
     $controller = new userController();
     $controller->userhome();
 });
@@ -329,6 +338,12 @@ $router->addRoute('/cool/item-update',function(){
 $router->addRoute('/cool/item-pagination',function(){
     $controller = new itemController();
     $controller->itempagination();
+});
+
+
+$router->addRoute('/cool/item-order',function(){
+    $controller = new itemController();
+    $controller->orderitems();
 });
 
 

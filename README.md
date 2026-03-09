@@ -84,3 +84,4 @@ CREATE TABLE clientinsert (
     pincode VARCHAR(10),
     FOREIGN KEY (state_id) REFERENCES states(id)
 );
+

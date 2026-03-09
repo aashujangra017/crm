@@ -193,6 +193,21 @@ public function countitem(){
 
 
 
+//order by asc and desc in item master
+
+public function orderitem($column, $order){
+    $sql = "select id, itemname, price, description, image  from items order by $column $order";
+
+
+   $cool = $this->conn->prepare($sql);
+    $cool->execute();
+
+    return $cool->get_result();
+
+
+}
+
+
 
 
 

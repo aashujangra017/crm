@@ -89,31 +89,53 @@ public function itemselect() {
             echo "
             <form id='edit-item-form' enctype='multipart/form-data'>
                 <input type='hidden' id='edit-id' value='{$row['id']}'>
-                
-                <div class='form-group'>
-                    <label for='edit-itemname' class='fw-bold'>Item Name</label>
-                    <input type='text' id='edit-itemname' class='form-control' value='{$row['itemname']}'>
+
+                <div class='container-fluid'>
+
+                    <div class='row'>
+                        <div class='col-md-6'>
+                         <div class='form-group'>
+                     <label for='edit-itemname' class='fw-bold'>Item Name</label>
+                          <input type='text' id='edit-itemname' class='form-control' value='{$row['itemname']}'>
+                            </div>
+                        </div>
+
+                  <div class='col-md-6'>
+            <div class='form-group'>
+                        <label for='edit-price' class='fw-bold'>Price</label>
+                         <input type='text' id='edit-price' class='form-control' value='{$row['price']}'>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='row mt-2'>
+                     <div class='col-md-12'>
+                     <div class='form-group'>
+                                <label for='edit-description' class='fw-bold'>Description</label>
+                                <textarea id='edit-description' class='form-control'>{$row['description']}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='row mt-2'>
+                     <div class='col-md-12'>
+                     <div class='form-group'>
+                        <label for='edit-image' class='fw-bold'>Image</label>
+                          <input type='file' id='edit-image' class='form-control'>
+                              <img src='uploads/{$row['image']}' alt='Item Image' width='100' class='mt-2'>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='row mt-3 px-2'>
+                        <div class='col-md-12'>
+                         <button type='button' id='update-item' class='btn btn-success'>Save</button>
+                         <button type='reset' class='btn btn-secondary'>Reset</button>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class='form-group'>
-                    <label for='edit-price' class='fw-bold'>Price</label>
-                    <input type='text' id='edit-price' class='form-control' value='{$row['price']}'>
-                </div>
-
-                <div class='form-group'>
-                    <label for='edit-description' class='fw-bold'>Description</label>
-                    <textarea id='edit-description' class='form-control'>{$row['description']}</textarea>
-                </div>
-
-                <div class='form-group'>
-                    <label for='edit-image' class='fw-bold'>Image</label>
-                    <input type='file' id='edit-image' class='form-control'>
-                    <img src='uploads/{$row['image']}' alt='Item Image' width='100' class='mt-2'>
-                </div>
-
-                <div class='form-group mt-3'>
-                    <button type='button' id='update-item' class='btn btn-success'>Save</button>
-                </div>
             </form>
             ";
         } else {
@@ -260,6 +282,37 @@ $response = [
 echo json_encode($response);
 
 }
+
+
+
+
+
+// item order by controller start form here 
+public function orderitems(){
+
+    $column = $_POST['column'];
+    $order = $_POST['order'];
+
+    if($column != 'id' && $column != 'itemname' && $column != 'price'){
+        $column = 'id';
+    }
+
+    if($order != 'ASC' && $order != 'DESC'){
+        $order = 'ASC';
+    }
+
+    $object = new item();
+    $items = $object->orderitem($column,$order);
+
+    require_once "itemtable.php";
+}
+
+
+
+
+
+
+
 
 
 

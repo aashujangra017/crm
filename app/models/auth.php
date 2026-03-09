@@ -65,14 +65,21 @@ return isset($_SESSION['user_id']);
 
 // }
 
-public function logout(){
+public function logout() {
+
+
+    $_SESSION = [];
+
     
-    session_unset();
     session_destroy();
+
+   
+    if (isset($_COOKIE[session_name()])) {
+        setcookie(session_name(), '', time() - 3600, '/');
+    }
+
     echo "logout";
 }
-
-
 }
 
 
