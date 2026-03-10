@@ -118,41 +118,57 @@ public function selectclientform() {
             $row = $userResult->fetch_assoc();
 
             echo "
-            <form id='edit-user-form' >
+            <form id='edit-user-form'>
                 <input type='hidden' id='edit-id' value='{$row['id']}'>
                 
-                <div class='form-group'>
-                    <label for='edit-name' class='fw-bold'>Name</label>
-                    <input type='text' id='edit-name' class='form-control' value='{$row['name']}'>
-                </div>
-
-               
-                <div class='form-group'>
-                    <label for='edit-phone' class='fw-bold'>Phone</label>
-                    <input type='text' id='edit-phone' class='form-control' value='{$row['phone']}'>
-                </div>
-
-                <div class='form-group'>
-                    <label for='edit-address' class='fw-bold'>Address</label>
-                    <input type='text' id='edit-address' class='form-control' value='{$row['address']}'>
-                </div>
-                
-                <div class='form-group'>
-                    <label for='edit-state' class='fw-bold'>State</label>
-                    <input type='text' id='edit-state' class='form-control' value='{$row['state']}'>
-                </div>
-                
-                <div class='form-group'>
-                    <label for='edit-city' class='fw-bold' >City</label>
-                    <input type='text' id='edit-city' class='form-control' value='{$row['city']}'>
-                </div>
-                 <div class='form-group'>
-                    <label for='edit-pin' class='fw-bold'>Pin</label>
-                    <input type='text' id='edit-pin' class='form-control' value='{$row['pincode']}'>
-                </div>
-
-                <div class='form-group mt-3'>
-                    <button type='button' id='update-client' class='btn btn-success'>Save</button>
+                <div class='row'>
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='edit-name' class='fw-bold'>Name</label>
+                            <input type='text' id='edit-name' class='form-control' value='{$row['name']}'>
+                        </div>
+                    </div>
+                    
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='edit-phone' class='fw-bold'>Phone</label>
+                            <input type='text' id='edit-phone' class='form-control' value='{$row['phone']}'>
+                        </div>
+                    </div>
+                    
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='edit-address' class='fw-bold'>Address</label>
+                            <input type='text' id='edit-address' class='form-control' value='{$row['address']}'>
+                        </div>
+                    </div>
+                    
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='edit-state' class='fw-bold'>State</label>
+                            <input type='text' id='edit-state' class='form-control' value='{$row['state']}'>
+                        </div>
+                    </div>
+                    
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='edit-city' class='fw-bold'>City</label>
+                            <input type='text' id='edit-city' class='form-control' value='{$row['city']}'>
+                        </div>
+                    </div>
+                    
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='edit-pin' class='fw-bold'>Pin</label>
+                            <input type='text' id='edit-pin' class='form-control' value='{$row['pincode']}'>
+                        </div>
+                    </div>
+                    
+                    <div class='col-12 mt-3'>
+                        <div class='form-group'>
+                            <button type='button' id='update-client' class='btn btn-success'>Save</button>
+                        </div>
+                    </div>
                 </div>
             </form>
             ";

@@ -134,8 +134,8 @@ role="tabpanel">
 </select>
  <small id="statuserror" class="text-danger"></small>
     </div>
-    <button type="submit" name="submit" id="submit" class="btn btn-danger mx-2 my-4">Submit</button>
-    <button type="reset" name="reset" id="reset" class="btn btn-success mx-2 my-4">Reset</button>
+    <button type="submit" name="submit" id="submit" class="btn btn-primary mx-2 my-4">Submit</button>
+    <button type="reset" name="reset" id="reset" class="btn btn-danger mx-2 my-4">Reset</button>
 
 </form>
 

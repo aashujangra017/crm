@@ -132,8 +132,8 @@ role="tabpanel">
   <small id="imageerror" class="text-danger"></small>
 </div>
 
-<button type="submit" name="submit" id="submit" class="btn btn-danger mt-3 mx-3">Submit</button>
-<button type="reset" name="reset" id="reset" class="btn btn-success mt-3">Reset</button>
+<button type="submit" name="submit" id="submit" class="btn btn-primary mt-3 mx-3">Submit</button>
+<button type="reset" name="reset" id="reset" class="btn btn-danger mt-3">Reset</button>
 </form>
 
 </div>

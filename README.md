@@ -76,12 +76,13 @@ CREATE TABLE state (
 
 CREATE TABLE clientinsert (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    phone VARCHAR(15),
+    name VARCHAR(255),
+    phone VARCHAR(10),
     address VARCHAR(255),
-    city VARCHAR(100),
     state_id INT,
-    pincode VARCHAR(10),
+    city VARCHAR(255),
+    pincode VARCHAR(6),
+
     FOREIGN KEY (state_id) REFERENCES states(id)
 );
 

@@ -159,8 +159,8 @@ role="tabpanel">
 <small id="pinerror" class="text-danger"></small>
 </div>
 
-<button type="button" name="submit" id="submit" class="btn btn-danger mt-3 mx-2 ">Submit</button>
-<button type="reset" name="reset" id="reset" class="btn btn-success mt-3">Reset</button>
+<button type="button" name="submit" id="submit" class="btn btn-primary mt-3 mx-2 ">Submit</button>
+<button type="reset" name="reset" id="reset" class="btn btn-danger mt-3">Reset</button>
 
 </form>
 

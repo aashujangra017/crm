@@ -340,14 +340,12 @@ loaditems();
 
 });
 
-
-//order by start from here 
-
 $(document).on("click", ".sort", function(){
 
     var column = $(this).data("column");
     var order = $(this).data("order");
-
+    
+    var clickedElement = $(this); 
     $.ajax({
         url: "/cool/item-order",
         type: "POST",
@@ -356,16 +354,25 @@ $(document).on("click", ".sort", function(){
             order: order
         },
         success: function(response){
+           
             $("#bodydata").html(response);
+
+           
+            $(".sort").html("↕");
+
+           
+            if(order === "ASC"){
+                clickedElement.html("↑"); 
+            }else{
+                clickedElement.html("↓"); 
+            }
         }
     });
 
-  
+    
     if(order === "ASC"){
-        $(this).data("order","DESC");
+        clickedElement.data("order","DESC");
     }else{
-        $(this).data("order","ASC");
+        clickedElement.data("order","ASC");
     }
-
 });
-
