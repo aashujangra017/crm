@@ -28,10 +28,13 @@ require "navbar.php";
 <!-- left bar start -->
 <div class="main">
 
-<div class="left bg-dark-subtle " style="background-color: #6ba2d6b6">
+<div class="left  " style="background-color: #1784bb">
   
 
     <div class="nav flex-column mt-3 " id="sidebarMenu">
+        <button onclick="location.href='/cool/dashboard'"  class="nav-link text-dark " id="userMaster">
+          <i class="fa-solid fa-book"></i><span class="link-text text-dark">Dash home</span>
+        </button>
      
         <button onclick="location.href='/cool/userhome'"  class="nav-link text-dark " id="userMaster">
             <i class="fa-solid fa-user"></i> <span class="link-text text-dark">User Master</span>
@@ -41,6 +44,9 @@ require "navbar.php";
         </button>
         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
+        </button>
+         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
+            <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice</span>
         </button>
       
     
@@ -59,7 +65,7 @@ require "navbar.php";
 
 <div class="container  ">
 
-<h3 class="mb-3">Welcome To User Master Home Page</h3>
+<h3 class="mb-3 text-center">Welcome To User Master Home Page</h3>
 
 <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
 
@@ -169,11 +175,12 @@ role="tabpanel ">
 <h4>Show client</h4>
 
 <div>
-<div class="first  co-12"  style="background-color: #cadcecb6">
+<div class="first border co-12"  style="background-color: #cadcecb6">
 
 
                 <label for="searchname" class="fw-bold mx-3">Search user:</label>
                 <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
+           
                 <button id="search" class="btn btn-primary">Search</button>
                 
 
@@ -189,7 +196,7 @@ role="tabpanel ">
 </select>
 </div> -->
 
-<div class="second  col-12 d-flex justify-content-between"  style="background-color: #cadcecb6">
+<div class="second  col-12 d-flex justify-content-between border"  style="background-color: #cadcecb6">
     <div>
         <label class="fw-bold mx-3">Limit</label>
 
@@ -209,7 +216,7 @@ role="tabpanel ">
 </div>
 </div>
 </div>
-<div class="third col-12"  style="background-color: #cadcecb6">
+<div class="third col-12 border"  style="background-color: #cadcecb6">
 <table class="table table-hover">
 
        <thead>

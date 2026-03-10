@@ -40,19 +40,19 @@ $router->addRoute('/cool/insert', function() {
 
 
 
-$router->addRoute('/cool/navbars', function() {  
-    $controller = new userController();
-    $controller->navbar();
-});
+// $router->addRoute('/cool/navbars', function() {  
+//     $controller = new userController();
+//     $controller->navbar();
+// });
 
 
 
 
-$router->addRoute('/cool/homes', function() {  
-require_once __DIR__ . '/../app/controllers/routesprotected.php';
-    $controller = new userController();
-    $controller->home();
-});
+// $router->addRoute('/cool/homes', function() {  
+// require_once __DIR__ . '/../app/controllers/routesprotected.php';
+//     $controller = new userController();
+//     $controller->home();
+// });
 
 
 
@@ -187,7 +187,14 @@ $router->addRoute('/cool/user-order',function(){
 
 
 
+// dashhome start form here 
 
+
+
+$router->addRoute('/cool/dashboard',function(){
+    $controller = new userController();
+    $controller->dashboard();
+});
 
 
 

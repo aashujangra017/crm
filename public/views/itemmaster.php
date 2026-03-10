@@ -28,12 +28,17 @@ require "navbar.php";
 <!-- left bar start -->
 <div class="main">
 
-<div class="left bg-dark-subtle " style="background-color: #6ba2d6b6">
+<div class="left " style="background-color: #1784bb">
   
 
     <div class="nav flex-column mt-3" id="sidebarMenu">
+
+         <button onclick="location.href='/cool/dashboard'"  class="nav-link text-dark " id="userMaster">
+          <i class="fa-solid fa-book"></i><span class="link-text text-dark">Dash home</span>
+        </button>
+       
         <button onclick="location.href='/cool/userhome'"  class="nav-link text-dark " id="userMaster">
-            <i class="bi bi-people-fill"></i> <span class="link-text text-dark">User Master</span>
+          <i class="fa-solid fa-user"></i> <span class="link-text text-dark">User Master</span>
         </button>
         <button onclick="location.href='/cool/client'"   class="nav-link text-dark " id="clientMaster">
             <i class="bi bi-person-lines-fill"></i> <span class="link-text text-dark">Client Master</span>
@@ -41,6 +46,10 @@ require "navbar.php";
         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
+         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
+            <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice</span>
+        </button>
+        
         <!-- <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
            <i class="fa fa-sign-out" aria-hidden="true"></i> <span class="link-text">logout Session</span>
         </button> -->
@@ -56,7 +65,7 @@ require "navbar.php";
 
 <div class="container ">
 
-<h3 class="mb-3">Welcome To Item Master Home Page</h3>
+<h3 class="mb-3 text-center">Welcome To Item Master Home Page</h3>
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
 
@@ -118,7 +127,7 @@ role="tabpanel">
 </div>
 
 <div class="form-group">
-  <label for="image" class="fw-bold mt-2">Image:</label>
+  <label for="image" class="fw-bold mt-2 text-black">Image:</label>
   <input type="file" class="form-control" id="image" name="image"  required>
   <small id="imageerror" class="text-danger"></small>
 </div>
@@ -139,7 +148,7 @@ role="tabpanel">
 <h4 class="text-black">Show items</h4>
 
 <div>
-<div class="first  co-12"  style="background-color: #cadcecb6">
+<div class="first border co-12"  style="background-color: #cadcecb6">
 
 
                 <label for="searchname" class="fw-bold mx-3 text-black">Search Item:</label>
@@ -149,7 +158,7 @@ role="tabpanel">
 
 </div>
 
-<div class="second  col-12 d-flex justify-content-between"  style="background-color: #cadcecb6">
+<div class="second border  col-12 d-flex justify-content-between"  style="background-color: #cadcecb6">
     <div>
         <label class="fw-bold mx-3 text-black">Limit</label>
 
@@ -169,8 +178,8 @@ role="tabpanel">
 </div>
 </div>
 </div> 
-<div class="third  col-12"  style="background-color: #cadcecb6">
-<table class="table table-hover">
+<div class="third border col-12"  style="background-color: #cadcecb6">
+<table class="table table-hover ">
 
      
 <thead>

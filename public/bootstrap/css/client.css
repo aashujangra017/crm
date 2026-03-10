@@ -85,7 +85,7 @@ html, body {
 
 .form-container {
     width: 400px;
-    height: 600px;
+    height: 650px;
 
     border: 1px solid #ccc;
     background-color: #f9f9f9;
@@ -98,7 +98,7 @@ html, body {
 
 
 
-.nav-link {
+/* .nav-link {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
@@ -107,6 +107,19 @@ html, body {
     background-color: transparent;
     cursor: pointer;
     color: #000;
+} */
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+.nav-link i {
+    display: inline-flex;
+    justify-content: center;
+    width: 25px;       
+    font-size: 18px;
+    margin-right: 10px; 
 }
 
 
@@ -117,7 +130,11 @@ html, body {
 }
 
 .nav-link:hover{
-    background-color: #a8b3c7;
+    background-color: #e8eaf0;
+}
+
+.left.collapsed .nav-link i {
+    margin: 0 auto; 
 }
 
 

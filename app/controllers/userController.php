@@ -38,6 +38,10 @@ public function userhome(){
 }
 
 
+public function dashboard(){
+    require __DIR__ . "/../../public/views/dashboard.php";
+}
+
 
 
 public function insert(){

@@ -255,10 +255,63 @@ $(document).on("click","#submit",function(){
     var city    = $("#city").val();
     var pin     = $("#pin").val();
 
-    if(name=="" || phone=="" || address=="" || state=="" || city=="" || pin==""){
-        alert("Please fill all fields");
+   
+
+    var valid = true;
+
+
+    $(".text-danger").text("");
+
+   
+    if (name == "") {
+        $("#nameerror").text("Name is required");
+        valid = false;
+    }
+
+    var phonePattern = /^[0-9]{10}$/;
+    if (phone == "") {
+        $("#phoneerror").text("Phone  is required");
+    
+        valid = false;
+    } else if (!phonePattern.test(phone)) {
+        $("#phoneerror").text("Phone number have  10 digits");
+        valid = false;
+    }
+
+    if(address == ""){
+        $("#addresserror").text("Address is required");
+        valid = false;
+    }
+
+    if(state == ""){
+        $("#stateerror").text("state is required");
+        valid=false;
+    }
+
+    if(city == ""){
+        $("#cityerror").text("city is required");
+        valid=false;
+    }
+
+
+
+    var pinvalid = /^[1-9][0-9]{5}$/;
+
+if(pin == ""){
+    $("#pinerror").text("PIN is required");
+    valid = false;
+}
+else if(!pinvalid.test(pin)){
+    $("#pinerror").text("PIN must be 6 digits");
+    valid = false;
+}
+
+    
+    if (!valid) {
         return;
     }
+
+
 
     $.ajax({
         url: "/cool/insert-client",
@@ -272,7 +325,6 @@ $(document).on("click","#submit",function(){
             pin:pin
         },
        success: function(response) {
-    console.log(response); 
     if (response == "success") {
       window.location.href= "/cool/client";
         

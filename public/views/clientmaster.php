@@ -27,18 +27,24 @@ require "navbar.php";
 <!-- left bar start -->
 <div class="main">
 
-<div class="left bg-dark-subtle " style="background-color: #6ba2d6b6">
+<div class="left " style="background-color: #1784bb">
   
 
     <div class="nav flex-column mt-3" id="sidebarMenu">
+        <button onclick="location.href='/cool/userhome'"  class="nav-link text-dark " id="userMaster">
+          <i class="fa-solid fa-book"></i><span class="link-text text-dark">Dash home</span>
+        </button>
        <button onclick="location.href='/cool/userhome'"  class="nav-link text-dark " id="userMaster">
-            <i class="bi bi-people-fill"></i> <span class="link-text text-dark">User Master</span>
+             <i class="fa-solid fa-user"></i>  <span class="link-text text-dark">User Master</span>
         </button>
         <button onclick="location.href='/cool/client'"   class="nav-link text-dark " id="clientMaster">
             <i class="bi bi-person-lines-fill"></i> <span class="link-text text-dark">Client Master</span>
         </button>
         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
+        </button>
+         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
+            <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice</span>
         </button>
          <!-- <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
            <i class="fa fa-sign-out" aria-hidden="true"></i> <span class="link-text">logout Session</span>
@@ -54,7 +60,7 @@ require "navbar.php";
 
 <div class="container ">
 
-<h3 class="mb-3">Welcome To Client Master Home Page</h3>
+<h3 class="mb-3 text-center">Welcome To Client Master Home Page</h3>
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
 
@@ -101,16 +107,19 @@ role="tabpanel">
 <div class="form-group">
 <label for="name" class="fw-bold mt-2">Name</label>
 <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name here" required>
+<small id="nameerror" class="text-danger"></small>
 </div>
 
 <div class="form-group">
 <label for="phone" class="fw-bold mt-2">Phone Number:</label>
 <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
+<small id="phoneerror" class="text-danger"></small>
 </div>
 
 <div class="form-group">
 <label for="address" class="fw-bold mt-2">Address</label>
 <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" required>
+<small id="addresserror" class="text-danger"></small>
 </div>
 
 <!-- <div class="form-group ">
@@ -130,6 +139,7 @@ role="tabpanel">
     <label for="states" class="fw-bold mt-2">State:</label>
     <select class="form-select" id="states" name="states" required>
         <option value="">Select state</option>
+        <small id="stateerror" class="text-danger"></small>
         
     </select>
 </div>
@@ -139,12 +149,14 @@ role="tabpanel">
 <div class="form-group">
 <label for="city" class="fw-bold mt-2">City</label>
 <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city" required>
+<small id="cityerror" class="text-danger"></small>
 </div>
 
 
 <div class="form-group">
 <label for="pin" class="fw-bold mt-2" >Pin</label>
 <input type="text" class="form-control" id="pin" name="pin" placeholder="Enter your pin" required>
+<small id="pinerror" class="text-danger"></small>
 </div>
 
 <button type="button" name="submit" id="submit" class="btn btn-danger mt-3 mx-2 ">Submit</button>
@@ -164,7 +176,7 @@ role="tabpanel">
 <h4>Show client</h4>
 
 <div>
-<div class="first  co-12"  style="background-color: #cadcecb6">
+<div class="first border  co-12"  style="background-color: #cadcecb6">
 
 
                 <label for="searchname" class="fw-bold mx-3">Search Client:</label>
@@ -174,7 +186,7 @@ role="tabpanel">
 
 </div>
 
-<div class="second col-12 d-flex justify-content-between"  style="background-color: #cadcecb6" >
+<div class="second border col-12 d-flex justify-content-between"  style="background-color: #cadcecb6" >
     <div>
         <label class="fw-bold mx-3">Limit</label>
 <select id="limit" class="form-select w-auto d-inline-block">
@@ -196,7 +208,7 @@ role="tabpanel">
     <h5>hello</h5>
 </div>
 </div>
-<div class="third col-12"  style="background-color: #cadcecb6">
+<div class="third border col-12"  style="background-color: #cadcecb6">
 <table class="table table-hover">
 
         <thead>
