@@ -95,14 +95,14 @@ public function itemselect() {
                     <div class='row'>
                         <div class='col-md-6'>
                          <div class='form-group'>
-                     <label for='edit-itemname' class='fw-bold'>Item Name</label>
+                     <label for='edit-itemname' class='fw-bold text-black'>Item Name</label>
                           <input type='text' id='edit-itemname' class='form-control' value='{$row['itemname']}'>
                             </div>
                         </div>
 
                   <div class='col-md-6'>
             <div class='form-group'>
-                        <label for='edit-price' class='fw-bold'>Price</label>
+                        <label for='edit-price' class='fw-bold text-black'>Price</label>
                          <input type='text' id='edit-price' class='form-control' value='{$row['price']}'>
                             </div>
                         </div>
@@ -111,7 +111,7 @@ public function itemselect() {
                     <div class='row mt-2'>
                      <div class='col-md-12'>
                      <div class='form-group'>
-                                <label for='edit-description' class='fw-bold'>Description</label>
+                                <label for='edit-description' class='fw-bold text-black'>Description</label>
                                 <textarea id='edit-description' class='form-control'>{$row['description']}</textarea>
                             </div>
                         </div>
@@ -120,7 +120,7 @@ public function itemselect() {
                     <div class='row mt-2'>
                      <div class='col-md-12'>
                      <div class='form-group'>
-                        <label for='edit-image' class='fw-bold'>Image</label>
+                        <label for='edit-image' class='fw-bold text-black'>Image</label>
                           <input type='file' id='edit-image' class='form-control'>
                               <img src='uploads/{$row['image']}' alt='Item Image' width='100' class='mt-2'>
                             </div>

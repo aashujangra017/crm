@@ -217,6 +217,87 @@ public function update() {
 
 
 
+    //pagination controller start form here 
+
+
+   public function clientpagination(){
+    header('Content-Type: application/json');
+
+    $page = isset($_POST['page']) ? (int) $_POST['page'] : 1;
+    $limit = isset($_POST['limit']) ? (int) $_POST['limit'] : 5;
+
+    if($page < 1) {
+        $page = 1;
+    }
+
+    $offset = ($page - 1) * $limit;
+
+    $object = new client();
+    $users = $object->getclientbypage($limit, $offset);
+
+    $totalusers = $object->clientcount();
+
+    $totalPages = ceil($totalusers / $limit);
+
+    $table = "";
+
+    if($users->num_rows > 0) {
+        while($row = $users->fetch_assoc()) {
+            $table .= "<tr>
+                        <td>{$row['id']}</td>
+                        <td>{$row['name']}</td>
+                        <td>{$row['phone']}</td>
+                        <td>{$row['address']}</td>
+                        <td>{$row['sname']}</td>
+                        <td>{$row['city']}</td>
+                        <td>{$row['pincode']}</td>
+                        <td>
+                            <button class='clientbtn btn btn-danger' data-id='{$row['id']}'>Delete</button>
+                        </td>
+                        <td>
+                            <button class='update-btn btn btn-primary' data-eid='{$row['id']}'>Update</button>
+                        </td>
+                    </tr>";
+        }
+    }
+
+    $response = [
+        "table" => $table,
+        "page" => $page,
+        "totalPages" => $totalPages
+    ];
+
+    echo json_encode($response);
+}
+
+
+
+
+//order by start form here
+
+
+
+public function clientorder(){
+
+  $column = $_POST['column'];
+    $order = $_POST['order'];
+
+    if($column != 'id' && $column != 'itemname' && $column != 'price'){
+        $column = 'id';
+    }
+
+    if($order != 'ASC' && $order != 'DESC'){
+        $order = 'ASC';
+    }
+
+    $object = new client();
+
+    $users = $object->orderclient($column,$order);
+
+    require_once "clienttablesearch.php";
+
+}
+
 
 
 }

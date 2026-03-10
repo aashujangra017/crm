@@ -58,7 +58,7 @@ require "navbar.php";
 <div class="right container " id="rightPanel">
   <div class="row border rounded h-25 px-3">
     <div class="col-12 bg-primary d-flex justify-content-center align-items-center container-fluid" style="background: linear-gradient(90deg, #0C7BB3 0%, #F2BAE8 100%) "> 
-      <h1>Welcome to Dashborad Page </h1>
+      <h1>Welcome to Dashboard Page </h1>
     </div>
   </div>
 

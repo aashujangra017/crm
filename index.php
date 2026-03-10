@@ -278,6 +278,20 @@ $router->addRoute('/cool/search-client', function(){
 
 
 
+// pagination and limit start from here 
+$router->addRoute('/cool/client-pagination', function(){
+    $controller = new  clientController();
+    $controller->clientpagination();
+});
+
+
+
+$router->addRoute('/cool/client-order', function(){
+    $controller = new  clientController();
+    $controller->clientorder();
+});
+
+
 
 
 

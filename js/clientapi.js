@@ -202,24 +202,24 @@ $(document).on("click", ".clientbtn", function() {
 
 
 
-  loadclients();
+//   loadclients();
 
 
      
-    $("#showuser").click(function(e){
-        e.preventDefault();
-        loadclients();
-    });
+//     $("#showuser").click(function(e){
+//         e.preventDefault();
+//         loadclients();
+//     });
 
-    function loadclients() {
-        $.ajax({
-            url: "/cool/fetch-client",   
-            type: "GET",
-            success: function(data) {
-                $("#bodydata").html(data); 
-            }
-        });
-    }
+//     function loadclients() {
+//         $.ajax({
+//             url: "/cool/fetch-client",   
+//             type: "GET",
+//             success: function(data) {
+//                 $("#bodydata").html(data); 
+//             }
+//         });
+//     }
 
 
 
@@ -337,6 +337,87 @@ else if(!pinvalid.test(pin)){
 
 
 
+//pagination and limit start from here 
+
+let page = 1;
+let limit = 5;
+
+function loadclients() {
+    limit = $("#limit").val() || 5;
+
+    $.ajax({
+        url: "/cool/client-pagination", 
+        type: "POST",
+        data: {
+            page: page,
+            limit: limit
+        },
+        success: function(response) {
+            let data = typeof response === "string" ? JSON.parse(response) : response;
+            $("#bodydata").html(data.table);
+
+            let pagination = "";
+            pagination += `<button class='btn btn-secondary mx-1' id='prev' ${data.page <= 1 ? 'disabled' : ''}>Prev</button>`;
+            pagination += `<span class='mx-2 fw-bold'> Page ${data.page} of ${data.totalPages} </span>`;
+            pagination += `<button class='btn btn-secondary mx-1' id='next' ${data.page >= data.totalPages ? 'disabled' : ''}>Next</button>`;
+
+            $(".paging").html(pagination);
+        },
+        error: function(err) {
+            console.error("Error loading clients:", err);
+        }
+    });
+}
+
+loadclients();
+
+$(document).on("click", "#prev", function() {
+    if (page > 1) {
+        page--;
+        loadclients();
+    }
+});
+
+$(document).on("click", "#next", function() {
+    page++;
+    loadclients();
+});
+
+$("#limit").change(function() {
+    page = 1;
+    loadclients();
+});
+
+
+
+
+
+// order by asc and desc api call 
+$(document).on("click", ".sort", function(){
+
+    var column = $(this).data("column");
+    var order = $(this).data("order");
+
+    $.ajax({
+        url: "/cool/client-order",
+        type: "POST",
+        data: {
+            column: column,
+            order: order
+        },
+        success: function(response){
+            $("#bodydata").html(response);
+        }
+    });
+
+  
+    if(order === "ASC"){
+        $(this).data("order","DESC");
+    }else{
+        $(this).data("order","ASC");
+    }
+
+});
 
 
 

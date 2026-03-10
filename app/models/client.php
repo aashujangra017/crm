@@ -167,13 +167,67 @@ public function selectclient($id){
 
 
 
+
+//pagination start form here 
+
+
+public function getclientbypage($limit, $offset) {
+   
+    $sql = "SELECT c.id, c.name, c.phone, c.address, s.sname, c.city, c.pincode 
+            FROM clientinsert AS c join states AS s ON c.state_id = s.id 
+            LIMIT ? OFFSET ?";
+
+    
+    $cool = $this->conn->prepare($sql);
+
+   
+    // if ($cool === false) {
+    //     die('MySQL prepare error: ' . $this->conn->error);
+    // }
+   
+    $cool->bind_param("ii", $limit, $offset);
+
+    $cool->execute();
+
+    return $cool->get_result();
+}
+
+public function clientcount(){
+    $sql = "select count(*) as total from clientinsert";
+
+    $cool = $this->conn->prepare($sql);
+
+    $cool->execute();
+    $result = $cool->get_result();
+
+    $row = $result->fetch_assoc();
+
+    return $row['total'];
+}
         
  
 
 
+public function orderclient($column, $order){
+   
+      $allowedColumns = ['id', 'name', 'phone'];
+    $allowedOrder = ['ASC', 'DESC'];
 
+    if (!in_array($column, $allowedColumns)) {
+        $column = 'id';
+    }
 
+    if (!in_array($order, $allowedOrder)) {
+        $order = 'ASC';
+    }
 
+    $sql = "select c.id, c.name, c.phone, c.address, s.sname, c.city, c.pincode from clientinsert AS c join states AS s ON c.state_id = s.id order by $column $order";
+
+    $cool = $this->conn->prepare($sql);
+    $cool->execute();
+
+    return $cool->get_result();
+}
 
 
 
