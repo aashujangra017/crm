@@ -153,7 +153,7 @@ public function deleteusers($id) {
 
         
 
-
+// this is select for the udpate 
 
 public function selectuser ($id){
      $sql = "select * from user where id = ?";
@@ -168,6 +168,8 @@ public function selectuser ($id){
     
 }
 
+
+///update model start 
 
  public function updateuser($id, $name, $email, $phone, $status) {
 

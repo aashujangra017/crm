@@ -46,7 +46,7 @@ require "navbar.php";
         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
-         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
+         <button  onclick="location.href='/cool/invoice'"  class="nav-link text-dark" id="itemMaster">
             <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice</span>
         </button>
         
@@ -123,13 +123,13 @@ role="tabpanel">
 <div class="form-group">
   <label for="description" class="fw-bold mt-2">Description:</label>
   <textarea class="form-control" id="description" name="description" placeholder="Enter item description" rows="5" required></textarea>
-  <small id="descriptionerror" class="text-danger"></span>
+  <!-- <small id="descriptionerror" class="text-danger"></span> -->
 </div>
 
 <div class="form-group">
   <label for="image" class="fw-bold mt-2 text-black">Image:</label>
   <input type="file" class="form-control" id="image" name="image"  required>
-  <small id="imageerror" class="text-danger"></small>
+  <!-- <small id="imageerror" class="text-danger"></small> -->
 </div>
 
 <button type="submit" name="submit" id="submit" class="btn btn-primary mt-3 mx-3">Submit</button>

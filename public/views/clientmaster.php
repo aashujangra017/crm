@@ -1,8 +1,3 @@
-<!-- <?php
-require "navbar.php";
-
-
-?> -->
 
 
 
@@ -43,7 +38,7 @@ require "navbar.php";
         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
-         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
+         <button  onclick="location.href='/cool/invoice'"  class="nav-link text-dark" id="itemMaster">
             <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice</span>
         </button>
          <!-- <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
@@ -104,6 +99,8 @@ role="tabpanel">
 
 <form  id="clientForm">
 
+ <input type="hidden" id="userid" name="id" value="">  
+
 <div class="form-group">
 <label for="name" class="fw-bold mt-2">Name</label>
 <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name here" required>
@@ -122,35 +119,24 @@ role="tabpanel">
 <small id="addresserror" class="text-danger"></small>
 </div>
 
-<!-- <div class="form-group ">
-<label for="state" class="fw-bold">State</label>
-<input type="text" class="form-control" id="state" name="state" placeholder="Enter your state" required>
-</div> -->
 
-<!-- <div class="stat">
-    <label for="state " class="fw-bold mt-2">State:</label>
-  <select class="form-select" id="states" name="states" required>
-    <select class="form-select" id="state" name="state">
-    <option value="">Select state</option>
-
-</select>
-</div> -->
 <div class="stat">
     <label for="states" class="fw-bold mt-2">State:</label>
     <select class="form-select" id="states" name="states" required>
         <option value="">Select state</option>
-        <small id="stateerror" class="text-danger"></small>
-        
     </select>
+    <small id="stateerror" class="text-danger"></small> <!-- MOVED OUTSIDE select -->
 </div>
-
-
 
 <div class="form-group">
-<label for="city" class="fw-bold mt-2">City</label>
-<input type="text" class="form-control" id="city" name="city" placeholder="Enter your city" required>
-<small id="cityerror" class="text-danger"></small>
+    <label for="city" class="fw-bold mt-2">City</label>
+    <select class="form-select" id="city" name="city" required>
+        <option value="">Select city</option>
+    </select>
+    <small id="cityerror" class="text-danger"></small>
 </div>
+
+
 
 
 <div class="form-group">
@@ -246,16 +232,6 @@ role="tabpanel">
 </table>
 </div>
 
-<div id="model" >
-    <div id="model-form" >
-        <h2 class="text-black">Edit Client Master Form</h2>
-        <div class="text-black" id="close-btn">X</div>
-
-        <div id="update-form"></div>
-    </div>
-</div>
-
-</div>
 
 </div>
 

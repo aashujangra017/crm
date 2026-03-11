@@ -217,41 +217,33 @@ $(document).on("click", "#submit", function(e) {
     //     return;
     // }
 
-    // var valid = true;
+    var valid = true;
+    $(".text-danger").text("");
 
-    // $(".text-danger").text("");
+    if(itemname == "") {
+        $("#itemnameerror").text("Item name is required");
+        valid = false;
+    }
 
+    if(price == "") {
+        $("#priceerror").text("Price is required");
+        valid = false;
+    } else if (!/^\d+(\.\d+)?$/.test(price) || Number(price) <= 0) {
+        $("#priceerror").text("Enter a valid positive price");
+        valid = false;
+    }
 
-    // if (itemname == "") {
-    //     $("#itemnameerror").text("Item name is required");
-    //     valid = false;
-    // }
+    if(!description  ) {
+        $("#descriptionerror").text("Description is required");
+        valid = false;
+    }
 
+//    if (!image) {
+//     $("#imageerror").text("Image is required");
+//     valid = false;
+// }
 
-    // var pricePattern = /^\d+(\.\d+)?$/;
-    // if (price == "") {
-    //     $("#priceerror").text("Price is required");
-    //     valid = false;
-    // } else if (!pricePattern.test(price) || Number(price) <= 0) {
-    //     $("#priceerror").text("Enter a valid positive price");
-    //     valid = false;
-    // }
-
-   
-    // if (description == "") {
-    //     $("#descriptionerror").text("Description is required");
-    //     valid = false;
-    // }
-
-
-    // if (!image) {
-    //     $("#imageerror").text("Image is required");
-    //     valid = false;
-    // }
-
-    // if (!valid) {
-    //     return;
-    // }
+    if(!valid) return;
 
 
     var formData = new FormData();
@@ -268,7 +260,7 @@ $(document).on("click", "#submit", function(e) {
         contentType: false,              
         processData: false,          
         success: function(response) {
-            if (response == "success") {
+            if (response.trim() == "success") {
                 
                 $("#clientForm")[0].reset();
                  window.location.href = "/cool/home";  
@@ -339,6 +331,9 @@ page = 1;
 loaditems();
 
 });
+
+// sort api start form here 
+
 
 $(document).on("click", ".sort", function(){
 

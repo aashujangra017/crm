@@ -12,53 +12,119 @@ public function clienthome() {
 
 
  
-public function insertclient(){
-    if (isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['address']) 
+// public function insertclient(){
+//     if (isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['address']) 
+//         && isset($_POST['state']) && isset($_POST['city']) && isset($_POST['pin'])) {
+
+//         $name    = $_POST['name'];
+//         $phone   = $_POST['phone'];
+//         $address = $_POST['address'];
+//         $state   = $_POST['state'];
+//         $city    = $_POST['city'];
+//         $pin     = $_POST['pin'];
+
+//         $object = new client();
+//         $result = $object->createclient($name,$phone,$address,$state,$city,$pin);
+
+//         if($result){
+//             echo "success";  
+//         }else{
+//             echo "failed";
+//         }
+
+//     } else {
+//         echo "POST data is missing";
+//     }
+// }
+
+    
+
+// public function states(){
+
+//     $object = new client();
+//     $result = $object->getallstates();
+
+//     $options = "";
+
+//     if($result->num_rows > 0){
+
+//         while($row = $result->fetch_assoc()){
+
+//             $options .= "<option value='".$row['id']."'>".$row['sname']."</option>";
+
+//         }
+
+//     }
+
+//     echo $options;
+// }
+
+
+// inserrt controller start 
+
+
+
+public function insertclient() {
+    if (isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['address'])
         && isset($_POST['state']) && isset($_POST['city']) && isset($_POST['pin'])) {
 
-        $name    = $_POST['name'];
-        $phone   = $_POST['phone'];
+        $name = $_POST['name'];
+        $phone = $_POST['phone'];
         $address = $_POST['address'];
-        $state   = $_POST['state'];
-        $city    = $_POST['city'];
-        $pin     = $_POST['pin'];
+        $state = $_POST['state'];
+        $city = $_POST['city'];
+        $pin = $_POST['pin'];
 
         $object = new client();
-        $result = $object->createclient($name,$phone,$address,$state,$city,$pin);
+        $result = $object->createclient($name, $phone, $address, $state, $city, $pin);
 
-        if($result){
-            echo "success";  
-        }else{
+        if ($result) {
+            echo "success";
+        } else {
             echo "failed";
         }
-
     } else {
         echo "POST data is missing";
     }
 }
 
-    
 
-public function states(){
 
+public function states() {
     $object = new client();
     $result = $object->getallstates();
-
     $options = "";
-
-    if($result->num_rows > 0){
-
-        while($row = $result->fetch_assoc()){
-
-            $options .= "<option value='".$row['id']."'>".$row['sname']."</option>";
-
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $options .= "<option value='" . $row['id'] . "'>" . $row['sname'] . "</option>";
         }
-
     }
-
     echo $options;
 }
 
+
+
+public function cities() {
+    if (isset($_POST['state_id']) && $_POST['state_id'] !== '') {
+        $state_id = intval($_POST['state_id']); 
+
+        $object = new client();
+
+        $result = $object->getcitiesbystate($state_id);
+        
+        $options = "";
+
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $options .= "<option value='" . htmlspecialchars($row['cname']) . "'>" 
+                          . htmlspecialchars($row['cname']) . "</option>";
+            }
+        }
+        echo $options;
+    } else {
+        echo ""; 
+    }
+}
 
 
 // fetch controller start from here 
@@ -106,6 +172,7 @@ public function delete() {
 //select start form here for the update 
 
 public function selectclientform() {
+     header('Content-Type: application/json');
 
     if (isset($_POST['id'])) {
 
@@ -116,70 +183,14 @@ public function selectclientform() {
 
         if ($userResult && $userResult->num_rows > 0) {
             $row = $userResult->fetch_assoc();
-
-            echo "
-            <form id='edit-user-form'>
-                <input type='hidden' id='edit-id' value='{$row['id']}'>
-                
-                <div class='row'>
-                    <div class='col-md-6'>
-                        <div class='form-group'>
-                            <label for='edit-name' class='fw-bold'>Name</label>
-                            <input type='text' id='edit-name' class='form-control' value='{$row['name']}'>
-                        </div>
-                    </div>
-                    
-                    <div class='col-md-6'>
-                        <div class='form-group'>
-                            <label for='edit-phone' class='fw-bold'>Phone</label>
-                            <input type='text' id='edit-phone' class='form-control' value='{$row['phone']}'>
-                        </div>
-                    </div>
-                    
-                    <div class='col-md-6'>
-                        <div class='form-group'>
-                            <label for='edit-address' class='fw-bold'>Address</label>
-                            <input type='text' id='edit-address' class='form-control' value='{$row['address']}'>
-                        </div>
-                    </div>
-                    
-                    <div class='col-md-6'>
-                        <div class='form-group'>
-                            <label for='edit-state' class='fw-bold'>State</label>
-                            <input type='text' id='edit-state' class='form-control' value='{$row['state']}'>
-                        </div>
-                    </div>
-                    
-                    <div class='col-md-6'>
-                        <div class='form-group'>
-                            <label for='edit-city' class='fw-bold'>City</label>
-                            <input type='text' id='edit-city' class='form-control' value='{$row['city']}'>
-                        </div>
-                    </div>
-                    
-                    <div class='col-md-6'>
-                        <div class='form-group'>
-                            <label for='edit-pin' class='fw-bold'>Pin</label>
-                            <input type='text' id='edit-pin' class='form-control' value='{$row['pincode']}'>
-                        </div>
-                    </div>
-                    
-                    <div class='col-12 mt-3'>
-                        <div class='form-group'>
-                            <button type='button' id='update-client' class='btn btn-success'>Save</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            ";
+          
+            echo json_encode($row);
         } else {
-            echo "<p>No Record Found</p>";
+            echo json_encode(['error' => 'No record found']);
         }
-
     } else {
-        echo "<p>User ID missing</p>";
+        echo json_encode(['error' => 'ID missing']);
     }
-
 }
 
 
@@ -270,9 +281,21 @@ public function update() {
                         <td>
                             <button class='clientbtn btn btn-danger' data-id='{$row['id']}'>Delete</button>
                         </td>
-                        <td>
-                            <button class='update-btn btn btn-primary' data-eid='{$row['id']}'>Update</button>
-                        </td>
+                                 <td>
+        <ul class='nav nav-tabs' id='myTab' role='tablist'>
+            <li class='' role='presentation'>
+                <button class='btn btn-primary update-btn'
+                        id='addclient'
+                        data-bs-toggle='tab'
+                        data-bs-target='#home-tab-pane'
+                        type='button'
+                        role='tab'
+                        data-eid='{$row['id']}'>
+                  Update
+                </button>
+            </li>
+        </ul>
+    </td>
                     </tr>";
         }
     }

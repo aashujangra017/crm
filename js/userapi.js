@@ -62,78 +62,80 @@ $('#logout').on('click', function() {
 //     });
 
 
-$(document).on('click', '#submit', function(e) {
-    e.preventDefault();
+// $(document).on('click', '#submit', function(e) {
+//     e.preventDefault();
 
-    var name = $("#name").val().trim();
-    var email = $("#email").val().trim();
-    var phone = $("#phone").val().trim();
-    var status = $("#status").val();
+//     var name = $("#name").val().trim();
+//     var email = $("#email").val().trim();
+//     var phone = $("#phone").val().trim();
+//     var status = $("#status").val();
 
-    var valid = true;
+//     var valid = true;
 
 
-    $(".text-danger").text("");
+//     $(".text-danger").text("");
 
    
-    if (name == "") {
-        $("#nameerror").text("Name is required");
-        valid = false;
-    }
+//     if (name == "") {
+//         $("#nameerror").text("Name is required");
+//         valid = false;
+//     }
 
 
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email == "") {
-        $("#emailerror").text("email is required");
-        valid = false;
-    } else if (!emailPattern.test(email)) {
-        $("#emailerror").text("Please enter a valid email like abc@gmail.com");
-        valid = false;
-    }
+//     var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     if (email == "") {
+//         $("#emailerror").text("email is required");
+//         valid = false;
+//     } else if (!emailPattern.test(email)) {
+//         $("#emailerror").text("Please enter a valid email like abc@gmail.com");
+//         valid = false;
+//     }
 
-    var phonePattern = /^[0-9]{10}$/;
-    if (phone == "") {
-        $("#phoneerror").text("Phone number is required");
-        valid = false;
-    } else if (!phonePattern.test(phone)) {
-        $("#phoneerror").text("Phone number have  10 digits");
-        valid = false;
-    }
+//     var phonePattern = /^[0-9]{10}$/;
+//     if (phone == "") {
+//         $("#phoneerror").text("Phone number is required");
+//         valid = false;
+//     } else if (!phonePattern.test(phone)) {
+//         $("#phoneerror").text("Phone number have  10 digits");
+//         valid = false;
+//     }
 
 
-    if (status == "" || status == null) {
-        $("#statuserror").text("Please select status");
-        valid = false;
-    }
-
-  
-    if (!valid) {
-        return;
-    }
+//     if (status == "" || status == null) {
+//         $("#statuserror").text("Please select status");
+//         valid = false;
+//     }
 
   
-    $.ajax({
-        url: "/cool/insert/",
-        type: "POST",
-        data: {
-            name: name,
-            email: email,
-            phone: phone,
-            status: status
-        },
-        success: function(response) {
-            if (response.trim() == "success") {
-                window.location.href = "/cool/userhome";
-                $("#clientForm")[0].reset();
-            } else {
-                alert("Insert failed");
-            }
-        },
-        error: function() {
-            alert("Server error");
-        }
-    });
-});
+//     if (!valid) {
+//         return;
+//     }
+
+     
+
+
+//     $.ajax({
+//         url: "/cool/insert/",
+//         type: "POST",
+//         data: {
+//             name: name,
+//             email: email,
+//             phone: phone,
+//             status: status
+//         },
+//         success: function(response) {
+//             if (response.trim() == "success") {
+//                 window.location.href = "/cool/userhome";
+//                 $("#clientForm")[0].reset();
+//             } else {
+//                 alert("Insert failed");
+//             }
+//         },
+//         error: function() {
+//             alert("Server error");
+//         }
+//     });
+// });
 
 
     
@@ -183,29 +185,32 @@ $(document).on("click", ".deletebutton", function() {
 
 
 //select and update start form here 
-
- $(document).on("click", ".edit-btn", function() {
-    $("#model").show();
+$(document).on("click", ".update-btn", function() {
 
     var id = $(this).data("eid");
+
+    // open Add User tab
+    $("#addclient").tab("show");
 
     $.ajax({
         url: "/cool/selectid",
         type: "POST",
-        data: { 
-            id: id
-        },
-        success: function(response){
-            $("#edit-form").html(response);
-        } 
+        data: { id: id },
+        dataType: "json",
+        success: function(user) {
+
+            $("#userid").val(user.id);
+            $("#name").val(user.name);
+            $("#email").val(user.email);
+            $("#phone").val(user.phone);
+            $("#status").val(user.status);
+
+        }
     });
+
 });
 
-
-
-$("#close-btn").on("click",function(){
-        $("#model").hide();
-    })
+// 
 
 //     $(document).on("click","#update-user",function(){
 
@@ -278,63 +283,84 @@ $("#close-btn").on("click",function(){
 
 
 //     })
+$(document).on("click","#submit",function(e){
+e.preventDefault();
 
-$(document).on("click","#update-user",function(){
+var id = $("#userid").val();  // hidden id
+var name = $("#name").val().trim();
+var email = $("#email").val().trim();
+var phone = $("#phone").val().trim();
+var status = $("#status").val();
 
-$(".text-danger").text(""); // clear old errors
+var isValid = true;
 
-var name = $("#edit-name").val().trim();
-var email = $("#edit-email").val().trim();
-var phone = $("#edit-phone").val().trim();
-var status = $("#edit-status").val().trim();
-var id = $("#edit-id").val();
+$(".text-danger").text("");
 
-var valid = true;
-
-if(name == ""){
-    $("#name-error").text("Name is required");
-    valid = false;
+if(name === ""){
+$("#nameerror").text("Name is required");
+isValid = false;
 }
 
-if(email == ""){
-    $("#email-error").text("Email is required");
-    valid = false;
+var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+if(email === ""){
+$("#emailerror").text("Email is required");
+isValid = false;
+}else if(!emailPattern.test(email)){
+$("#emailerror").text("Invalid email format");
+isValid = false;
 }
 
-if(phone == ""){
-    $("#phone-error").text("Phone is required");
-    valid = false;
+var phonePattern = /^[0-9]{10}$/;
+
+if(phone === ""){
+$("#phoneerror").text("Phone is required");
+isValid = false;
+}else if(!phonePattern.test(phone)){
+$("#phoneerror").text("Phone must be 10 digits");
+isValid = false;
 }
 
-if(status == ""){
-    $("#status-error").text("Status is required");
-    valid = false;
+if(status === ""){
+$("#statuserror").text("Status is required");
+isValid = false;
 }
 
-if(!valid){
+if(!isValid){
 return;
 }
 
+var url = "";
+
+if(id == "" || id == null){
+url = "/cool/insert";
+}else{
+url = "/cool/update";
+}
+
 $.ajax({
-    url:"/cool/update",
-    type:"POST",
+
+
+
+
+    url:url,
+   type:"POST",
     data:{
-        id:id,
-        name:name,
-        email:email,
-        phone:phone,
-        status:status
-    },
-    success:function(response){
-
-        if(response.trim() === "success"){
-            $("#model").hide();
-            loadUsers();
-        }else{
-            console.log(response);
-        }
-
-    }
+      id:id,
+      name:name,
+       email:email,
+       phone:phone,
+        status:status  
+},
+   success: function(response) {
+            if (response.trim() == "success") {
+                  $("#showclient").tab('show');
+                $("#clientForm")[0].reset();
+                  loadUsers();
+            } else {
+                alert("Insert failed");
+            }
+        },
 });
 
 });

@@ -1,11 +1,3 @@
-<!-- <?php
-require "navbar.php";
-
-
-?> -->
-
-
-
 <head>
         <link rel="stylesheet" href="/cool/public/bootstrap/css/client.css">
     <link rel="stylesheet" href="/cool/public/bootstrap/css/bootstrap.css">
@@ -45,7 +37,7 @@ require "navbar.php";
         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
-         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
+         <button  onclick="location.href='/cool/invoice'"  class="nav-link text-dark" id="itemMaster">
             <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice</span>
         </button>
       
@@ -110,6 +102,9 @@ role="tabpanel">
 <div class="form-wrapper" id="setup">
 
 <form  id="clientForm">
+
+ <input type="hidden" id="userid" name="id" value="">  
+   
 <div class="form-group">
         <label for="name" class="fw-bold mt-4">Name</label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name here" required>

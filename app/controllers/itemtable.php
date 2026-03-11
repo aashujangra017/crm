@@ -10,7 +10,7 @@ if ($items && $items->num_rows > 0) {
                 <td>{$row['description']}</td>
               
                 <td><img src='uploads/{$row['image']}' alt='Item Image' width='100'></td>
-                <td>
+               <td>
                     <button class='deletebutton btn btn-danger' data-id='{$row['id']}'>
                         Delete
                     </button>
@@ -19,7 +19,7 @@ if ($items && $items->num_rows > 0) {
                     <button class='update-btn btn btn-primary' data-eid='{$row['id']}'>
                         Update
                     </button>
-                </td>
+                </td> 
             </tr>";
     }
 } else {

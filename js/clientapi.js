@@ -2,7 +2,7 @@
 
 $("#clientMaster").click(function(){
 
-$("#rightPanel").load("/cool/public/views/clientright.php");
+
 
 });
 
@@ -80,32 +80,39 @@ $(document).on("click","#serach",function(){
 
 //update start from here 
 
-$(document).on("click",".update-btn", function(){
-    $("#model").show();
-});
 
 
 
-$(document).on("click","#close-btn",function(){
-    $("#model").hide();
-});
+
+
 
 
  $(document).on("click", ".update-btn", function() {
-    $("#model").show();
+    
 
     var id = $(this).data("eid");
 
+    $("#addclient").tab("show");
+
     $.ajax({
-        url: "/cool/clientid",
-        type: "POST",
-        data: { 
-            id: id
-        },
-        success: function(response){
-            $("#update-form").html(response);
-        } 
-    });
+    url: '/cool/clientid',
+    type: 'POST',
+    data: {
+         id: id
+         },
+    dataType: 'json',
+    success: function(data) {
+     
+            $("#name").val(data.name);
+            $("#email").val(data.email);
+            $("#phone").val(data.phone);
+            $("#address").val(data.address);
+            $("#state").val(data.state);     
+            $("#city").val(data.city);      
+            $("#pincode").val(data.pincode);  
+        
+    }
+});
 });
 
 
@@ -195,11 +202,6 @@ $(document).on("click", ".clientbtn", function() {
 
 
 
-    //reset form 
-// $("#reset").click(function(){
-//     $("#clientForm")[0].reset();
-// });
-
 
 
 //   loadclients();
@@ -225,13 +227,17 @@ $(document).on("click", ".clientbtn", function() {
 
 
 
-//load state in the form
+    
 
-function loadStates(){
+
+
+// load states 
+
+function loadStates() {
     $.ajax({
-        url:"/cool/states",
-        type:"POST",
-        success:function(data){
+        url: "/cool/states",
+        type: "POST",
+        success: function(data) {
             $("#states").append(data);
         }
     });
@@ -239,30 +245,43 @@ function loadStates(){
 
 loadStates();
 
-
-
-
+$(document).on("change", "#states", function() {
+    var state_id = $(this).val();
     
 
+    $("#city").html('<option value="">Select city</option>');
 
-// insert start form here 
-$(document).on("click","#submit",function(){
+    if (state_id == "" || state_id == null) return;
 
-    var name    = $("#name").val();
-    var phone   = $("#phone").val();
+    $.ajax({
+        url: "/cool/cities",
+        type: "POST",
+        data: { 
+            state_id: state_id
+         },
+        success: function(data) {
+            
+            
+            $("#city").append(data);
+        }
+        
+    });
+});
+
+// Insert client form
+$(document).on("click", "#submit", function() {
+
+    var name = $("#name").val();
+    var phone = $("#phone").val();
     var address = $("#address").val();
-    var state   = $("#states").val();  
-    var city    = $("#city").val();
-    var pin     = $("#pin").val();
-
-   
+    var state = $("#states").val();
+    var city = $("#city").val();
+    var pin = $("#pin").val();
 
     var valid = true;
 
-
     $(".text-danger").text("");
 
-   
     if (name == "") {
         $("#nameerror").text("Name is required");
         valid = false;
@@ -270,71 +289,59 @@ $(document).on("click","#submit",function(){
 
     var phonePattern = /^[0-9]{10}$/;
     if (phone == "") {
-        $("#phoneerror").text("Phone  is required");
-    
+        $("#phoneerror").text("Phone is required");
         valid = false;
     } else if (!phonePattern.test(phone)) {
-        $("#phoneerror").text("Phone number have  10 digits");
+        $("#phoneerror").text("Phone number must have 10 digits");
         valid = false;
     }
 
-    if(address == ""){
+    if (address == "") {
         $("#addresserror").text("Address is required");
         valid = false;
     }
 
-    if(state == ""){
-        $("#stateerror").text("state is required");
-        valid=false;
+    if (state == "") {
+        $("#stateerror").text("State is required");
+        valid = false;
     }
 
-    if(city == ""){
-        $("#cityerror").text("city is required");
-        valid=false;
+    if (city == "") {
+        $("#cityerror").text("City is required");
+        valid = false;
     }
-
-
 
     var pinvalid = /^[1-9][0-9]{5}$/;
+    if (pin == "") {
+        $("#pinerror").text("PIN is required");
+        valid = false;
+    } else if (!pinvalid.test(pin)) {
+        $("#pinerror").text("PIN must be 6 digits");
+        valid = false;
+    }
 
-if(pin == ""){
-    $("#pinerror").text("PIN is required");
-    valid = false;
-}
-else if(!pinvalid.test(pin)){
-    $("#pinerror").text("PIN must be 6 digits");
-    valid = false;
-}
-
-    
     if (!valid) {
         return;
     }
 
-
-
     $.ajax({
         url: "/cool/insert-client",
         type: "POST",
-        data:{
-            name:name,
-            phone:phone,
-            address:address,
-            state:state,  
-            city:city,
-            pin:pin
+        data: {
+            name: name,
+            phone: phone,
+            address: address,
+            state: state,
+            city: city,
+            pin: pin
         },
-       success: function(response) {
-    if (response == "success") {
-      window.location.href= "/cool/client";
-        
-    } else {
-      
-    }
-}
+        success: function(response) {
+            if (response.trim() == "success") {
+                window.location.href = "/cool/client";
+            }
+        }
     });
 });
-
 
 
 //pagination and limit start from here 

@@ -43,6 +43,11 @@ public function dashboard(){
 }
 
 
+public function invoice(){
+    require __DIR__ . "/../../public/views/invoicehome.php";
+}
+
+
 
 public function insert(){
  
@@ -110,32 +115,7 @@ require_once 'usertable.php';
 
 
 
-    //update start form here
-
-    public function update(){
-          if (isset($_POST['id'], $_POST['name'], $_POST['email'], $_POST['phone'], $_POST['status'])) {
-
-           $id = (int)$_POST['id'];
-           $name = $_POST['name'];
-           $email = $_POST['email'];
-           $phone = $_POST['phone'];
-           $status = $_POST['status'];
-
-           $object = new user();
-           $result = $object->updateuser($id,$name,$email,$phone,$status);
-           
-           if($result){
-            echo "success";
-           }else{
-            echo "error";
-           }
-
-
-    }else{
-        echo "Post data is missing";
-    }
-
-    }
+   
 
 
 
@@ -182,75 +162,51 @@ require_once 'usertable.php';
 
 
  //update select start from here 
-
-
-public function selectuserform() {
-
+public function selectid() {
     if (isset($_POST['id'])) {
-
-        $id = (int)$_POST['id'];  
-
+        $id = (int)$_POST['id'];
         $object = new user();
-        $userResult = $object->selectuser($id); 
+        $userResult = $object->selectuser($id);
 
         if ($userResult && $userResult->num_rows > 0) {
             $row = $userResult->fetch_assoc();
-
-            echo "
-            <form id='edit-user-form'>
-                <input type='hidden' id='edit-id' value='{$row['id']}'>
-
-                <div class='container'>
-                
-                    <div class='row'>
-                        <div class='col-md-6 mb-3'>
-                            <label for='edit-name' class='form-label'>Name</label>
-                            <input type='text' id='edit-name' class='form-control' value='{$row['name']}'>
-                            <small class='text-danger' id='name-error'></small>
-                        </div>
-
-                        <div class='col-md-6 mb-3'>
-                            <label for='edit-email' class='form-label'>Email</label>
-                            <input type='text' id='edit-email' class='form-control' value='{$row['email']}'>
-                             <small class='text-danger' id='email-error'></small>
-                        </div>
-                    </div>
-
-                    <div class='row'>
-                        <div class='col-md-6 mb-3'>
-                            <label for='edit-phone' class='form-label'>Phone</label>
-                            <input type='text' id='edit-phone' class='form-control' value='{$row['phone']}'>
-                             <small class='text-danger' id='phone-error'></small>
-                            
-                        </div>
-
-                        <div class='col-md-6 mb-3'>
-                            <label for='edit-status' class='form-label'>Status</label>
-                            <input type='text' id='edit-status' class='form-control' value='{$row['status']}'>
-                            <small class='text-danger' id='status-error'></small>
-                        </div>
-                    </div>
-
-                    <div class='row'>
-                        <div class='col-3 mt-2'>
-                            <button type='button' id='update-user' class='btn btn-danger w-100'>Save</button>
-                        </div>
-                        
-                    </div>
-
-                </div>
-            </form>
-            ";
+            // Return JSON instead of HTML
+            echo json_encode($row);
         } else {
-            echo "<p>No Record Found</p>";
+            echo json_encode(['error' => 'No record found']);
         }
-
     } else {
-        echo "<p>User ID missing</p>";
+        echo json_encode(['error' => 'ID missing']);
     }
-
 }
 
+
+ //update start form here
+
+    public function update(){
+          if (isset($_POST['id'], $_POST['name'], $_POST['email'], $_POST['phone'], $_POST['status'])) {
+
+           $id = (int)$_POST['id'];
+           $name = $_POST['name'];
+           $email = $_POST['email'];
+           $phone = $_POST['phone'];
+           $status = $_POST['status'];
+
+           $object = new user();
+           $result = $object->updateuser($id,$name,$email,$phone,$status);
+           
+           if($result){
+            echo "success";
+           }else{
+            echo "error";
+           }
+
+
+    }else{
+        echo "Post data is missing";
+    }
+
+    }
 
     
 
@@ -276,7 +232,7 @@ public function status(){
 
 
 
-
+// serach 
 
     public function search (){
         if(isset($_POST['search'])){
@@ -326,29 +282,32 @@ while($row = $users->fetch_assoc()){
  $statusText = ($row['status'] == 1) ? 'Active' : 'Inactive';
 
 $table .= "<tr>
-
-<td>{$row['id']}</td>
-
-<td>{$row['name']}</td>
-
-<td>{$row['email']}</td>
-
-<td>{$row['phone']}</td>
-
-<td>{$statusText}</td>
-
- <td>
+                <td>{$row['id']}</td>
+                <td>{$row['name']}</td>
+                <td>{$row['email']}</td>
+                <td>{$row['phone']}</td>
+                <td>{$statusText}</td>
+                <td>
                     <button class='deletebutton btn btn-danger' data-id='{$row['id']}'>
                         Delete
                     </button>
                 </td>
                 <td>
-                    <button class='edit-btn btn btn-primary' data-eid='{$row['id']}'>
-                        Update
-                    </button>
-                </td>
-
-</tr>";
+        <ul class='nav nav-tabs' id='myTab' role='tablist'>
+            <li class='' role='presentation'>
+                <button class='btn btn-primary update-btn'
+                        id='addclient'
+                        data-bs-toggle='tab'
+                        data-bs-target='#home-tab-pane'
+                        type='button'
+                        role='tab'
+                        data-eid='{$row['id']}'>
+                  Update
+                </button>
+            </li>
+        </ul>
+    </td>
+            </tr>";
 
 }
 

@@ -155,7 +155,7 @@ $router ->addRoute('/cool/pagination', function(){
 // select the user by id for update the user 
 $router->addRoute('/cool/selectid',function(){
     $controller = new userController();
-    $controller->selectuserform();
+    $controller->selectid();
 
 });
 
@@ -195,6 +195,14 @@ $router->addRoute('/cool/dashboard',function(){
     $controller = new userController();
     $controller->dashboard();
 });
+
+
+
+$router->addRoute('/cool/invoice',function(){
+    $controller = new userController();
+    $controller->invoice();
+});
+
 
 
 
@@ -244,6 +252,12 @@ $router->addRoute('/cool/insert-client',function(){
 $router->addRoute('/cool/states',function(){
     $controller = new clientController();
     $controller->states();
+});
+
+
+$router->addRoute('/cool/cities',function(){
+    $controller = new clientController();
+    $controller->cities();
 });
 
 

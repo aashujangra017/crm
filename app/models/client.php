@@ -31,33 +31,70 @@ class client {
 
     // }
 
-    public function createclient($name,$phone,$address,$state,$city,$pincode){
+//     public function createclient($name,$phone,$address,$state,$city,$pincode){
 
-$sql = "INSERT INTO clientinsert (name,phone,address,state_id,city,pincode)
-        VALUES (?,?,?,?,?,?)";
+// $sql = "INSERT INTO clientinsert (name,phone,address,state_id,city,pincode)
+//         VALUES (?,?,?,?,?,?)";
 
-$stmt = $this->conn->prepare($sql);
+// $stmt = $this->conn->prepare($sql);
 
-$stmt->bind_param("sssiss",$name,$phone,$address,$state,$city,$pincode);
+// $stmt->bind_param("sssiss",$name,$phone,$address,$state,$city,$pincode);
 
-return $stmt->execute();
+// return $stmt->execute();
 
+// }
+
+
+
+//     public function getallstates(){
+
+//         $sql = "select id, sname from states";
+
+//         $cool = $this->conn->prepare($sql);
+
+//         $cool->execute();
+
+//         $result = $cool->get_result();
+
+//         return $result;
+//     }
+
+
+
+// insert start form here 
+
+
+
+public function createclient($name, $phone, $address, $state, $city, $pincode) {
+    $sql = "INSERT INTO clientinsert (name, phone, address, state_id, city, pincode)
+            VALUES (?, ?, ?, ?, ?, ?)";
+    $cool = $this->conn->prepare($sql);
+    $cool->bind_param("sssiss", $name, $phone, $address, $state, $city, $pincode);
+    return $cool->execute();
+}
+
+public function getallstates() {
+    
+
+
+    $sql = "select id, sname from states";
+    $cool = $this->conn->prepare($sql);
+    $cool->execute();
+    $result = $cool->get_result();
+    return $result;
 }
 
 
+public function getcitiesbystate($state_id) {
+    $sql = "SELECT id, cname FROM cities WHERE state_id = ?";
+    $cool = $this->conn->prepare($sql);
+    $cool->bind_param("i", $state_id);
+    $cool->execute();
+    $result = $cool->get_result();
+    return $result;
+}
 
-    public function getallstates(){
 
-        $sql = "select id, sname from states";
-
-        $cool = $this->conn->prepare($sql);
-
-        $cool->execute();
-
-        $result = $cool->get_result();
-
-        return $result;
-    }
 
 
 
@@ -108,10 +145,9 @@ public function deleteclient($id) {
 
 public function selectclient($id){
     $sql = "SELECT c.id, c.name, c.phone, c.address, s.sname AS state, c.city, c.pincode
-            FROM clientinsert AS c
-            JOIN states AS s
-            ON c.state_id = s.id
-            WHERE c.id = ?";
+        FROM clientinsert AS c
+        LEFT JOIN states AS s ON c.state_id = s.id
+        WHERE c.id = ?";
 
     $cool = $this->conn->prepare($sql);
     $cool->bind_param("i", $id);
@@ -137,6 +173,14 @@ public function selectclient($id){
         $cool->execute();
        
     }
+
+
+
+
+
+
+
+
 
 
     //search for client 
@@ -191,6 +235,8 @@ public function getclientbypage($limit, $offset) {
 
     return $cool->get_result();
 }
+
+
 
 public function clientcount(){
     $sql = "select count(*) as total from clientinsert";
