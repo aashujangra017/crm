@@ -1,11 +1,5 @@
  $(document).ready(function(){
 
-// $("#itemMaster").click(function(){
-
-// $("#rightPanel").load("/cool/public/views/itemright.php");
-
-// });
-
 
 //reset form 
 $("#reset").click(function(){
@@ -21,7 +15,7 @@ $("#reset-user").click(function(){
 //toggle side bar
 $("#toggleSidebar").click(function(){
         $(".left").toggleClass("collapsed"); 
-        // $(".right").toggleClass("expanded");   
+        
     });
 
   });
@@ -35,21 +29,15 @@ $("#toggleSidebar").click(function(){
 
 //update select and update api start from her 
 
-$(document).on("click",".update-btn", function(){
-    $("#model").show();
-});
 
-
-
-$(document).on("click","#close-btn",function(){
-    $("#model").hide();
-});
 
 
  $(document).on("click", ".update-btn", function() {
-    $("#model").show();
+   
 
     var id = $(this).data("eid");
+
+     $("#addclient").tab("show");
 
     $.ajax({
         url: "/cool/itemid",
@@ -57,49 +45,100 @@ $(document).on("click","#close-btn",function(){
         data: { 
             id: id
         },
-        success: function(response){
-            $("#update-form").html(response);
-        } 
+        dataType: "json",
+       success: function(response){
+    $("#userid").val(response.id);
+    $("#itemname").val(response.itemname);
+    $("#price").val(response.price);
+    $("#description").val(response.description);
+     if (response.image) {
+        $("#current-image-preview").attr("src", "uploads/" + response.image);
+        $("#current-image-container").show();
+        $("#existing-image").val(response.image);
+    }
+}
     });
 });
 
-$(document).on('click', '#update-item', function() { 
-        var formData = new FormData();
-        var id = $('#edit-id').val();
-        var itemname = $('#edit-itemname').val();
-        var price = $('#edit-price').val();
-        var description = $('#edit-description').val();
-        var fileInput = $('#edit-image')[0].files[0];
+$(document).on("click", "#submit", function(e) {
+    e.preventDefault();
 
-        formData.append('id', id);
-        formData.append('itemname', itemname);
-        formData.append('price', price);
-        formData.append('description', description);
+    var id = $("#userid").val();
+    var itemname = $("#itemname").val().trim();
+    var price = $("#price").val().trim();
+    var description = $("#description").val().trim();
 
-        if (fileInput) {
-            formData.append('image', fileInput);
-        }
+    var isValid = true;
 
-        $.ajax({
-            url: '/cool/item-update', 
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-          success: function(response) {
-        if (response.trim() === 'success') {
-           
-            $("#model").hide(); 
-            loaditems();
-        } else {
-            $("#model").hide(); 
-            loaditems();
-        }
+    $(".text-danger").text(""); // Clear previous error messages
+
+    // Validation
+    if (itemname === "") {
+        $("#itemnameerror").text("Item name is required");
+        isValid = false;
     }
-        });
+
+    if (price === "") {
+        $("#priceerror").text("Price is required");
+        isValid = false;
+    } else if (isNaN(price) || price <= 0) {
+        $("#priceerror").text("Price must be a valid number");
+        isValid = false;
+    }
+
+    if (description === "") {
+        $("#descriptionerror").text("Description is required");
+        isValid = false;
+    }
+
+    // Image required only on insert
+    var fileInput = $("#image")[0].files[0];
+    if ((id === "" || id == null) && !fileInput) {
+        $("#imageerror").text("Image is required");
+        isValid = false;
+    }
+
+    if (!isValid) {
+        return;
+    }
+
+    var url = id === "" || id == null ? "/cool/item-insert" : "/cool/item-update";
+
+    var formData = new FormData();
+    formData.append('id', id);
+    formData.append('itemname', itemname);
+    formData.append('price', price);
+    formData.append('description', description);
+    formData.append('existing_image', $("#existing-image").val());
+
+    if (fileInput) {
+        formData.append('image', fileInput);
+    }
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            if (response.trim() === "success") {
+                $("#showclient").tab('show');
+                $("#clientForm")[0].reset(); 
+                $("#current-image-container").hide();
+                $("#existing-image").val(""); 
+                $("#userid").val(""); 
+                loaditems(); 
+            } 
+        }
     });
+});
 
-
+$("#reset").on("click", function() {
+    $("#userid").val(""); 
+    $("#current-image-container").hide();
+    $("#existing-image").val(""); 
+});
 
 
 
@@ -146,16 +185,12 @@ $(document).on("click","#serach",function(){
 
 //delete api start form here 
 
-
-
 $(document).on("click", ".deletebutton", function() {
     var itemid = $(this).data("id");
     var element = this;
 
-
     var isConfirmed = confirm("Are you sure you want to delete this item?");
 
-   
     if (isConfirmed) {
         $.ajax({
             url: "/cool/item-delete",
@@ -166,14 +201,10 @@ $(document).on("click", ".deletebutton", function() {
             success: function(response) {
                 if (response.trim() === "success") {
                     $(element).closest("tr").fadeOut();
-                } else {
-                    console.log(response);
-                }
+                } 
             }
         });
-    } else{
-        console.log("error in deleting")
-    }
+    } 
 });
 
 
@@ -238,10 +269,7 @@ $(document).on("click", "#submit", function(e) {
         valid = false;
     }
 
-//    if (!image) {
-//     $("#imageerror").text("Image is required");
-//     valid = false;
-// }
+
 
     if(!valid) return;
 
@@ -263,7 +291,8 @@ $(document).on("click", "#submit", function(e) {
             if (response.trim() == "success") {
                 
                 $("#clientForm")[0].reset();
-                 window.location.href = "/cool/home";  
+                  $("#showclient").tab('show');
+                
             } else {
               
             }

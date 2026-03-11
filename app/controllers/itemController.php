@@ -55,25 +55,20 @@ public function fetchitem(){
 
 // delete start from here 
 
-
 public function delete() {
-
-
     if (isset($_POST['id'])) {
-
-
         $id = $_POST['id'];
 
         $object = new item();
-        $object->deleteitem($id); 
-
-
-        echo "success";
+        if ($object->deleteitem($id)) {
+            echo "success";
+        } else {
+            echo "error";
+        }
     } else {
         echo "item id missing";
     }
 }
-
 
 //select for udpate controller start from here 
 public function itemselect() {
@@ -82,67 +77,15 @@ public function itemselect() {
 
         $object = new item(); 
         $itemresult = $object->selectitem($id);
-
-        if ($itemresult && $itemresult->num_rows > 0) {
+    if ($itemresult && $itemresult->num_rows > 0) {
             $row = $itemresult->fetch_assoc();
-
-            echo "
-            <form id='edit-item-form' enctype='multipart/form-data'>
-                <input type='hidden' id='edit-id' value='{$row['id']}'>
-
-                <div class='container-fluid'>
-
-                    <div class='row'>
-                        <div class='col-md-6'>
-                         <div class='form-group'>
-                     <label for='edit-itemname' class='fw-bold text-black'>Item Name</label>
-                          <input type='text' id='edit-itemname' class='form-control' value='{$row['itemname']}'>
-                            </div>
-                        </div>
-
-                  <div class='col-md-6'>
-            <div class='form-group'>
-                        <label for='edit-price' class='fw-bold text-black'>Price</label>
-                         <input type='text' id='edit-price' class='form-control' value='{$row['price']}'>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='row mt-2'>
-                     <div class='col-md-12'>
-                     <div class='form-group'>
-                                <label for='edit-description' class='fw-bold text-black'>Description</label>
-                                <textarea id='edit-description' class='form-control'>{$row['description']}</textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='row mt-2'>
-                     <div class='col-md-12'>
-                     <div class='form-group'>
-                        <label for='edit-image' class='fw-bold text-black'>Image</label>
-                          <input type='file' id='edit-image' class='form-control'>
-                              <img src='uploads/{$row['image']}' alt='Item Image' width='100' class='mt-2'>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='row mt-3 px-2'>
-                        <div class='col-md-12'>
-                         <button type='button' id='update-item' class='btn btn-success'>Save</button>
-                         <button type='reset' class='btn btn-secondary'>Reset</button>
-                        </div>
-                    </div>
-
-                </div>
-
-            </form>
-            ";
+          
+            echo json_encode($row);
         } else {
-            echo "<p>No Record Found</p>";
+            echo json_encode(['error' => 'No record found']);
         }
     } else {
-        echo "<p>Item ID missing</p>";
+        echo json_encode(['error' => 'ID missing']);
     }
 }
 
@@ -266,8 +209,20 @@ if($users->num_rows > 0){
                 <button class='deletebutton btn btn-danger' data-id='{$row['id']}'>Delete</button>
             </td>
             <td>
-                <button class='update-btn btn btn-primary' data-eid='{$row['id']}'>Update</button>
-            </td>
+        <ul class='nav nav-tabs' id='myTab' role='tablist'>
+            <li class='' role='presentation'>
+                <button class='btn btn-primary update-btn'
+                        id='addclient'
+                        data-bs-toggle='tab'
+                        data-bs-target='#home-tab-pane'
+                        type='button'
+                        role='tab'
+                        data-eid='{$row['id']}'>
+                  Update
+                </button>
+            </li>
+        </ul>
+    </td>
         </tr>";
     }
 

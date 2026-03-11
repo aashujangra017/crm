@@ -87,16 +87,17 @@ class item {
     //delete model start form here
 
 
-    public function deleteitem($id){
-        $sql = "select * from items where id = ?";
-         $cool = $this->conn->prepare($sql);
-
-         $cool->bind_param("i",$id);
-
-         $cool->execute();
-         
-
+  public function deleteitem($id) {
+    $sql = "DELETE FROM items WHERE id = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
     }
+}
 
 
     //update for select the user for ther id update start from here 

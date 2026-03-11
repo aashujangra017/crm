@@ -18,11 +18,21 @@ if ($users && $users->num_rows > 0) {
                         Delete
                     </button>
                 </td>
-                <td>
-                    <button class='update-btn btn btn-primary' data-eid='{$row['id']}'>
-                        Update
-                    </button>
-                </td>
+                 <td>
+        <ul class='nav nav-tabs' id='myTab' role='tablist'>
+            <li class='' role='presentation'>
+                <button class='btn btn-primary update-btn'
+                        id='addclient'
+                        data-bs-toggle='tab'
+                        data-bs-target='#home-tab-pane'
+                        type='button'
+                        role='tab'
+                        data-eid='{$row['id']}'>
+                  Update
+                </button>
+            </li>
+        </ul>
+    </td>
             </tr>";
     }
 } else {

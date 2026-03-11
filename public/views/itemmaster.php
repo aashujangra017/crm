@@ -50,9 +50,7 @@ require "navbar.php";
             <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice</span>
         </button>
         
-        <!-- <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
-           <i class="fa fa-sign-out" aria-hidden="true"></i> <span class="link-text">logout Session</span>
-        </button> -->
+   
     </div>
 </div>
 
@@ -107,33 +105,44 @@ role="tabpanel">
 
 <div class="form-wrapper" id="setup">
 
-<form  id="clientForm" >
-<div class="form-group">
-  <label for="itemname"  class="fw-bold mt-2">Itemname</label>
-  <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Enter your itemname here" required>
-  <small id="itemnameerror" class="text-danger"></small>
-</div>
+<form id="clientForm">
+    <input type="hidden" id="userid" name="id" value="">
 
-<div class="form-group">
-  <label for="price"  class="fw-bold mt-2">Price:</label>
-  <input type="number" class="form-control" id="price" name="price" placeholder="Enter the price" required>
-  <small id="priceerror" class="text-danger"></small>
-</div>
+    <div class="form-group">
+        <label for="itemname" class="fw-bold mt-2">Itemname</label>
+        <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Enter your itemname here">
+        <small id="itemnameerror" class="text-danger"></small>
+    </div>
 
-<div class="form-group">
-  <label for="description" class="fw-bold mt-2">Description:</label>
-  <textarea class="form-control" id="description" name="description" placeholder="Enter item description" rows="5" required></textarea>
-  <!-- <small id="descriptionerror" class="text-danger"></span> -->
-</div>
+    <div class="form-group">
+        <label for="price" class="fw-bold mt-2">Price:</label>
+        <input type="number" class="form-control" id="price" name="price" placeholder="Enter the price">
+        <small id="priceerror" class="text-danger"></small>
+    </div>
 
-<div class="form-group">
-  <label for="image" class="fw-bold mt-2 text-black">Image:</label>
-  <input type="file" class="form-control" id="image" name="image"  required>
-  <!-- <small id="imageerror" class="text-danger"></small> -->
-</div>
+    <div class="form-group">
+        <label for="description" class="fw-bold mt-2">Description:</label>
+        <textarea class="form-control" id="description" name="description" placeholder="Enter item description" rows="5"></textarea>
+       
+        <small id="descriptionerror" class="text-danger"></small>
+    </div>
 
-<button type="submit" name="submit" id="submit" class="btn btn-primary mt-3 mx-3">Submit</button>
-<button type="reset" name="reset" id="reset" class="btn btn-danger mt-3">Reset</button>
+    <div class="form-group">
+        <label for="image" class="fw-bold mt-2 text-black">Image:</label>
+      
+        <input type="file" class="form-control" id="image" name="image">
+        <small id="imageerror" class="text-danger"></small>
+
+        <input type="hidden" id="existing-image" name="existing_image" value="">
+        <div id="current-image-container" style="display:none;" class="mt-2">
+            <p class="fw-bold mb-1">Current Image:</p>
+            <img id="current-image-preview" src="" style="max-width:130px; max-height:130px; border-radius:5px; border:1px solid #ddd; padding:3px;">
+        </div>
+    </div>
+
+    <button type="button" name="submit" id="submit" class="btn btn-primary mt-3 mx-3">Submit</button>
+    <!-- type="button" on reset to prevent default form reset before our handler -->
+    <button type="button" name="reset" id="reset" class="btn btn-danger mt-3">Reset</button>
 </form>
 
 </div>
@@ -215,16 +224,7 @@ Price
 </table>
 </div>
 
-<div id="model">
-    <div id="model-form">
-        <h2 class="text-black">Edit Item Master Form</h2>
-        <div class="text-black" id="close-btn">X</div>
 
-        <div id="update-form"></div>
-    </div>
-</div>
-
-</div>
 
 </div>
 
