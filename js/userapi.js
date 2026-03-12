@@ -354,9 +354,11 @@ $.ajax({
 },
    success: function(response) {
             if (response.trim() == "success") {
+
+                loadUsers();
                   $("#showclient").tab('show');
                 $("#clientForm")[0].reset();
-                  loadUsers();
+                  
             } else {
                 alert("Insert failed");
             }

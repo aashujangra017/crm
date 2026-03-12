@@ -39,7 +39,7 @@
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
          <button  onclick="location.href='/cool/invoice'"  class="nav-link text-dark" id="itemMaster">
-            <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice</span>
+            <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice Master</span>
         </button>
          <!-- <button class="nav-link text-dark" id="logout" onclick="location.href='/cool/login'" value="logout">
            <i class="fa fa-sign-out" aria-hidden="true"></i> <span class="link-text">logout Session</span>

@@ -434,6 +434,15 @@ $router->addRoute('/cool/itemsdetails',function(){
 
 
 
+$router->addRoute('/cool/invoice-create',function(){
+    $controller = new InvoiceController();
+      $controller->saveInvoice();
+});
+
+
+
+
+
 
 
 

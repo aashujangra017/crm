@@ -49,6 +49,38 @@ public function getitemfetchDetails() {
         echo json_encode(['message' => 'Item name is required']);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+ public function saveInvoice() {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (isset($data['clientname'], $data['invoiceemail'], $data['invoicephone'], $data['total'], $data['items'])) {
+
+        $object = new invoice();
+            $invoice_id = $object->insertInvoice(
+                $data['clientname'],
+                $data['invoiceemail'],
+                $data['invoicephone'],
+                $data['total'],
+                $data['items']
+            );
+
+          
+            echo json_encode(['status' => 'success', 'invoice_id' => $invoice_id]);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Missing required fields']);
+        }
+    }
     
 
 }

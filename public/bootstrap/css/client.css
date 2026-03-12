@@ -302,5 +302,23 @@ html, body {
 
 
 .invoice-total{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
 
+
+}
+
+
+.invoice-total p {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.invoice-total input{
+    width: 200px;
+    margin-left: 20px;
 }

@@ -76,7 +76,7 @@
                 data-bs-target="#home-tab-pane"
                 type="button"
                 role="tab">
-            Add User
+            Add invoice
         </button>
     </li>
 
@@ -87,7 +87,7 @@
                 data-bs-target="#profile-tab-pane"
                 type="button"
                 role="tab">
-            Add Invoice 
+            show Invoice 
         </button>
     </li>
 
@@ -101,44 +101,13 @@
 id="home-tab-pane"
 role="tabpanel">
 
-<div class="form-container " style="background-color: #cadcecb6" >
+<div class="form-container " style="background-color: #cadcecb6; height:800px;" >
 
-<h4>Add User</h4>
+<h4>Add Invoice</h4>
 
 <div class="form-wrapper" id="setup">
 
-<form  id="clientForm">
 
- <input type="hidden" id="userid" name="id" value="">  
-   
-<div class="form-group">
-        <label for="name" class="fw-bold mt-4">Name</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name here" required>
-        <small id="nameerror" class="text-danger"></small>
-    </div>
-    <div class="form-group">
-        <label for="email" class="fw-bold mt-4">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email here" required>
-        <small id="emailerror" class="text-danger"></small>
-    </div>
-    <div class="form-group">
-        <label for="phone" class="fw-bold mt-4">Phone Number:</label>
-        <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
-         <small id="phoneerror" class="text-danger"></small>
-    </div>
-    <div class="form-group">
-                 <label for="status" class="fw-bold mt-4">status</label>
-  <select id="status" name="status" class="form-select"  required>
-    <option value="" disabled selected  >Select state
-
-</option>
-</select>
- <small id="statuserror" class="text-danger"></small>
-    </div>
-    <button type="submit" name="submit" id="submit" class="btn btn-primary mx-2 my-4">Submit</button>
-    <button type="reset" name="reset" id="reset" class="btn btn-danger mx-2 my-4">Reset</button>
-
-</form>
 
 </div>
 </div>
@@ -156,78 +125,117 @@ role="tabpanel ">
 
 <div class="first-invoice text-black ">
 <div class="inner-first" style="font-size: 24px">
- Add Invoice
+ show invoice
 </div>
 
+
+
 <div>
-    <button class="btn btn-primary"> Add item </button>
+ <!-- <button type="button" id="addItem" class="btn btn-success mb-3">Add Item</button> -->
 </div>
 </div>
 
 
 <!-- second div start from here -->
 
-<div class="second-invoice bg-light">
+<div class="second-invoice bg-success-subtle"  style="background-color: #cadcecb6">
 <div class="invoice-form">
 <!-- Invoice Form -->
-<form>
-    <!-- First Row: Client Name, Item Name, Price -->
-    <div class="row">
-        <div class="col-md-4 ">
-            <div class="form-group mt-4">
-                <label for="clientname"  class="fw-bold text-black">Client Name</label>
-                <input type="text" id="clientname" class="form-control" placeholder="Enter client name" />
-            </div>
-        </div>
-        <div class="col-md-4 ">
-            <div class="form-group mt-4">
-                <label for="invoiceemail" class="fw-bold text-black">Email</label>
-                <input type="email" id="invoiceemail" class="form-control" placeholder="Enter item name" />
-            </div>
+ <form id="invoiceForm">
+      <!-- First Row: Client Name, Item Name, Price -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group mt-4">
+            <label for="clientname" class="fw-bold text-black">Client Name</label>
+            <input type="text" id="clientname" class="form-control" placeholder="Enter client name" />
+          </div>
         </div>
         <div class="col-md-4">
-           <div class="form-group mt-4">
-                <label for="invoicephone" class="fw-bold text-black">Phone</label>
-                <input type="number" id="invoicephone" class="form-control" placeholder="Enter phone" />
-            </div>
-        </div>
-    </div>
-
-    <!-- Row for Plus and Minus Buttons -->
-    <div class="row">
-
-      <div class="col-md-4">
-            <div class="form-group mt-4">
-                <label for="itemname" class="fw-bold text-black">Itemname</label>
-                <input type="text" id="itemname" class="form-control" placeholder="Enter item itemname" />
-            </div>
+          <div class="form-group mt-4">
+            <label for="invoiceemail" class="fw-bold text-black">Email</label>
+            <input type="email" id="invoiceemail" class="form-control" placeholder="Enter email" />
+          </div>
         </div>
         <div class="col-md-4">
-           <div class="form-group mt-4">
-                <label for="invoiceprice" class="fw-bold text-black">Price</label>
-                <input type="number" id="invoiceprice" class="form-control" placeholder="Enter price" />
-            </div>
+          <div class="form-group mt-4">
+            <label for="invoicephone" class="fw-bold text-black">Phone</label>
+            <input type="number" id="invoicephone" class="form-control" placeholder="Enter phone" />
+          </div>
         </div>
-        <div class="col-md-2">
-             <div class="form-group mt-4">
-                <label for="quantity">Quantity</label>
-                <div class="input-group">
-                    <button class="btn btn-outline-secondary" type="button">-</button>
-                    <input type="number" id="quantity" class="form-control" value="1" min="1">
-                    <button class="btn btn-outline-secondary" type="button">+</button>
-                </div>
-            </div>
-        </div>
+      </div>
+
+      <!-- Row for Plus and Minus Buttons -->
+    <div id="itemsContainer" style="height: 320px; overflow-x: hidden; overflow-y: auto;">
+  <div class="row item-row mb-2">
+    <div class="col-md-4">
+      <div class="form-group mt-4">
+        <label class="fw-bold text-black">Item Name</label>
+        <input type="text" class="form-control itemname" placeholder="Enter item name" />
+      </div>
     </div>
-</form>
+    <div class="col-md-4">
+      <div class="form-group mt-4">
+        <label class="fw-bold text-black">Price</label>
+        <input type="number" class="form-control itemprice" placeholder="Enter price" />
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group mt-4">
+        <label class="text-black fw-bold">Quantity</label>
+        <div class="input-group">
+          <button class="btn btn-outline-secondary decrease" type="button">-</button>
+          <input type="number" class="form-control quantity" value="1" min="1" />
+          <button class="btn btn-outline-secondary increase" type="button">+</button>
+        </div>
+      </div>
+    </div>
+   <div class="col-md-2">
+  <!-- First row: remove button hidden -->
+  <button class="btn btn-danger remove-item mt-5" type="button" style="display: none;">Remove</button>
+   <button type="button" id="addItem" class="btn btn-primary mb-3 mt-5">Add Item</button>
+</div>
+  </div>
 </div>
 
 
-<div class="invoice-total">
-    <h1>hey buddy</h1>
-    
 
+      <!-- Invoice Total Section -->
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="total" class="fw-bold text-black">Total</label>
+            <input type="text" id="total" class="form-control" value="0" readonly />
+          </div>
+          
+
+          
+        </div>
+
+
+
+        
+      </div>
+
+      <!-- Save and Reset Buttons -->
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <button id="invoicesave" class="btn btn-primary mx-4">Save</button>
+          <button id="invoicereset" class="btn btn-danger">Reset</button>
+        </div>
+      </div>
+
+
+    </form>
 </div>
+
+
+<!-- <div class="invoice-total">
+<p>Total</p>
+ <input type="text" id="total" class="form-control" value="0" readonly />
+   <button id="invoicesave" class="btn btn-primary mx-4">Save</button> 
+    <button id="invoicereset" class="btn btn-danger">Reset</button>
+
+</div> -->
 
  
 
