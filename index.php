@@ -16,6 +16,8 @@ require_once 'app/controllers/loginController.php';
 require_once 'app/controllers/clientController.php';
 require_once 'app/controllers/itemController.php';
 
+require_once 'app/controllers/invoiceController.php';
+
 $router = new Router();
 
 $router->addRoute('/cool', function() {  
@@ -203,6 +205,15 @@ $router->addRoute('/cool/invoice',function(){
     $controller->invoice();
 });
 
+// erro page start from here 
+
+$router->addRoute('*', function() {
+
+$controller= new userController();
+$controller->error();
+    
+   
+});
 
 
 
@@ -285,10 +296,10 @@ $router->addRoute('/cool/update-client', function(){
 
 //search routes start form here 
 
-$router->addRoute('/cool/search-client', function(){
-    $controller = new clientController();
-    $controller->search();
-});
+// $router->addRoute('/cool/search-client', function(){
+//     $controller = new clientController();
+//     $controller->search();
+// });
 
 
 
@@ -300,10 +311,10 @@ $router->addRoute('/cool/client-pagination', function(){
 
 
 
-$router->addRoute('/cool/client-order', function(){
-    $controller = new  clientController();
-    $controller->clientorder();
-});
+// $router->addRoute('/cool/client-order', function(){
+//     $controller = new  clientController();
+//     $controller->clientorder();
+// });
 
 
 
@@ -380,6 +391,46 @@ $router->addRoute('/cool/item-order',function(){
     $controller = new itemController();
     $controller->orderitems();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//invoice start form here
+
+$router->addRoute('/cool/clientdetails',function(){
+    $controller = new invoiceController();
+    $controller->getclientfetchDetails();
+});
+
+
+$router->addRoute('/cool/itemsdetails',function(){
+    $controller = new invoiceController();
+    $controller->getitemfetchDetails();
+});
+
+
 
 
 

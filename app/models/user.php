@@ -135,20 +135,6 @@ public function deleteusers($id) {
         }
 
 
-        //order asc and desc start form here
-
-
-    //     public function orderuser ($order , $column){
-
-    //     $sql = "select id, name, email,phone,status from user order by $column $order";
-
-    //     $cool = $this->conn->prepare($sql);
-
-    //   $cool->execute();
-
-    //     return $cool->get_result();
-
-    //     }
 
 
         
@@ -182,6 +168,8 @@ public function selectuser ($id){
         return $cool->execute();
     }
 
+
+    
 
 public function getallstatus(){
 
@@ -220,63 +208,92 @@ public function getallstatus(){
 
 
 
-//pagination start form here 
+// //pagination start form here 
 
 
-public function getuserbypage($limit,$offset){
-    $sql = "select id,name,email,phone,status from user LIMIT ? OFFSET ?";
+// public function getuserbypage($limit,$offset){
+//     $sql = "select id,name,email,phone,status from user LIMIT ? OFFSET ?";
+
+//     $cool = $this->conn->prepare($sql);
+
+//     $cool->bind_param("ii",$limit,$offset);
+
+//     $cool->execute();
+
+//     return $cool->get_result();
+// }
+
+
+
+// //now count the user 
+
+
+// public function countuser(){
+//     $sql = "select count(*) as total from user ";
+    
+//      $cool = $this->conn->prepare($sql);
+
+//      $cool->execute();
+
+//      $result = $cool->get_result();
+
+//      $row = $result->fetch_assoc();
+
+//      return $row['total'];
+
+// }
+    
+
+
+// //order by model for the user master
+
+
+// public function orderuser($column, $order){
+//     $sql = "select id, name, email, phone, status  from user order by  $column $order";
+    
+//     $cool = $this->conn->prepare($sql);
+//     $cool->execute();
+
+//     return $cool->get_result();
+
+// }
+
+
+
+
+// fetch limit order by pagintation start form here model 
+
+public function getUsersFiltered($limit, $offset, $search = '', $orderColumn = 'id', $orderDir = 'ASC') {
+    $allowed_columns = ['id', 'name', 'email'];
+    $allowed_dirs    = ['ASC', 'DESC'];
+
+    // Whitelist to prevent SQL injection on ORDER BY
+    $orderColumn = in_array($orderColumn, $allowed_columns) ? $orderColumn : 'id';
+    $orderDir    = in_array($orderDir, $allowed_dirs)    ? $orderDir    : 'ASC';
+
+    $search_param = "%$search%";
+
+    $sql = "SELECT id, name, email, phone, status FROM user
+            WHERE (name LIKE ? OR email LIKE ?)
+            ORDER BY $orderColumn $orderDir
+            LIMIT ? OFFSET ?";
 
     $cool = $this->conn->prepare($sql);
-
-    $cool->bind_param("ii",$limit,$offset);
-
+    $cool->bind_param("ssii", $search_param, $search_param, $limit, $offset);
     $cool->execute();
-
     return $cool->get_result();
 }
 
-
-
-//now count the user 
-
-
-public function countuser(){
-    $sql = "select count(*) as total from user ";
-    
-     $cool = $this->conn->prepare($sql);
-
-     $cool->execute();
-
-     $result = $cool->get_result();
-
-     $row = $result->fetch_assoc();
-
-     return $row['total'];
-
-}
-    
-
-
-//order by model for the user master
-
-
-public function orderuser($column, $order){
-    $sql = "select id, name, email, phone, status  from user order by  $column $order";
-    
+public function countUsersFiltered($search = '') {
+    $search_param = "%$search%";
+    $sql = "SELECT COUNT(*) AS total FROM user WHERE (name LIKE ? OR email LIKE ?)";
     $cool = $this->conn->prepare($sql);
+    $cool->bind_param("ss", $search_param, $search_param);
     $cool->execute();
-
-    return $cool->get_result();
-
+    $result = $cool->get_result();
+    $row = $result->fetch_assoc();
+    return $row['total'];
 }
-
-
-
-
-
-
-
-
 
 
 

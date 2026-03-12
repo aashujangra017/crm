@@ -53,24 +53,24 @@ $('#logout').on('click', function() {
 //search start form here
 // Search client
 
-$(document).on("click","#serach",function(){
+// $(document).on("click","#serach",function(){
 
-    var searchvalue = $("#searchname").val();
+//     var searchvalue = $("#searchname").val();
 
-    $.ajax({
-        url:"/cool/search-client",
-        type:"POST",
-        data:{
-            search:searchvalue
-        },
-        success:function(response){
+//     $.ajax({
+//         url:"/cool/search-client",
+//         type:"POST",
+//         data:{
+//             search:searchvalue
+//         },
+//         success:function(response){
 
-            $("#bodydata").html(response);
+//             $("#bodydata").html(response);
 
-        }
-    });
+//         }
+//     });
 
-});
+// });
 
 
 
@@ -204,24 +204,6 @@ $(document).on("click", ".clientbtn", function() {
 
 
 
-//   loadclients();
-
-
-     
-//     $("#showuser").click(function(e){
-//         e.preventDefault();
-//         loadclients();
-//     });
-
-//     function loadclients() {
-//         $.ajax({
-//             url: "/cool/fetch-client",   
-//             type: "GET",
-//             success: function(data) {
-//                 $("#bodydata").html(data); 
-//             }
-//         });
-//     }
 
 
 
@@ -344,31 +326,132 @@ $(document).on("click", "#submit", function() {
 });
 
 
-//pagination and limit start from here 
+// //pagination and limit start from here 
+
+// let page = 1;
+// let limit = 5;
+
+// function loadclients() {
+//     limit = $("#limit").val() || 5;
+
+//     $.ajax({
+//         url: "/cool/client-pagination", 
+//         type: "POST",
+//         data: {
+//             page: page,
+//             limit: limit
+//         },
+//         success: function(response) {
+//             let data = typeof response === "string" ? JSON.parse(response) : response;
+//             $("#bodydata").html(data.table);
+
+//             let pagination = "";
+//             pagination += `<button class='btn btn-secondary mx-1' id='prev' ${data.page <= 1 ? 'disabled' : ''}>Prev</button>`;
+//             pagination += `<span class='mx-2 fw-bold'> Page ${data.page} of ${data.totalPages} </span>`;
+//             pagination += `<button class='btn btn-secondary mx-1' id='next' ${data.page >= data.totalPages ? 'disabled' : ''}>Next</button>`;
+
+//             $(".paging").html(pagination);
+//         },
+//         error: function(err) {
+//             console.error("Error loading clients:", err);
+//         }
+//     });
+// }
+
+// loadclients();
+
+// $(document).on("click", "#prev", function() {
+//     if (page > 1) {
+//         page--;
+//         loadclients();
+//     }
+// });
+
+// $(document).on("click", "#next", function() {
+//     page++;
+//     loadclients();
+// });
+
+// $("#limit").change(function() {
+//     page = 1;
+//     loadclients();
+// });
+
+
+
+
+
+// // order by asc and desc api call 
+// $(document).on("click", ".sort", function(){
+
+//     var column = $(this).data("column");
+//     var order = $(this).data("order");
+
+//     $.ajax({
+//         url: "/cool/client-order",
+//         type: "POST",
+//         data: {
+//             column: column,
+//             order: order
+//         },
+//         success: function(response){
+//             $("#bodydata").html(response);
+//         }
+//     });
+
+  
+//     if(order === "ASC"){
+//         $(this).data("order","DESC");
+//     }else{
+//         $(this).data("order","ASC");
+//     }
+
+// });
+
+
+
+
+
+
+
+
+
 
 let page = 1;
-let limit = 5;
+let limit = 5; 
+let search = ''; 
+let orderCol = 'c.id';
+let orderDir = 'ASC';
 
-function loadclients() {
-    limit = $("#limit").val() || 5;
+function loadClients() {
+    limit = $("#limit").val() || 5; 
+    search = $("#searchname").val().trim();
 
     $.ajax({
-        url: "/cool/client-pagination", 
+        url: "/cool/client-pagination",
         type: "POST",
         data: {
-            page: page,
-            limit: limit
+            page,
+            limit,
+            search,
+            orderCol,
+            orderDir
         },
         success: function(response) {
             let data = typeof response === "string" ? JSON.parse(response) : response;
+
             $("#bodydata").html(data.table);
 
             let pagination = "";
             pagination += `<button class='btn btn-secondary mx-1' id='prev' ${data.page <= 1 ? 'disabled' : ''}>Prev</button>`;
-            pagination += `<span class='mx-2 fw-bold'> Page ${data.page} of ${data.totalPages} </span>`;
+            pagination += `<span class='mx-2 fw-bold'>Page ${data.page} of ${data.totalPages}</span>`;
             pagination += `<button class='btn btn-secondary mx-1' id='next' ${data.page >= data.totalPages ? 'disabled' : ''}>Next</button>`;
+            $(".paging").html(pagination); 
 
-            $(".paging").html(pagination);
+            
+            $(".sort").html("↕");
+            let activeCol = orderCol.replace("c.", "");
+            $(`.sort[data-column="${activeCol}"]`).html(orderDir === 'ASC' ? '↑' : '↓');
         },
         error: function(err) {
             console.error("Error loading clients:", err);
@@ -376,55 +459,47 @@ function loadclients() {
     });
 }
 
-loadclients();
+
+loadClients();
+
 
 $(document).on("click", "#prev", function() {
     if (page > 1) {
         page--;
-        loadclients();
+        loadClients();
     }
 });
+
 
 $(document).on("click", "#next", function() {
     page++;
-    loadclients();
+    loadClients();
 });
 
-$("#limit").change(function() {
+
+$("#limit").on("change", function() {
     page = 1;
-    loadclients();
+    loadClients();
 });
 
 
+$(document).on("click", "#search", function() { 
+    page = 1;
+    loadClients();
+});
 
 
+$(document).on("click", ".sort", function() {
+    let col = $(this).data("column");
+    let fullCol = "c." + col;
 
-// order by asc and desc api call 
-$(document).on("click", ".sort", function(){
-
-    var column = $(this).data("column");
-    var order = $(this).data("order");
-
-    $.ajax({
-        url: "/cool/client-order",
-        type: "POST",
-        data: {
-            column: column,
-            order: order
-        },
-        success: function(response){
-            $("#bodydata").html(response);
-        }
-    });
-
-  
-    if(order === "ASC"){
-        $(this).data("order","DESC");
-    }else{
-        $(this).data("order","ASC");
+ 
+    if (orderCol === fullCol) {
+        orderDir = orderDir === 'ASC' ? 'DESC' : 'ASC';
+    } else {
+        orderCol = fullCol;
+        orderDir = 'ASC';
     }
-
+    page = 1; 
+    loadClients();
 });
-
-
-

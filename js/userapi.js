@@ -413,121 +413,193 @@ $.ajax({
 
 
         
-    // search api start form here 
+//     // search api start form here 
     
-$(document).on("click", "#search", function() {
+// $(document).on("click", "#search", function() {
 
- var searchvalue = $("#searchname").val();
+//  var searchvalue = $("#searchname").val();
 
-    $.ajax({
-        url:"/cool/user-search",
-        type:"POST",
-        data:{
-            search:searchvalue
-        },
-        success:function(response){
+//     $.ajax({
+//         url:"/cool/user-search",
+//         type:"POST",
+//         data:{
+//             search:searchvalue
+//         },
+//         success:function(response){
 
-            $("#bodydata").html(response);
+//             $("#bodydata").html(response);
 
-        }
-    });
- })
+//         }
+//     });
+//  })
 
 
 
- //pagination start from here 
+//  //pagination start from here 
+
+// let page = 1;
+// let limit = 5;
+
+// function loadUsers(){
+//     limit = $("#limit").val() || 5;
+
+//     $.ajax({
+//         url: "/cool/user-pagination",
+//         type: "POST",
+//         data: {
+//             page: page,
+//             limit: limit
+//         },
+//         success: function(response){
+//             let data = typeof response === "string" ? JSON.parse(response) : response;
+
+//             $("#bodydata").html(data.table);
+
+//             let pagination = "";
+//             pagination += `<button class='btn btn-secondary mx-1' id='prev' ${data.page <= 1 ? 'disabled' : ''}>Prev</button>`;
+//             pagination += `<span class='mx-2 fw-bold'> Page ${data.page} of ${data.totalPages} </span>`;
+//             pagination += `<button class='btn btn-secondary mx-1' id='next' ${data.page >= data.totalPages ? 'disabled' : ''}>Next</button>`;
+
+//             $(".paging").html(pagination);
+//         }
+//     });
+// }
+
+// loadUsers();
+
+// $(document).on("click","#prev",function(){
+
+// if(page > 1){
+// page--;
+// loadUsers();
+// }
+
+// });
+
+// $(document).on("click","#next",function(){
+
+
+// page++;
+
+// loadUsers();
+
+// });
+
+// $("#limit").change(function(){
+
+// page = 1;
+// loadUsers();
+
+// });
+
+
+// //order user api start from here 
+
+// $(document).on("click", ".sort", function(){
+
+//     var column = $(this).data("column");
+//     var order = $(this).data("order");
+
+//     $.ajax({
+//         url: "/cool/user-order",
+//         type: "POST",
+//         data: {
+//             column: column,
+//             order: order
+//         },
+//         success: function(response){
+//             $("#bodydata").html(response);
+//         }
+//     });
+
+  
+//     if(order === "ASC"){
+//         $(this).data("order","DESC");
+//     }else{
+//         $(this).data("order","ASC");
+//     }
+
+// });
 
 let page = 1;
 let limit = 5;
+let search = '';
+let orderCol = 'id';
+let orderDir = 'ASC';
 
-function loadUsers(){
+function loadUsers() {
     limit = $("#limit").val() || 5;
+    search = $("#searchname").val().trim();
 
     $.ajax({
         url: "/cool/user-pagination",
         type: "POST",
-        data: {
-            page: page,
-            limit: limit
-        },
-        success: function(response){
+        data: { page, limit, search, orderCol, orderDir },
+        success: function(response) {
             let data = typeof response === "string" ? JSON.parse(response) : response;
 
             $("#bodydata").html(data.table);
 
+        
             let pagination = "";
             pagination += `<button class='btn btn-secondary mx-1' id='prev' ${data.page <= 1 ? 'disabled' : ''}>Prev</button>`;
-            pagination += `<span class='mx-2 fw-bold'> Page ${data.page} of ${data.totalPages} </span>`;
+            pagination += `<span class='mx-2 fw-bold'>Page ${data.page} of ${data.totalPages}</span>`;
             pagination += `<button class='btn btn-secondary mx-1' id='next' ${data.page >= data.totalPages ? 'disabled' : ''}>Next</button>`;
-
             $(".paging").html(pagination);
+
+         
+            $(".sort").html("↕");
+            $(`.sort[data-column="${orderCol}"]`).html(orderDir === 'ASC' ? '↑' : '↓');
         }
     });
 }
 
 loadUsers();
 
-$(document).on("click","#prev",function(){
 
-if(page > 1){
-page--;
-loadUsers();
-}
-
+$(document).on("click", "#prev", function () {
+    if (page > 1) { 
+        page--; 
+        loadUsers(); }
 });
-
-$(document).on("click","#next",function(){
-
-
-page++;
-
-loadUsers();
-
-});
-
-$("#limit").change(function(){
-
-page = 1;
-loadUsers();
-
+$(document).on("click", "#next", function () {
+    page++; 
+    loadUsers();
 });
 
 
-//order user api start from here 
+$("#limit").on("change", function () {
+    page = 1; 
+    loadUsers();
+});
 
-$(document).on("click", ".sort", function(){
 
-    var column = $(this).data("column");
-    var order = $(this).data("order");
+$("#search").on("click", function () {
+    page = 1; 
+    loadUsers();
+});
 
-    $.ajax({
-        url: "/cool/user-order",
-        type: "POST",
-        data: {
-            column: column,
-            order: order
-        },
-        success: function(response){
-            $("#bodydata").html(response);
-        }
-    });
 
-  
-    if(order === "ASC"){
-        $(this).data("order","DESC");
-    }else{
-        $(this).data("order","ASC");
+
+$(document).on("click", ".sort", function () {
+    let col = $(this).data("column");
+
+    if (orderCol === col) {
+        orderDir = orderDir === 'ASC' ? 'DESC' : 'ASC'; 
+    } else {
+        orderCol = col;
+        orderDir = 'ASC'; 
     }
 
+    page = 1; 
+    loadUsers();
 });
 
-
-
-//color on left bar on active
-  $('.nav-link').click(function() {
+// //color on left bar on active
+//   $('.nav-link').click(function() {
        
-        $('.nav-link').removeClass('active');
+//         $('.nav-link').removeClass('active');
         
       
-        $(this).addClass('active');
-    });
+//         $(this).addClass('active');
+//     });

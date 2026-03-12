@@ -303,100 +303,80 @@ $(document).on("click", "#submit", function(e) {
 
 
 
-// pagintaion api start from here 
+
+
+
 
 let page = 1;
 let limit = 5;
+let search = '';
+let orderCol = 'id';
+let orderDir = 'ASC';
 
-function loaditems (){
-         let limit = $("#limit").val() || 5;
+function loaditems() {
+    limit = $("#limit").val() || 5;
+    search = $("#searchname").val().trim();
 
- $.ajax({
+    $.ajax({
         url: "/cool/item-pagination",
         type: "POST",
-        data: {
-            page: page,
-            limit: limit
-        },
-        success: function(response){
+        data: { page, limit, search, orderCol, orderDir },
+        success: function(response) {
             let data = typeof response === "string" ? JSON.parse(response) : response;
 
             $("#bodydata").html(data.table);
 
+        
             let pagination = "";
             pagination += `<button class='btn btn-secondary mx-1' id='prev' ${data.page <= 1 ? 'disabled' : ''}>Prev</button>`;
-            pagination += `<span class='mx-2 fw-bold'> Page ${data.page} of ${data.totalPages} </span>`;
+            pagination += `<span class='mx-2 fw-bold'>Page ${data.page} of ${data.totalPages}</span>`;
             pagination += `<button class='btn btn-secondary mx-1' id='next' ${data.page >= data.totalPages ? 'disabled' : ''}>Next</button>`;
-
             $(".paging").html(pagination);
-        }
-    });
-}
 
-loaditems();
-
-
-$(document).on("click","#prev",function(){
-
-if(page > 1){
-page--;
-loaditems();
-}
-
-});
-
-$(document).on("click","#next",function(){
-
-
-page++;
-
-loaditems();
-
-});
-
-$("#limit").change(function(){
-
-page = 1;
-loaditems();
-
-});
-
-// sort api start form here 
-
-
-$(document).on("click", ".sort", function(){
-
-    var column = $(this).data("column");
-    var order = $(this).data("order");
-    
-    var clickedElement = $(this); 
-    $.ajax({
-        url: "/cool/item-order",
-        type: "POST",
-        data: {
-            column: column,
-            order: order
-        },
-        success: function(response){
-           
-            $("#bodydata").html(response);
-
-           
+         
             $(".sort").html("↕");
-
-           
-            if(order === "ASC"){
-                clickedElement.html("↑"); 
-            }else{
-                clickedElement.html("↓"); 
-            }
+            $(`.sort[data-column="${orderCol}"]`).html(orderDir === 'ASC' ? '↑' : '↓');
         }
     });
+}
 
-    
-    if(order === "ASC"){
-        clickedElement.data("order","DESC");
-    }else{
-        clickedElement.data("order","ASC");
+loaditems();
+
+
+$(document).on("click", "#prev", function () {
+    if (page > 1) { 
+        page--; 
+        loaditems(); }
+});
+$(document).on("click", "#next", function () {
+    page++; 
+    loaditems();
+});
+
+
+$("#limit").on("change", function () {
+    page = 1; 
+    loaditems();
+});
+
+
+$("#search").on("click", function () {
+    page = 1; 
+    loaditems();
+});
+
+
+
+$(document).on("click", ".sort", function () {
+    let col = $(this).data("column");
+
+    if (orderCol === col) {
+        orderDir = orderDir === 'ASC' ? 'DESC' : 'ASC'; 
+    } else {
+        orderCol = col;
+        orderDir = 'ASC'; 
     }
+
+    page = 1; 
+    loaditems();
 });

@@ -138,21 +138,21 @@ class item {
 
 
 
-    //search model start form here
+//     //search model start form here
 
 
-public function searchitem($keyword){
-    $sql = "SELECT id, itemname, price, description , image FROM items WHERE itemname LIKE ? OR price LIKE ? OR description LIKE ?";
-    $cool = $this->conn->prepare($sql);
+// public function searchitem($keyword){
+//     $sql = "SELECT id, itemname, price, description , image FROM items WHERE itemname LIKE ? OR price LIKE ? OR description LIKE ?";
+//     $cool = $this->conn->prepare($sql);
 
-       $search = "%".$keyword."%";
+//        $search = "%".$keyword."%";
 
-       $cool->bind_param("sss", $search, $search, $search);
+//        $cool->bind_param("sss", $search, $search, $search);
 
-       $cool->execute();
+//        $cool->execute();
 
-       return $cool->get_result();
-}
+//        return $cool->get_result();
+// }
 
 
 
@@ -161,52 +161,92 @@ public function searchitem($keyword){
 
         
 
-// pagination start form here for the item firstly make the order and limit
+// // pagination start form here for the item firstly make the order and limit
 
 
-public function getitempage($limit, $offset){
-    $sql = "select id, itemname, price, description, image FROM items limit ? offset ?";
-   $cool = $this->conn->prepare($sql);
+// public function getitempage($limit, $offset){
+//     $sql = "select id, itemname, price, description, image FROM items limit ? offset ?";
+//    $cool = $this->conn->prepare($sql);
 
-    $cool->bind_param("ii",$limit,$offset);
+//     $cool->bind_param("ii",$limit,$offset);
 
-    $cool->execute();
+//     $cool->execute();
 
-    return $cool->get_result();
+//     return $cool->get_result();
 
-}
+// }
 
 
-public function countitem(){
-    $sql = "select count(*) as total from items";
+// public function countitem(){
+//     $sql = "select count(*) as total from items";
 
-    $cool = $this->conn->prepare($sql);
+//     $cool = $this->conn->prepare($sql);
 
-    $cool->execute();
+//     $cool->execute();
 
-      $result = $cool->get_result();
+//       $result = $cool->get_result();
 
-     $row = $result->fetch_assoc();
+//      $row = $result->fetch_assoc();
 
-     return $row['total'];
-}
+//      return $row['total'];
+// }
  
 
 
 
-//order by asc and desc in item master
+// //order by asc and desc in item master
 
-public function orderitem($column, $order){
-    $sql = "select id, itemname, price, description, image  from items order by $column $order";
+// public function orderitem($column, $order){
+//     $sql = "select id, itemname, price, description, image  from items order by $column $order";
 
 
-   $cool = $this->conn->prepare($sql);
+//    $cool = $this->conn->prepare($sql);
+//     $cool->execute();
+
+//     return $cool->get_result();
+
+
+// }
+
+
+// limit search pagiantion order and fetch start form here 
+
+
+
+
+public function getUsersFiltered($limit, $offset, $search = '', $orderColumn = 'id', $orderDir = 'ASC') {
+    $allowed_columns = ['id', 'itemname', 'price'];
+    $allowed_dirs    = ['ASC', 'DESC'];
+
+    // Whitelist to prevent SQL injection on ORDER BY
+    $orderColumn = in_array($orderColumn, $allowed_columns) ? $orderColumn : 'id';
+    $orderDir    = in_array($orderDir, $allowed_dirs)    ? $orderDir    : 'ASC';
+
+    $search_param = "%$search%";
+
+    $sql = "SELECT id, itemname, price, description , image from items
+            WHERE (itemname LIKE ? OR price LIKE ?)
+            ORDER BY $orderColumn $orderDir
+            LIMIT ? OFFSET ?";
+
+    $cool = $this->conn->prepare($sql);
+    $cool->bind_param("sdii", $search_param, $search_param, $limit, $offset);
     $cool->execute();
-
     return $cool->get_result();
-
-
 }
+
+public function countUsersFiltered($search = '') {
+    $search_param = "%$search%";
+    $sql = "SELECT COUNT(*) AS total FROM items WHERE (itemname LIKE ? OR price LIKE ?)";
+    $cool = $this->conn->prepare($sql);
+    $cool->bind_param("sd", $search_param, $search_param);
+    $cool->execute();
+    $result = $cool->get_result();
+    $row = $result->fetch_assoc();
+    return $row['total'];
+}
+
+
 
 
 

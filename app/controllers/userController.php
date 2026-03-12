@@ -48,6 +48,11 @@ public function invoice(){
 }
 
 
+public function error(){
+    require __DIR__ . "/../../public/views/error.php";
+}
+
+
 
 public function insert(){
  
@@ -232,129 +237,171 @@ public function status(){
 
 
 
-// serach 
+// // serach 
 
-    public function search (){
-        if(isset($_POST['search'])){
-            $keyword = $_POST['search'];
+//     public function search (){
+//         if(isset($_POST['search'])){
+//             $keyword = $_POST['search'];
 
-            $object = new user();
-           $users = $object->searchusers($keyword);
+//             $object = new user();
+//            $users = $object->searchusers($keyword);
 
-           require_once 'usertable.php';
-        }
-    }
-
-
+//            require_once 'usertable.php';
+//         }
+//     }
 
 
-// pagination controller start form here 
 
 
-public function pagination (){
+// // pagination controller start form here 
 
- header('Content-Type: application/json');
-    $page = isset($_POST['page']) ? (int) $_POST['page'] :1;
 
-    $limit = isset($_POST['limit']) ? (int)$_POST['limit'] :5;
+// public function pagination (){
 
-    if($page <1){
-        $page = 1;
-    }
+//  header('Content-Type: application/json');
+//     $page = isset($_POST['page']) ? (int) $_POST['page'] :1;
+
+//     $limit = isset($_POST['limit']) ? (int)$_POST['limit'] :5;
+
+//     if($page <1){
+//         $page = 1;
+//     }
      
 
-    $offset = ($page -1) * $limit;
+//     $offset = ($page -1) * $limit;
 
 
-    $object = new user();
-    $users = $object->getuserbypage($limit,$offset);
+//     $object = new user();
+//     $users = $object->getuserbypage($limit,$offset);
 
-    $totalUsers = $object->countuser();
+//     $totalUsers = $object->countuser();
 
-    $totalPages = ceil($totalUsers / $limit);
+//     $totalPages = ceil($totalUsers / $limit);
     
-$table = "";
+// $table = "";
 
-if($users->num_rows > 0){
+// if($users->num_rows > 0){
 
-while($row = $users->fetch_assoc()){
+// while($row = $users->fetch_assoc()){
 
- $statusText = ($row['status'] == 1) ? 'Active' : 'Inactive';
+//  $statusText = ($row['status'] == 1) ? 'Active' : 'Inactive';
 
-$table .= "<tr>
+// $table .= "<tr>
+//                 <td>{$row['id']}</td>
+//                 <td>{$row['name']}</td>
+//                 <td>{$row['email']}</td>
+//                 <td>{$row['phone']}</td>
+//                 <td>{$statusText}</td>
+//                 <td>
+//                     <button class='deletebutton btn btn-danger' data-id='{$row['id']}'>
+//                         Delete
+//                     </button>
+//                 </td>
+//                 <td>
+//         <ul class='nav nav-tabs' id='myTab' role='tablist'>
+//             <li class='' role='presentation'>
+//                 <button class='btn btn-primary update-btn'
+//                         id='addclient'
+//                         data-bs-toggle='tab'
+//                         data-bs-target='#home-tab-pane'
+//                         type='button'
+//                         role='tab'
+//                         data-eid='{$row['id']}'>
+//                   Update
+//                 </button>
+//             </li>
+//         </ul>
+//     </td>
+//             </tr>";
+
+// }
+
+// }
+
+// $response = [
+
+// "table"=>$table,
+// "page"=>$page,
+// "totalPages"=>$totalPages
+
+// ];
+
+// echo json_encode($response);
+
+// }
+
+
+
+// //order controller start from here 
+
+
+// public function userorder(){
+
+//     if(isset($_POST['column'])){
+
+//         $column = $_POST['column'];
+
+//         $order = $_POST['order'];
+
+//         if($column != 'id' && $column != 'name' && $column != 'email'){
+//             $column ='id';
+//         }
+
+//         if($order != 'ASC' && $order != 'DESC'){
+//             $order ='ASC';
+//         }
+
+//         $object = new user();
+
+//         $users = $object->orderuser($column,$order);
+
+//         require 'usertable.php';
+//     }
+// }
+
+public function pagination() {
+    header('Content-Type: application/json');
+
+    $page    = isset($_POST['page'])    ? (int)$_POST['page']       : 1;
+    $limit   = isset($_POST['limit'])   ? (int)$_POST['limit']      : 5;
+    $search  = isset($_POST['search'])  ? trim($_POST['search'])     : '';
+    $orderCol = isset($_POST['orderCol']) ? $_POST['orderCol']       : 'id';
+    $orderDir = isset($_POST['orderDir']) ? $_POST['orderDir']       : 'ASC';
+
+    if ($page < 1) $page = 1;
+
+    $offset = ($page - 1) * $limit;
+
+    $object     = new user();
+    $users      = $object->getUsersFiltered($limit, $offset, $search, $orderCol, $orderDir);
+    $totalUsers = $object->countUsersFiltered($search);
+    $totalPages = ceil($totalUsers / $limit);
+
+    $table = "";
+    if ($users->num_rows > 0) {
+        while ($row = $users->fetch_assoc()) {
+            $statusText = ($row['status'] == 1) ? 'Active' : 'Inactive';
+            $table .= "<tr>
                 <td>{$row['id']}</td>
                 <td>{$row['name']}</td>
                 <td>{$row['email']}</td>
                 <td>{$row['phone']}</td>
                 <td>{$statusText}</td>
-                <td>
-                    <button class='deletebutton btn btn-danger' data-id='{$row['id']}'>
-                        Delete
-                    </button>
-                </td>
-                <td>
-        <ul class='nav nav-tabs' id='myTab' role='tablist'>
-            <li class='' role='presentation'>
-                <button class='btn btn-primary update-btn'
-                        id='addclient'
-                        data-bs-toggle='tab'
-                        data-bs-target='#home-tab-pane'
-                        type='button'
-                        role='tab'
-                        data-eid='{$row['id']}'>
-                  Update
-                </button>
-            </li>
-        </ul>
-    </td>
+                <td><button class='deletebutton btn btn-danger' data-id='{$row['id']}'>Delete</button></td>
+                <td><button class='btn btn-primary update-btn' data-eid='{$row['id']}'>Update</button></td>
             </tr>";
-
-}
-
-}
-
-$response = [
-
-"table"=>$table,
-"page"=>$page,
-"totalPages"=>$totalPages
-
-];
-
-echo json_encode($response);
-
-}
-
-
-
-//order controller start from here 
-
-
-public function userorder(){
-
-    if(isset($_POST['column'])){
-
-        $column = $_POST['column'];
-
-        $order = $_POST['order'];
-
-        if($column != 'id' && $column != 'name' && $column != 'email'){
-            $column ='id';
         }
-
-        if($order != 'ASC' && $order != 'DESC'){
-            $order ='ASC';
-        }
-
-        $object = new user();
-
-        $users = $object->orderuser($column,$order);
-
-        require 'usertable.php';
+    } else {
+        $table = "<tr><td colspan='7' class='text-center'>No users found</td></tr>";
     }
+
+    echo json_encode([
+        "table"      => $table,
+        "page"       => $page,
+        "totalPages" => $totalPages,
+        "totalUsers" => $totalUsers,
+    ]);
 }
-
-
 
 
 

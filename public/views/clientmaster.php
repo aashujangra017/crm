@@ -167,7 +167,7 @@ role="tabpanel">
 
                 <label for="searchname" class="fw-bold mx-3">Search Client:</label>
                 <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
-                <button id="serach" class="btn btn-primary">Search</button>
+                <button id="search" class="btn btn-primary">Search</button>
                 
 
 </div>
@@ -201,34 +201,26 @@ role="tabpanel">
 </div>
 <div class="third border col-12"  style="background-color: #cadcecb6">
 <table class="table table-hover">
-
-        <thead>
-            
-            <tr class="table-dark">
-                <th> ID
-        <span class="sort" data-column="id" data-order="ASC" style="cursor:pointer">↕</span>
- 
-         </th>
-        <th>  Name
-         <span class="sort" data-column="name" data-order="ASC" style="cursor:pointer">↕</span>
-     
-                </th>
-        <th> Phone
-          <span class="sort" data-column="email" data-order="ASC" style="cursor:pointer">↕</span>
-        </th>
-         <th>Address</th>
-                <th>State</th>
-                <th>City</th>
-                <th>pincode</th>
-                <th>delete</th>
-                <th>update</th>
-       </tr>
+    <thead>
+        <tr class="table-dark">
+            <th> ID
+                <span class="sort" data-column="id" data-order="ASC" style="cursor:pointer">↕</span>
+            </th>
+            <th> Name
+                <span class="sort" data-column="name" data-order="ASC" style="cursor:pointer">↕</span>
+            </th>
+            <th> Phone
+                <span class="sort" data-column="phone" data-order="ASC" style="cursor:pointer">↕</span>
+            </th>
+            <th> Address</th>
+            <th> State</th>
+            <th> City</th>
+            <th> Pincode</th>
+            <th> Delete</th>
+            <th> Update</th>
+        </tr>
     </thead>
-
-
-  <tbody id="bodydata"></tbody>
-
-
+    <tbody id="bodydata"></tbody>
 </table>
 </div>
 

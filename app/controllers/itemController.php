@@ -152,54 +152,142 @@ public function itemupdate() {
 
 
 
-    //search controller start form here 
+//     //search controller start form here 
 
 
-    public function search(){
-      if(isset($_POST['search'])){
-         $keyword = $_POST['search'];
+//     public function search(){
+//       if(isset($_POST['search'])){
+//          $keyword = $_POST['search'];
 
-         $object = new item();
+//          $object = new item();
 
-         $items = $object->searchitem($keyword);
+//          $items = $object->searchitem($keyword);
 
-         require_once 'itemtable.php';
+//          require_once 'itemtable.php';
 
-      }
-    }
+//       }
+//     }
 
     
-// pagination for the item start from here 
-public function itempagination(){
+// // pagination for the item start from here 
+// public function itempagination(){
 
-header('Content-Type: application/json');
-$page = isset($_POST['page']) ? (int) $_POST['page'] : 1;
+// header('Content-Type: application/json');
+// $page = isset($_POST['page']) ? (int) $_POST['page'] : 1;
 
-$limit = isset($_POST['limit']) ? (int) $_POST['limit'] : 5;
-
-
-if($page < 1){
-    $page = 1;
-}
+// $limit = isset($_POST['limit']) ? (int) $_POST['limit'] : 5;
 
 
-$offset = ($page - 1) * $limit;
+// if($page < 1){
+//     $page = 1;
+// }
 
-$object = new item();
 
-$users = $object->getitempage($limit,$offset); 
+// $offset = ($page - 1) * $limit;
 
-$totalitems = $object->countitem();
+// $object = new item();
 
-$totalPages = ceil($totalitems / $limit);
+// $users = $object->getitempage($limit,$offset); 
 
-$table = "";
+// $totalitems = $object->countitem();
 
-if($users->num_rows > 0){
+// $totalPages = ceil($totalitems / $limit);
 
-    while($row = $users->fetch_assoc()){
+// $table = "";
 
-        $table .= "<tr>
+// if($users->num_rows > 0){
+
+//     while($row = $users->fetch_assoc()){
+
+    //     $table .= "<tr>
+    //         <td>{$row['id']}</td>
+    //         <td>{$row['itemname']}</td>
+    //         <td>{$row['price']}</td>
+    //         <td>{$row['description']}</td>
+    //         <td><img src='uploads/{$row['image']}' width='100'></td>
+    //         <td>
+    //             <button class='deletebutton btn btn-danger' data-id='{$row['id']}'>Delete</button>
+    //         </td>
+    //         <td>
+    //     <ul class='nav nav-tabs' id='myTab' role='tablist'>
+    //         <li class='' role='presentation'>
+    //             <button class='btn btn-primary update-btn'
+    //                     id='addclient'
+    //                     data-bs-toggle='tab'
+    //                     data-bs-target='#home-tab-pane'
+    //                     type='button'
+    //                     role='tab'
+    //                     data-eid='{$row['id']}'>
+    //               Update
+    //             </button>
+    //         </li>
+    //     </ul>
+    // </td>
+    //     </tr>";
+//     }
+
+// }
+
+// $response = [
+//     "table" => $table,
+//     "page" => $page,
+//     "totalPages" => $totalPages
+// ];
+
+// echo json_encode($response);
+
+// }
+
+
+
+
+
+// // item order by controller start form here 
+// public function orderitems(){
+
+//     $column = $_POST['column'];
+//     $order = $_POST['order'];
+
+//     if($column != 'id' && $column != 'itemname' && $column != 'price'){
+//         $column = 'id';
+//     }
+
+//     if($order != 'ASC' && $order != 'DESC'){
+//         $order = 'ASC';
+//     }
+
+//     $object = new item();
+//     $items = $object->orderitem($column,$order);
+
+//     require_once "itemtable.php";
+// }
+
+
+
+
+public function itempagination() {
+    header('Content-Type: application/json');
+
+    $page    = isset($_POST['page'])    ? (int)$_POST['page']       : 1;
+    $limit   = isset($_POST['limit'])   ? (int)$_POST['limit']      : 5;
+    $search  = isset($_POST['search'])  ? trim($_POST['search'])     : '';
+    $orderCol = isset($_POST['orderCol']) ? $_POST['orderCol']       : 'id';
+    $orderDir = isset($_POST['orderDir']) ? $_POST['orderDir']       : 'ASC';
+
+    if ($page < 1) $page = 1;
+
+    $offset = ($page - 1) * $limit;
+
+    $object     = new item();
+    $users      = $object->getUsersFiltered($limit, $offset, $search, $orderCol, $orderDir);
+    $totalUsers = $object->countUsersFiltered($search);
+    $totalPages = ceil($totalUsers / $limit);
+
+    $table = "";
+    if ($users->num_rows > 0) {
+        while ($row = $users->fetch_assoc()) {
+            
+            $table .="<tr>
             <td>{$row['id']}</td>
             <td>{$row['itemname']}</td>
             <td>{$row['price']}</td>
@@ -224,44 +312,18 @@ if($users->num_rows > 0){
         </ul>
     </td>
         </tr>";
+        }
+    } else {
+        $table = "<tr><td colspan='7' class='text-center'>No users found</td></tr>";
     }
 
+    echo json_encode([
+        "table"      => $table,
+        "page"       => $page,
+        "totalPages" => $totalPages,
+        "totalUsers" => $totalUsers,
+    ]);
 }
-
-$response = [
-    "table" => $table,
-    "page" => $page,
-    "totalPages" => $totalPages
-];
-
-echo json_encode($response);
-
-}
-
-
-
-
-
-// item order by controller start form here 
-public function orderitems(){
-
-    $column = $_POST['column'];
-    $order = $_POST['order'];
-
-    if($column != 'id' && $column != 'itemname' && $column != 'price'){
-        $column = 'id';
-    }
-
-    if($order != 'ASC' && $order != 'DESC'){
-        $order = 'ASC';
-    }
-
-    $object = new item();
-    $items = $object->orderitem($column,$order);
-
-    require_once "itemtable.php";
-}
-
 
 
 

@@ -162,7 +162,7 @@ role="tabpanel">
 
                 <label for="searchname" class="fw-bold mx-3 text-black">Search Item:</label>
                 <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
-                <button id="serach" class="btn btn-primary">Search</button>
+                <button id="search" class="btn btn-primary">Search</button>
                 
 
 </div>

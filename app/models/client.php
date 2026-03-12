@@ -184,99 +184,43 @@ public function selectclient($id){
 
 
     //search for client 
+public function getclientfiltered($limit, $offset, $search = '', $orderCol = 'c.id', $orderDir = 'ASC') {
+    $allowed_columns = ['c.id', 'c.name', 'c.phone', ];
+    $allowed_dirs = ['ASC', 'DESC'];
 
+    $orderCol = in_array($orderCol, $allowed_columns) ? $orderCol : 'c.id';
+    $orderDir = in_array($orderDir, $allowed_dirs) ? $orderDir : 'ASC';
 
- public function searchclient($keyword){
+    $search_param = "%$search%";
 
-    $sql = "select c.id, c.name, c.phone, c.address, s.sname, c.city, c.pincode 
-            FROM clientinsert AS c 
+    $sql = "select c.id, c.name, c.phone, c.address, s.sname, c.city, c.pincode
+            FROM clientinsert AS c
             JOIN states AS s ON c.state_id = s.id
-            WHERE c.name LIKE ?
-            OR c.phone LIKE ?
-            OR c.city LIKE ?
-            OR s.sname LIKE ?
-            OR c.pincode LIKE ?";
-
-    $cool = $this->conn->prepare($sql);
-
-    $search = "%".$keyword."%";
-
-    $cool->bind_param("sssss",$search,$search,$search,$search,$search);
-
-    $cool->execute();
-
-    return $cool->get_result();
-}
-
-
-
-
-
-//pagination start form here 
-
-
-public function getclientbypage($limit, $offset) {
-   
-    $sql = "SELECT c.id, c.name, c.phone, c.address, s.sname, c.city, c.pincode 
-            FROM clientinsert AS c join states AS s ON c.state_id = s.id 
+            WHERE (c.name LIKE ? OR c.phone LIKE ? OR c.city LIKE ?)
+            ORDER BY $orderCol $orderDir
             LIMIT ? OFFSET ?";
 
-    
     $cool = $this->conn->prepare($sql);
-
-   
-    // if ($cool === false) {
-    //     die('MySQL prepare error: ' . $this->conn->error);
-    // }
-   
-    $cool->bind_param("ii", $limit, $offset);
-
+    $cool->bind_param("sssii", $search_param, $search_param, $search_param, $limit, $offset);
     $cool->execute();
-
     return $cool->get_result();
 }
 
+public function clientcountfiltered($search = '') {
+    $search_param = "%$search%";
 
-
-public function clientcount(){
-    $sql = "select count(*) as total from clientinsert";
+    $sql = "select COUNT(*) AS total
+            FROM clientinsert AS c
+            JOIN states AS s ON c.state_id = s.id
+            WHERE (c.name LIKE ? OR c.phone LIKE ? OR c.city LIKE ?)";
 
     $cool = $this->conn->prepare($sql);
-
+    $cool->bind_param("sss", $search_param, $search_param, $search_param);
     $cool->execute();
     $result = $cool->get_result();
-
     $row = $result->fetch_assoc();
-
     return $row['total'];
 }
-        
- 
-
-
-public function orderclient($column, $order){
-   
-      $allowedColumns = ['id', 'name', 'phone'];
-    $allowedOrder = ['ASC', 'DESC'];
-
-    if (!in_array($column, $allowedColumns)) {
-        $column = 'id';
-    }
-
-    if (!in_array($order, $allowedOrder)) {
-        $order = 'ASC';
-    }
-
-    $sql = "select c.id, c.name, c.phone, c.address, s.sname, c.city, c.pincode from clientinsert AS c join states AS s ON c.state_id = s.id order by $column $order";
-
-    $cool = $this->conn->prepare($sql);
-    $cool->execute();
-
-    return $cool->get_result();
-}
-
-
-
 
 
 

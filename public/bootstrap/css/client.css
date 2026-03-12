@@ -253,3 +253,54 @@ html, body {
     right: -15px;
     cursor: pointer;
 }
+
+
+
+
+
+.first-invoice{
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+
+.inner-first{
+    padding-left: 20px;
+}
+
+.inner-second{
+    padding-right: 20px;
+}
+
+
+.second-invoice{
+    margin-top: 10px;
+    height: 600px;
+    border: 1px solid black;
+
+}
+
+
+.third-invoice{
+   border-top: 1px solid black;
+
+    height: 70px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+
+.invoice-form{
+    height: 530px;
+    
+}
+
+
+.invoice-total{
+
+}
