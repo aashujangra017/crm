@@ -33,7 +33,7 @@
             <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
         </button>
         <button  onclick="location.href='/cool/invoice'"  class="nav-link text-dark" id="itemMaster">
-            <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice</span>
+            <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice Master</span>
         </button>
        
     </div>
@@ -42,7 +42,7 @@
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
-<!-- right bar start -->
+<!-- right side bar  start from here    -->
 <div class="right container " id="rightPanel">
   <div class="row border rounded h-25 px-3">
     <div class="col-12 bg-primary d-flex justify-content-center align-items-center container-fluid" style="background: linear-gradient(90deg, #0C7BB3 0%, #F2BAE8 100%) "> 

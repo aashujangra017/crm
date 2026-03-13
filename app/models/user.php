@@ -217,7 +217,6 @@ public function getUsersFiltered($limit, $offset, $search = '', $orderColumn = '
     $allowed_columns = ['id', 'name', 'email'];
     $allowed_dirs    = ['ASC', 'DESC'];
 
-    // Whitelist to prevent SQL injection on ORDER BY
     $orderColumn = in_array($orderColumn, $allowed_columns) ? $orderColumn : 'id';
     $orderDir    = in_array($orderDir, $allowed_dirs)    ? $orderDir    : 'ASC';
 

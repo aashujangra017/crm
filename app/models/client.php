@@ -224,13 +224,27 @@ public function clientcountfiltered($search = '') {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
 
 ?>

@@ -64,6 +64,8 @@
 
 <div class="container  ">
 
+<h3 class="mb-3 text-center container  p-3  border rounded" style="background-color: #cadcecb6">Welcome To Invoice Master Home Page</h3>
+
 
 
 
@@ -118,14 +120,16 @@ role="tabpanel">
 
 <div class="second-invoice bg-success-subtle"  style="background-color: #cadcecb6">
 <div class="invoice-form">
-<!-- form start form here  -->
+
  <form id="invoiceForm">
      
       <div class="row">
         <div class="col-md-4">
           <div class="form-group mt-4">
             <label for="clientname" class="fw-bold text-black">Client Name</label>
-            <input type="text" id="clientname" class="form-control" placeholder="Enter client name" />
+        
+                 <input type="text" id="clientname" class="form-control" placeholder="Enter client name" list="clientList" />
+               <datalist id="clientList"></datalist>
           </div>
         </div>
         <div class="col-md-4">
@@ -147,14 +151,17 @@ role="tabpanel">
   <div class="row item-row mb-2">
     <div class="col-md-4">
       <div class="form-group mt-4">
-        <label class="fw-bold text-black">Item Name</label>
-        <input type="text" class="form-control itemname" placeholder="Enter item name" />
+        <label for="itemname" class="fw-bold text-black">Item Name</label>
+<input type="text" class="form-control itemname" placeholder="Enter item name" id="itemname" list="itemList" />
+<datalist id="itemList"></datalist>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group mt-4">
-        <label class="fw-bold text-black">Price</label>
-        <input type="number" class="form-control itemprice" placeholder="Enter price" />
+       <label class="fw-bold text-black">Price</label>
+<input type="number" class="form-control itemprice" placeholder="Enter price"/>
+
+
       </div>
     </div>
     <div class="col-md-2">
@@ -307,8 +314,7 @@ role="tabpanel ">
     <span class="sort" data-column="invoice_code" data-order="ASC" style="cursor:pointer">↕</span>
 </th>
 
-<th>
-    Client Name 
+<th>Client Name 
     <span class="sort" data-column="client_namae" data-order="ASC" style="cursor:pointer">↕</span>
 </th>
 
@@ -324,7 +330,7 @@ role="tabpanel ">
 
 <th>
     Date 
-    <span class="sort" data-column="created_at" data-order="ASC" style="cursor:pointer">↕</span>
+  
 </th>
 
 <th>Update</th>

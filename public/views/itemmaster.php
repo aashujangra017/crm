@@ -44,10 +44,10 @@ require "navbar.php";
             <i class="bi bi-person-lines-fill"></i> <span class="link-text text-dark">Client Master</span>
         </button>
         <button  onclick="location.href='/cool/home'"  class="nav-link text-dark" id="itemMaster">
-            <i class="bi bi-box-seam"></i> <span class="link-text">Item Master</span>
+            <i class="bi bi-box-seam"></i> <span class="link-text">Item Master </span>
         </button>
          <button  onclick="location.href='/cool/invoice'"  class="nav-link text-dark" id="itemMaster">
-            <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice</span>
+            <i class="fa-solid fa-file-invoice"></i> <span class="link-text">Invoice Master</span>
         </button>
         
    

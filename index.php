@@ -447,6 +447,30 @@ $router->addRoute('/cool/invoice-fetch',function(){
 
 
 
+// invoice pagination start form here
+
+
+$router->addRoute('/cool/invoice-pagination',function(){
+    $controller = new InvoiceController();
+      $controller->invoicepagination();
+});
+
+
+// get client name api
+$router->addRoute('/cool/getclients',function(){
+    $controller = new InvoiceController();
+      $controller->getclient();
+});
+
+
+// get items name 
+$router->addRoute('/cool/getitems', function() {
+    $controller = new InvoiceController();
+    $controller->getitem();
+});
+
+
+
 
 
 

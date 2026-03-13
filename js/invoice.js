@@ -32,7 +32,16 @@ $(document).on("input", ".quantity, .itemprice", function() {
     updateTotal();
 });
 
-// 
+
+
+
+
+
+
+
+
+
+//  itemname on change 
 $(document).on("change", ".itemname", function() {
     const row = $(this).closest(".item-row");
     const itemName = $(this).val().trim();
@@ -56,6 +65,83 @@ $(document).on("change", ".itemname", function() {
         });
     }
 });
+
+
+// api for the suggest cientname 
+$("#clientname").on("keyup", function (e) {
+    const searchTerm = $(this).val().trim();
+
+   
+    if (searchTerm.length > 0) {
+
+        console.log("Searching for:", searchTerm);
+        $.ajax({
+            url: '/cool/getclients',  
+            type: 'GET',
+            data: { query: searchTerm }, 
+            success: function (response) {
+                const clientList = $('#clientList');  
+                
+             
+                clientList.empty();  
+
+                if (response.clients && response.clients.length > 0) {
+                    
+                    response.clients.forEach(client => {
+                        clientList.append(new Option(client.name, client.name)); 
+                    });
+                } else {
+                   
+                    clientList.append(new Option("No clients found", ""));
+                }
+            },
+            error: function () {
+                alert('Failed to fetch client list.');
+            }
+        });
+    } else {
+        $('#clientList').empty();  
+    }
+});
+
+
+
+//api for suggest the  itemname
+
+$("#itemname").on("keyup", function() {
+    const searchTerm = $(this).val().trim();
+
+    if (searchTerm.length > 0) {
+        $.ajax({
+            url: "/cool/getitems",
+            type: "GET",
+            data: { query: searchTerm },
+            success: function(response) {
+                const itemList = $("#itemList");  
+
+                itemList.empty(); 
+
+                if (response.items && response.items.length > 0) {
+                    
+                    response.items.forEach(item => {
+                       
+                        itemList.append(new Option(item.itemname, item.itemname));
+                    });
+                } else {
+                 
+                    itemList.append(new Option("No items found", ""));
+                }
+            },
+            error: function() {
+                alert('Failed to fetch item list.');
+            }
+        });
+    }
+});
+
+
+//client name on change start form here 
+
 
      $('#clientname').on('change', function() {
     var clientName = $(this).val();
@@ -162,8 +248,12 @@ $(document).on("change", ".itemname", function() {
                 const res = typeof response === 'string' ? JSON.parse(response) : response;
 
                 if (res.status === 'success') {
-                    alert('Invoice saved successfully! Invoice ID: ' + res.invoice_id);
+                    loadinvoice();
+                       
                     $('#invoiceForm')[0].reset(); 
+                    $("#showclient").tab("show");
+
+                        
 
                    
                     
@@ -172,8 +262,14 @@ $(document).on("change", ".itemname", function() {
 
                 } else {
                     alert('Error: ' + res.message);
+                    
                 }
-            }
+            },
+            
+    error: function() {
+       
+        alert('An error occurred while creating the invoice.');
+    }
         });
     });
 
@@ -195,22 +291,119 @@ $("#invoiceid").text(uniqueId);
 
 
 // fetch api start form here
+//   function loadinvoice() {
+//     $.ajax({
+//         url: "/cool/invoice-fetch",
+//         type: "GET",
+//         success: function(data) {
+//             $("#bodydata").html(data);
+//         }
+//     });
+// }
+
+// loadinvoice();
+
+
+let page = 1;
+
+let limit = 5;
+ 
+let search = '';
+let orderCol = 'id';
+let orderDir = 'ASC';
 
 
 
-   
+function loadinvoice() {
 
-  function loadinvoice() {
+    limit = $("#limit").val() || 5;
+    search = $("#searchname").val().trim();  
+
     $.ajax({
-        url: "/cool/invoice-fetch",
-        type: "GET",
-        success: function(data) {
-            $("#bodydata").html(data);
+        url: "/cool/invoice-pagination", 
+        type: "POST",
+        data: {
+            page: page,         
+            limit: limit,        
+            search: search,      
+            orderCol: orderCol,  
+            orderDir: orderDir   
+        },
+        success: function(response) {
+            let data = typeof response === "string" ? JSON.parse(response) : response;
+
+       
+            $("#bodydata").html(data.table);
+
+         
+            let pagination = "";
+            pagination += `<button class='btn btn-secondary mx-1' id='prev' ${data.page <= 1 ? 'disabled' : ''}>Prev</button>`;
+            pagination += `<span class='mx-2 fw-bold'>Page ${data.page} of ${data.totalPages}</span>`;
+            pagination += `<button class='btn btn-secondary mx-1' id='next' ${data.page >= data.totalPages ? 'disabled' : ''}>Next</button>`;
+            $(".paging").html(pagination);
+
+        
+          
         }
     });
 }
 
+
 loadinvoice();
+
+
+$("#limit").on("change", function () {
+    page = 1; 
+    loadinvoice();
+});
+
+
+$("#search").on("click", function () {
+    page = 1; 
+    loadinvoice();
+});
+
+$(document).on("click", "#prev", function () {
+    if (page > 1) { 
+        page--; 
+        loadinvoice(); }
+});
+$(document).on("click", "#next", function () {
+    page++; 
+    loadinvoice();
+});
+
+
+
+
+
+
+$(document).on("click", ".sort", function () {
+    let col = $(this).data("column");
+
+    if (orderCol === col) {
+        orderDir = orderDir === 'ASC' ? 'DESC' : 'ASC'; 
+    } else {
+        orderCol = col;
+        orderDir = 'ASC'; 
+    }
+
+    page = 1; 
+    loadinvoice();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

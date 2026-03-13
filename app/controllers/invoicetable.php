@@ -2,12 +2,10 @@
 
 if ($users && $users->num_rows > 0) {
 
- $sr = 1;
-
     while ($row = $users->fetch_assoc()) {
 
         echo "<tr>
-              <td>{$sr}</td>
+                <td>{$row['id']}</td>
                 <td>{$row['invoice_codes']}</td>
                 <td>{$row['client_name']}</td>
                 <td>{$row['email']}</td>
@@ -20,8 +18,6 @@ if ($users && $users->num_rows > 0) {
                     </button>
                 </td>
               </tr>";
-
-               $sr++;
     }
 
 } else {

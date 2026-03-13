@@ -11,6 +11,62 @@ class invoice {
         $this->conn = $db->connection();
 
     }
+    
+// clients form here in user table 
+
+public function getClients($search = '') {
+
+    $sql = "SELECT id, name FROM user WHERE name LIKE ?"; 
+
+
+    $cool = $this->conn->prepare($sql);
+    
+    $searchTerm = "%$search%"; 
+    
+    $cool->bind_param('s', $searchTerm); 
+    $cool->execute();   
+    
+    $result = $cool->get_result();   
+
+    $clients = [];
+    while ($row = $result->fetch_assoc()) {
+        $clients[] = $row; 
+    }
+
+    return $clients;  
+}
+
+
+public function getitems($search = '') {
+
+
+    $sql = "SELECT id, itemname FROM items WHERE itemname LIKE ?";
+    
+  
+    $cool = $this->conn->prepare($sql);
+    $searchTerm = "%$search%";
+
+   
+    $cool->bind_param('s', $searchTerm);
+
+    $cool->execute();
+
+    $result = $cool->get_result();
+
+    $clients = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $clients[] = $row;
+    }
+    return $clients;
+}
+
+
+
+
+
+
+
 
    // select clientname 
 public function selectClientByName($clientName){
@@ -53,6 +109,20 @@ public function selectClientByName($clientName){
             return null; 
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+// insert invoice start from here model 
+
 
 
 
@@ -107,13 +177,67 @@ public function fetchallinvoice(){
 
 
 
+// search limit and order by start form here 
 
+
+public function getinvoice($limit, $offset, $search = '', $orderColumn = 'id', $orderDir = 'ASC') {
+    $allowed_columns = ['id','invoice_codes', 'name', 'total,'];
+    $allowed_dirs    = ['ASC', 'DESC'];
+
+  
+    $orderColumn = in_array($orderColumn, $allowed_columns) ? $orderColumn : 'id';
+    $orderDir    = in_array($orderDir, $allowed_dirs)    ? $orderDir    : 'ASC';
+
+    $search_param = "%$search%";
+
+$sql = "SELECT id, invoice_codes, client_name, email, total, created_at
+        FROM invoices
+        WHERE (invoice_codes LIKE ? OR client_name LIKE ? OR email LIKE ?)
+        ORDER BY $orderColumn $orderDir LIMIT ? OFFSET ?";
+
+$cool = $this->conn->prepare($sql);
+
+$cool->bind_param("sssii", $search_param, $search_param,$search_param,$limit, $offset);
+
+    $cool->execute();
+    return $cool->get_result();
 
 
 }
 
 
 
+public function countinvoice($search = ''){
+   
+$search_param = "%$search%";
+
+    $sql = "select count(*) as total from invoices where ( invoice_codes like ? or client_name like ? or email like ? )";
+    $cool = $this->conn->prepare($sql);
+    $cool->bind_param("sss", $search_param, $search_param,$search_param);
+    $cool->execute();
+    $result = $cool->get_result();
+    $row = $result->fetch_assoc();
+    return $row['total'];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 
 
 ?>

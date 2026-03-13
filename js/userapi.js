@@ -550,8 +550,7 @@ function loadUsers() {
             $(".paging").html(pagination);
 
          
-            $(".sort").html("↕");
-            $(`.sort[data-column="${orderCol}"]`).html(orderDir === 'ASC' ? '↑' : '↓');
+          
         }
     });
 }

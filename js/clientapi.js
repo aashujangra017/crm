@@ -449,12 +449,7 @@ function loadClients() {
             $(".paging").html(pagination); 
 
             
-            $(".sort").html("↕");
-            let activeCol = orderCol.replace("c.", "");
-            $(`.sort[data-column="${activeCol}"]`).html(orderDir === 'ASC' ? '↑' : '↓');
-        },
-        error: function(err) {
-            console.error("Error loading clients:", err);
+       
         }
     });
 }

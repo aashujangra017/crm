@@ -344,8 +344,7 @@ function loaditems() {
             $(".paging").html(pagination);
 
          
-            $(".sort").html("↕");
-            $(`.sort[data-column="${orderCol}"]`).html(orderDir === 'ASC' ? '↑' : '↓');
+         
         }
     });
 }
@@ -363,19 +362,15 @@ $(document).on("click", "#next", function () {
     loaditems();
 });
 
-
 $("#limit").on("change", function () {
     page = 1; 
     loaditems();
 });
 
-
 $("#search").on("click", function () {
     page = 1; 
     loaditems();
 });
-
-
 
 $(document).on("click", ".sort", function () {
     let col = $(this).data("column");
