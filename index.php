@@ -440,6 +440,12 @@ $router->addRoute('/cool/invoice-create',function(){
 });
 
 
+$router->addRoute('/cool/invoice-fetch',function(){
+    $controller = new InvoiceController();
+      $controller->fetchinvoice();
+});
+
+
 
 
 

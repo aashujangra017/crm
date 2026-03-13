@@ -197,7 +197,7 @@ role="tabpanel ">
 <tr class="table-dark">
 
 <th>
-    ID 
+    S.NO 
     <span class="sort" data-column="id" data-order="ASC" style="cursor:pointer">↕</span>
 </th>
 
@@ -226,16 +226,7 @@ role="tabpanel ">
 </table>
 </div>
 
-<div id="model">
-    <div id="model-form">
-        <h2>Edit User Master Form</h2>
-      <div class="text-black" id="close-btn">X</div>
 
-        <div id="edit-form"></div>
-    </div>
-</div>
-
-</div>
 
 </div>
 

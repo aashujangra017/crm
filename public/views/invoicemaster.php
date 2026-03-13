@@ -96,43 +96,21 @@
 <!-- Tab content -->
 <div class="tab-content border border-top-0 p-3" id="myTabContent">
 
-<!-- Add Client Tab -->
+
 <div class="tab-pane fade "
 id="home-tab-pane"
 role="tabpanel">
-
-<div class="form-container " style="background-color: #cadcecb6; height:800px;" >
-
-<h4>Add Invoice</h4>
-
-<div class="form-wrapper" id="setup">
-
-
-
-</div>
-</div>
-</div>
-
-<!-- Show Client Tab -->
-<div class="tab-pane fade show active"
-id="profile-tab-pane"
-role="tabpanel ">
-
-
 
 
 
 
 <div class="first-invoice text-black ">
-<div class="inner-first" style="font-size: 24px">
- show invoice
+<div class="inner-first" style="font-size:24px">
+ Invoice ID : <span id="invoiceid"></span>
 </div>
 
 
 
-<div>
- <!-- <button type="button" id="addItem" class="btn btn-success mb-3">Add Item</button> -->
-</div>
 </div>
 
 
@@ -140,9 +118,9 @@ role="tabpanel ">
 
 <div class="second-invoice bg-success-subtle"  style="background-color: #cadcecb6">
 <div class="invoice-form">
-<!-- Invoice Form -->
+<!-- form start form here  -->
  <form id="invoiceForm">
-      <!-- First Row: Client Name, Item Name, Price -->
+     
       <div class="row">
         <div class="col-md-4">
           <div class="form-group mt-4">
@@ -164,7 +142,7 @@ role="tabpanel ">
         </div>
       </div>
 
-      <!-- Row for Plus and Minus Buttons -->
+  
     <div id="itemsContainer" style="height: 320px; overflow-x: hidden; overflow-y: auto;">
   <div class="row item-row mb-2">
     <div class="col-md-4">
@@ -190,7 +168,7 @@ role="tabpanel ">
       </div>
     </div>
    <div class="col-md-2">
-  <!-- First row: remove button hidden -->
+
   <button class="btn btn-danger remove-item mt-5" type="button" style="display: none;">Remove</button>
    <button type="button" id="addItem" class="btn btn-primary mb-3 mt-5">Add Item</button>
 </div>
@@ -199,7 +177,6 @@ role="tabpanel ">
 
 
 
-      <!-- Invoice Total Section -->
       <div class="row mt-4">
         <div class="col-md-4">
           <div class="form-group">
@@ -259,22 +236,117 @@ role="tabpanel ">
 
 </div>
 
+
+</div>
+
+
+<div class="tab-pane fade show active"
+id="profile-tab-pane"
+role="tabpanel ">
+
+<h4>Show Invoice </h4>
+
+<div>
+<div class="first border co-12 "  style="background-color: #cadcecb6">
+
+
+                <label for="searchname" class="fw-bold mx-3">Search user:</label>
+                <input class="form-control"  type="text" name="name" id="searchname" placeholder="Search for name" />
+           
+                <button id="search" class="btn btn-primary">Search</button>
+                
+
+</div>
+
+<!-- <div class="second bg-body-secondary col-12">
+<label class="fw-bold mx-3">Limit</label>
+<select id="limit" class="form-select w-auto d-inline-block">
+    <option value="" disabled selected>Select Limit</option>
+    <option value="5">5</option>
+    <option value="10">10</option>
+      <option value="15">15</option>
+</select>
+</div> -->
+
+<div class="second  col-12 d-flex justify-content-between border"  style="background-color: #cadcecb6">
+    <div>
+        <label class="fw-bold mx-3">Limit</label>
+
+<select id="limit" class="form-select w-auto d-inline-block">
+    <option value="5" selected>5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+      <option value="25">25</option>
+       <option value="30">30</option>
+        <option value="35">35</option>
+         <option value="40">40</option>
+</select>
+</div>
+
+
+<div class="paging mx-3">
+
+
+</div>
+</div>
+</div>
+<div class="third col-12 border"  style="background-color: #cadcecb6">
+<table class="table table-hover">
+
+<thead>
+<tr class="table-dark">
+
+<th>
+   S.NO 
+    <span class="sort" data-column="id" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>
+    Invoice Code 
+    <span class="sort" data-column="invoice_code" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>
+    Client Name 
+    <span class="sort" data-column="client_namae" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>
+    Email 
+    <span class="sort" data-column="email" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>
+    Total 
+    <span class="sort" data-column="total" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>
+    Date 
+    <span class="sort" data-column="created_at" data-order="ASC" style="cursor:pointer">↕</span>
+</th>
+
+<th>Update</th>
+
+</tr>
+</thead>
+
+<tbody id="bodydata"></tbody>
+
+</table>
 </div>
 
 
 
-
-
-
-
-
-
-
-
+</div>
 
 </div>
 
-<!-- Bootstrap JS Bundle -->
+</div>
+
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 

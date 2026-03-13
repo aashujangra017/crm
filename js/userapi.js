@@ -321,9 +321,9 @@ $("#phoneerror").text("Phone must be 10 digits");
 isValid = false;
 }
 
-if(status === ""){
-$("#statuserror").text("Status is required");
-isValid = false;
+if(status === "" || status === null){
+    $("#statuserror").text("Please select status");
+    isValid = false;
 }
 
 if(!isValid){

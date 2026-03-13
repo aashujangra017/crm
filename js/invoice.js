@@ -109,17 +109,21 @@ $(document).on("change", ".itemname", function() {
         updateTotal();
     });
 
-    // Remove item row
+
     $(document).on("click", ".remove-item", function() {
         $(this).closest(".item-row").remove();
         updateTotal();
     });
 
-    // Handle form submission via AJAX
+
+
+    // api form insert start from here 
+
+ 
     $("#invoicesave").click(function(e) {
         e.preventDefault();
 
-        // Collect form data
+         const invoiceId = $('#invoiceid').text();
         const clientName = $('#clientname').val();
         const invoiceEmail = $('#invoiceemail').val();
         const invoicePhone = $('#invoicephone').val();
@@ -131,17 +135,22 @@ $(document).on("change", ".itemname", function() {
             const itemName = $(this).find('.itemname').val();
             const price = parseFloat($(this).find('.itemprice').val()) || 0;
             const quantity = parseInt($(this).find('.quantity').val()) || 1;
-            items.push({ itemname: itemName, price: price, quantity: quantity });
+            items.push({
+                 itemname: itemName,
+                  price: price, 
+                  quantity: quantity 
+                });
         });
 
     
-        const data = {
-            clientname: clientName,
-            invoiceemail: invoiceEmail,
-            invoicephone: invoicePhone,
-            total: total,
-            items: items
-        };
+       const data = {
+        invoiceid: invoiceId,
+        clientname: clientName,
+        invoiceemail: invoiceEmail,
+        invoicephone: invoicePhone,
+        total: total,
+        items: items
+    };
 
      
         $.ajax({
@@ -171,7 +180,37 @@ $(document).on("change", ".itemname", function() {
 
 
   
+// generate uniquer id
+$("#addclient").click(function(){
 
+let uniqueId = "SAN-" + Math.floor(100000 + Math.random() * 900000);
+
+$("#invoiceid").text(uniqueId);
+
+});
+
+
+
+
+
+
+// fetch api start form here
+
+
+
+   
+
+  function loadinvoice() {
+    $.ajax({
+        url: "/cool/invoice-fetch",
+        type: "GET",
+        success: function(data) {
+            $("#bodydata").html(data);
+        }
+    });
+}
+
+loadinvoice();
 
 
 
@@ -180,8 +219,8 @@ $(document).on("change", ".itemname", function() {
     $('#invoicereset').click(function(e) {
         e.preventDefault();
         $('#invoiceForm')[0].reset();
-        $('#itemsContainer').html('');
-        $('#total').val('0');
+    
+        $('#total').val('0.00');
     });
 
     updateTotal();

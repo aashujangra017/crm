@@ -120,19 +120,19 @@ public function deleteusers($id) {
     //limit start from here
 
 
-    public function limituser($limit){
-        $sql = "select * from user limit ?";
-        $cool = $this->conn->prepare($sql);
+    // public function limituser($limit){
+    //     $sql = "select * from user limit ?";
+    //     $cool = $this->conn->prepare($sql);
         
-        $cool->bind_param("i",$limit);
+    //     $cool->bind_param("i",$limit);
 
-        $cool->execute();
+    //     $cool->execute();
 
-         return $cool->get_result();
+    //      return $cool->get_result();
         
         
         
-        }
+    //     }
 
 
 
@@ -207,56 +207,6 @@ public function getallstatus(){
 
 
 
-
-// //pagination start form here 
-
-
-// public function getuserbypage($limit,$offset){
-//     $sql = "select id,name,email,phone,status from user LIMIT ? OFFSET ?";
-
-//     $cool = $this->conn->prepare($sql);
-
-//     $cool->bind_param("ii",$limit,$offset);
-
-//     $cool->execute();
-
-//     return $cool->get_result();
-// }
-
-
-
-// //now count the user 
-
-
-// public function countuser(){
-//     $sql = "select count(*) as total from user ";
-    
-//      $cool = $this->conn->prepare($sql);
-
-//      $cool->execute();
-
-//      $result = $cool->get_result();
-
-//      $row = $result->fetch_assoc();
-
-//      return $row['total'];
-
-// }
-    
-
-
-// //order by model for the user master
-
-
-// public function orderuser($column, $order){
-//     $sql = "select id, name, email, phone, status  from user order by  $column $order";
-    
-//     $cool = $this->conn->prepare($sql);
-//     $cool->execute();
-
-//     return $cool->get_result();
-
-// }
 
 
 

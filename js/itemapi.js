@@ -60,59 +60,63 @@ $("#toggleSidebar").click(function(){
     });
 });
 
+
+//uopdate and insert
 $(document).on("click", "#submit", function(e) {
     e.preventDefault();
 
-    var id = $("#userid").val();
+    var id = $("#userid").val().trim(); // hidden id field
     var itemname = $("#itemname").val().trim();
     var price = $("#price").val().trim();
     var description = $("#description").val().trim();
+    var fileInput = $("#image")[0].files[0];
 
     var isValid = true;
-
-    $(".text-danger").text(""); // Clear previous error messages
+    $(".text-danger").text("");
 
     // Validation
-    if (itemname === "") {
+    if(itemname === ""){
         $("#itemnameerror").text("Item name is required");
         isValid = false;
     }
 
-    if (price === "") {
+    if(price === ""){
         $("#priceerror").text("Price is required");
         isValid = false;
-    } else if (isNaN(price) || price <= 0) {
+    } else if(isNaN(price) || price <= 0){
         $("#priceerror").text("Price must be a valid number");
         isValid = false;
     }
 
-    if (description === "") {
+    if(description === ""){
         $("#descriptionerror").text("Description is required");
         isValid = false;
     }
 
-    // Image required only on insert
-    var fileInput = $("#image")[0].files[0];
-    if ((id === "" || id == null) && !fileInput) {
+    // Image required only for insert
+    if((id === "" || id == null) && !fileInput){
         $("#imageerror").text("Image is required");
         isValid = false;
     }
 
-    if (!isValid) {
+    if(!isValid){
         return;
     }
 
-    var url = id === "" || id == null ? "/cool/item-insert" : "/cool/item-update";
+   
+    var url = (id === "" || id == null) ? "/cool/item-insert" : "/cool/item-update";
 
+    // Prepare form data
     var formData = new FormData();
-    formData.append('id', id);
-    formData.append('itemname', itemname);
-    formData.append('price', price);
-    formData.append('description', description);
-    formData.append('existing_image', $("#existing-image").val());
+    formData.append("id", id);
+    formData.append("itemname", itemname);
+    formData.append("price", price);
+    formData.append("description", description);
+    formData.append("existing_image", $("#existing-image").val());
+    formData.append("submit", "1");
 
-    if (fileInput) {
-        formData.append('image', fileInput);
+    if(fileInput){
+        formData.append("image", fileInput);
     }
 
     $.ajax({
@@ -121,26 +125,21 @@ $(document).on("click", "#submit", function(e) {
         data: formData,
         contentType: false,
         processData: false,
-        success: function(response) {
-            if (response.trim() === "success") {
-                $("#showclient").tab('show');
-                $("#clientForm")[0].reset(); 
+        success: function(response){
+            if(response.trim() === "success"){
+                loaditems();                      
+                $("#showclient").tab("show");    
+                $("#clientForm")[0].reset();      
+                $("#userid").val("");             
+                $("#existing-image").val("");     
                 $("#current-image-container").hide();
-                $("#existing-image").val(""); 
-                $("#userid").val(""); 
-                loaditems(); 
-            } 
+            } else {
+                alert("Insert/Update failed: " + response);
+            }
         }
     });
+
 });
-
-$("#reset").on("click", function() {
-    $("#userid").val(""); 
-    $("#current-image-container").hide();
-    $("#existing-image").val(""); 
-});
-
-
 
 
    //logout api start form here 
@@ -182,6 +181,12 @@ $(document).on("click","#serach",function(){
     });
 
 });
+
+
+
+
+
+
 
 //delete api start form here 
 
@@ -235,70 +240,75 @@ $(document).on("click", ".deletebutton", function() {
 
 
   //insert item start form here
-$(document).on("click", "#submit", function(e) {
-    e.preventDefault();
+// $(document).on("click", "#submit", function(e) {
+//     e.preventDefault();
 
-    var itemname    = $("#itemname").val();
-    var price       = $("#price").val();
-    var description = $("#description").val();
-    var image       = $("#image")[0].files[0];
+//     var itemname    = $("#itemname").val();
+//     var price       = $("#price").val();
+//     var description = $("#description").val();
+//     var image       = $("#image")[0].files[0];
 
-    // if (itemname == "" || price == "" || description == "" || !image) {
-    //     alert("Please fill all fields and upload an image.");
-    //     return;
-    // }
+//     // if (itemname == "" || price == "" || description == "" || !image) {
+//     //     alert("Please fill all fields and upload an image.");
+//     //     return;
+//     // }
 
-    var valid = true;
-    $(".text-danger").text("");
+//     var valid = true;
+//     $(".text-danger").text("");
 
-    if(itemname == "") {
-        $("#itemnameerror").text("Item name is required");
-        valid = false;
-    }
+//     if(itemname == "") {
+//         $("#itemnameerror").text("Item name is required");
+//         valid = false;
+//     }
 
-    if(price == "") {
-        $("#priceerror").text("Price is required");
-        valid = false;
-    } else if (!/^\d+(\.\d+)?$/.test(price) || Number(price) <= 0) {
-        $("#priceerror").text("Enter a valid positive price");
-        valid = false;
-    }
+//     if(price == "") {
+//         $("#priceerror").text("Price is required");
+//         valid = false;
+//     } else if (!/^\d+(\.\d+)?$/.test(price) || Number(price) <= 0) {
+//         $("#priceerror").text("Enter a valid positive price");
+//         valid = false;
+//     }
 
-    if(!description  ) {
-        $("#descriptionerror").text("Description is required");
-        valid = false;
-    }
-
-
-
-    if(!valid) return;
+//     if(!description  ) {
+//         $("#descriptionerror").text("Description is required");
+//         valid = false;
+//     }
 
 
-    var formData = new FormData();
-    formData.append("itemname", itemname);
-    formData.append("price", price);
-    formData.append("description", description);
-    formData.append("image", image);
-    formData.append("submit", "1"); 
 
-    $.ajax({
-        url: "/cool/item-insert",
-        type: "POST",
-        data: formData,                 
-        contentType: false,              
-        processData: false,          
-        success: function(response) {
-            if (response.trim() == "success") {
+
+
+//     if(!valid) return;
+
+
+
+    
+
+//     var formData = new FormData();
+//     formData.append("itemname", itemname);
+//     formData.append("price", price);
+//     formData.append("description", description);
+//     formData.append("image", image);
+//     formData.append("submit", "1"); 
+
+//     $.ajax({
+//         url: "/cool/item-insert",
+//         type: "POST",
+//         data: formData,                 
+//         contentType: false,              
+//         processData: false,          
+//         success: function(response) {
+//             if (response.trim() == "success") {
                 
-                $("#clientForm")[0].reset();
-                  $("#showclient").tab('show');
+//                 $("#clientForm")[0].reset();
+//                   $("#showclient").tab('show');
                 
-            } else {
+//             } else {
               
-            }
-        }
-    });
-});
+//             }
+//         }
+//     });
+// });
 
 
 
