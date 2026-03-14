@@ -207,7 +207,9 @@ header('Content-Type: application/json');
                 <td>
                <button class='btn btn-success generate-pdf'  data-id='{$row['id']}'> PDF</button>
                </td>
-               <td><button class='btn btn-warning'>Mail</button></td>
+               <td><button class='update-btn btn btn-warning' data-eid='{$row['id']}'>
+                        Mail
+                    </button></td>
               </tr>";
         }
     } else {
@@ -322,30 +324,30 @@ public function generatepdf() {
         $pdf->AddPage();
         $pdf->SetFont('Arial', 'B', 16);
         
-        $pdf->Cell(0, 10, 'Invoice: ' . $invoiceData['invoice_codes'], 0, 1, 'C');
-        $pdf->Cell(0, 10, 'Client Name: ' . $invoiceData['client_name'], 0, 1);
+         $pdf->Cell(0, 10, 'Invoice: ' . $invoiceData['invoice_codes'], 0, 1, 'C');
+     $pdf->Cell(0, 10, 'Client Name: ' . $invoiceData['client_name'], 0, 1);
         $pdf->Cell(0, 10, 'Email: ' . $invoiceData['email'], 0, 1);
         $pdf->Cell(0, 10, 'Total: ' . number_format($invoiceData['total'], 2), 0, 1);
         $pdf->Cell(0, 10, 'Created At: ' . $invoiceData['created_at'], 0, 1);
         $pdf->Ln(10);
-        
+
+     
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(30, 10, 'Item', 1);
-        $pdf->Cell(30, 10, 'Description', 1);
+        $pdf->Cell(50, 10, 'Item', 1);
         $pdf->Cell(30, 10, 'Quantity', 1);
         $pdf->Cell(30, 10, 'Price', 1);
         $pdf->Cell(30, 10, 'Total', 1);
         $pdf->Ln();
-        
-        foreach ($itemsData as $item) {
-            $pdf->Cell(30, 10, $item['item_name'], 1);
-            $pdf->Cell(30, 10, $item['description'], 1);
-            $pdf->Cell(30, 10, $item['quantity'], 1);
-            $pdf->Cell(30, 10, number_format($item['price'], 2), 1);
-            $pdf->Cell(30, 10, number_format($item['total'], 2), 1);
-            $pdf->Ln();
+
+
+foreach ($itemsData as $item) {
+    $itemTotal = $item['quantity'] * $item['price'];
+    $pdf->Cell(50, 10, $item['item_name'], 1);
+    $pdf->Cell(30, 10, $item['quantity'], 1, 0, 'C');
+    $pdf->Cell(30, 10, number_format($item['price'], 2), 1, 0, 'R');
+    $pdf->Cell(30, 10, number_format($itemTotal, 2), 1, 0, 'R');
+    $pdf->Ln();
         }
-        
         // Send PDF as a response
         ob_end_clean();
         
@@ -354,6 +356,27 @@ public function generatepdf() {
     }
 }
 
+
+
+
+// pdf send start form here 
+
+public function selectinvoices() {
+    if (isset($_POST['id'])) {
+        $id = (int)$_POST['id'];
+        $object = new invoice();
+        $userResult = $object-> selectinvoices($id);
+
+        if ($userResult && $userResult->num_rows > 0) {
+            $row = $userResult->fetch_assoc();
+          
+            echo json_encode($row);
+        } else {
+            echo json_encode(['error' => 'No record found']);
+        }
+    } else {
+        echo json_encode(['error' => 'user ID missing']);
+    }
 }
 
 
@@ -362,6 +385,20 @@ public function generatepdf() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 
 
 ?>

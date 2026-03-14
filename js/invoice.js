@@ -525,20 +525,15 @@ $(document).on('click', '.generate-pdf', function() {
     
     $.ajax({
         type: 'GET',
-        url: '/cool/pdf-generate', 
-        data: { 
-            id: invoiceId 
+        url: '/cool/pdf-generate',
+        data: { id: invoiceId },
+        xhrFields: {
+            responseType: 'arraybuffer'  
         },
-        responseType: 'arraybuffer',
         success: function(response) {
-           
             var blob = new Blob([response], { type: 'application/pdf' });
-            
-   
             var url = window.URL.createObjectURL(blob);
-            
-
-            window.open(url);
+            window.open(url, '_blank');
         },
         error: function(xhr, status, error) {
             console.error('Error generating PDF:', status, error);
@@ -547,6 +542,49 @@ $(document).on('click', '.generate-pdf', function() {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+// mail send select start api start form here
+
+
+$(document).on("click",".update-btn", function(){
+
+    var id = $(this).data("eid");
+
+    $("#model").show();
+
+$.ajax({
+        url: "/cool/mail-select",
+        type: "POST",
+        data: {
+             id: id
+             },
+        dataType: "json",
+        success: function(user) {
+
+            $("#clientName").val(user.client_name).prop("readonly", true);;
+            $("#email").val(user.email).prop("readonly", true);;
+          
+
+        }
+    });
+
+    
+
+ 
+
+
+})
 
    
     $('#invoicereset').click(function(e) {

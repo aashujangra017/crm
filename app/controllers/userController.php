@@ -175,7 +175,7 @@ public function selectid() {
 
         if ($userResult && $userResult->num_rows > 0) {
             $row = $userResult->fetch_assoc();
-            // Return JSON instead of HTML
+          
             echo json_encode($row);
         } else {
             echo json_encode(['error' => 'No record found']);

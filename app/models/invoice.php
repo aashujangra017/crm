@@ -340,7 +340,7 @@ public function updateInvoiceItem($item_id, $item_name, $price, $quantity) {
 
 
 
-// to generate phh modle 
+// to generate pdf modle 
 
 
 public function getinvoicedatabyid($invoiceId){
@@ -372,6 +372,27 @@ public function getInvoiceItemsById($invoiceId) {
     }
 
 
+
+
+
+
+
+
+    // send mail for start form here 
+
+
+    public function selectinvoices($id){
+     $sql = "select * from invoices where id = ?";
+        $cool = $this->conn->prepare($sql);
+
+
+        $cool->bind_param("i", $id);
+
+        $cool->execute();
+        return $cool->get_result();
+
+    
+}
 
 
 }

@@ -348,6 +348,47 @@ role="tabpanel ">
 <tbody id="bodydata"></tbody>
 
 </table>
+
+<div id="model">
+    <div id="model-form">
+        <h2>Send Mail
+        </h2>
+        <div id="close-btn">X</div>
+
+        <div id="update-form" class="container mt-4">
+  <form>
+    
+    <div class="mb-3">
+      <label for="clientName" class="form-label fw-bold">Client Name</label>
+      <input type="text" class="form-control" id="clientName" placeholder="Enter client name">
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label fw-bold">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email">
+    </div>
+
+ 
+    <div class="mb-3">
+      <label for="subject" class="form-label fw-bold">Subject</label>
+      <input type="text" class="form-control" id="subject" placeholder="Enter subject">
+    </div>
+
+  
+    <div class="mb-3">
+      <label for="message" class="form-label fw-bold">Message</label>
+      <textarea class="form-control" id="message" rows="9" placeholder="Type your message here"></textarea>
+    </div>
+
+
+    <div class="d-flex justify-content-end gap-2">
+      <button type="button" class="btn btn-secondary">Cancel</button>
+      <button type="submit" class="btn btn-primary">Send Mail</button>
+    </div>
+  </form>
+</div>
+    </div>
+</div>
 </div>
 
 
@@ -365,6 +406,22 @@ role="tabpanel ">
 
 <script src="/cool/public/bootstrap/js/jquery.js"></script>
 <script src="/cool/js/invoice.js"></script>
+
+
+<script>
+
+
+$(document).on("click",".update-btn", function(){
+    $("#model").show();
+});
+
+
+
+$(document).on("click","#close-btn",function(){
+    $("#model").hide();
+});
+
+  </script>
 
 
 

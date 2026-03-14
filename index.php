@@ -532,6 +532,12 @@ $router->addRoute('/cool/invoice-update', function() {
     $controller-> generatepdf();
 });
 
+ 
+// select for mail 
+$router->addRoute('/cool/mail-select',function(){
+    $controller = new InvoiceController();
+    $controller-> selectinvoices();
+});
 
 
 
