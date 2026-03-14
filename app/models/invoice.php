@@ -226,13 +226,150 @@ $search_param = "%$search%";
 
 
 
+// select form udapte start from here 
+
+public function selectinvoice($id){
+     $sql = "SELECT i.id AS invoice_id, i.invoice_codes, i.client_name, i.email, i.phone, i.total, i.created_at,
+                   ii.id AS item_id, ii.item_name, ii.price, ii.quantity
+            FROM invoices i
+            LEFT JOIN invoice_items ii ON i.id = ii.invoice_id
+            WHERE i.id = ?";
+
+     $cool = $this->conn->prepare($sql);
+
+
+     $cool->bind_param("i", $id);
+
+     $cool->execute();
+        $result = $cool->get_result();
+
+        $data = [];
+
+        while ($row = $result->fetch_assoc()) {
+       
+            if (!isset($data['invoice'])) {
+                $data['invoice'] = [
+                    'invoice_id'   => $row['invoice_id'],
+                    'invoice_codes'=> $row['invoice_codes'],
+                    'client_name'  => $row['client_name'],
+                    'email'        => $row['email'],
+                    'phone'        => $row['phone'],
+                    'total'        => $row['total'],
+                    'created_at'   => $row['created_at']
+                ];
+            }
+
+          
+            if ($row['item_id']) {
+                $data['items'][] = [
+                    'item_id'   => $row['item_id'],
+                    'item_name' => $row['item_name'],
+                    'price'     => $row['price'],
+                    'quantity'  => $row['quantity']
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+
+
+    ///update start form here 
+public function updateInvoiceItem($item_id, $item_name, $price, $quantity) {
+    // Update item in invoice_items
+    $sql = "UPDATE invoice_items SET item_name = ?, price = ?, quantity = ? WHERE id = ?";
+    $stmt = $this->conn->prepare($sql);
+    if (!$stmt) {
+        return ['error' => 'Prepare failed: ' . $this->conn->error];
+    }
+    $stmt->bind_param("sdii", $item_name, $price, $quantity, $item_id);
+
+    if ($stmt->execute()) {
+        // After updating, recalculate the total of the invoice
+        $invoice_id = $this->getInvoiceIdByItemId($item_id);
+        $new_total = $this->recalculateInvoiceTotal($invoice_id);
+
+        // Update the total in the invoices table
+        return $this->updateInvoiceTotal($invoice_id, $new_total);
+    } else {
+        return ['error' => 'Update failed: ' . $stmt->error];
+    }
+}
+
+    // Helper function to get the invoice_id for a given item
+    private function getInvoiceIdByItemId($item_id) {
+        $sql = "SELECT invoice_id FROM invoice_items WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $item_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['invoice_id'] ?? null;
+    }
+
+    // Function to recalculate the total of an invoice
+    private function recalculateInvoiceTotal($invoice_id) {
+    $sql = "SELECT SUM(price * quantity) AS total FROM invoice_items WHERE invoice_id = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $invoice_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    return $row['total'] ?? 0.00;
+}
+
+    
+    public function updateInvoiceTotal($invoice_id, $new_total) {
+    $sql = "UPDATE invoices SET total = ? WHERE id = ?";
+    $stmt = $this->conn->prepare($sql);
+    if (!$stmt) {
+        return ['error' => 'Prepare failed: ' . $this->conn->error];
+    }
+    $stmt->bind_param("di", $new_total, $invoice_id);
+
+    if ($stmt->execute()) {
+        return ['success' => 'Invoice item and total updated successfully'];
+    } else {
+        return ['error' => 'Failed to update invoice total: ' . $stmt->error];
+    }
+}
 
 
 
 
 
 
+// to generate phh modle 
 
+
+public function getinvoicedatabyid($invoiceId){
+    $sql = "select * from invoices where id = ?";
+
+    $cool = $this->conn->prepare($sql);
+    $cool->bind_param('i',$invoiceId);
+
+    $cool->execute();
+
+    $result = $cool->get_result();
+
+    return $result->fetch_assoc();
+}
+
+
+public function getInvoiceItemsById($invoiceId) {
+        $sql = "SELECT * FROM invoice_items WHERE invoice_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $invoiceId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $items = [];
+        while ($row = $result->fetch_assoc()) {
+            $items[] = $row;
+        }
+        return $items;
+    }
 
 
 

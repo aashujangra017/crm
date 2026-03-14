@@ -181,7 +181,7 @@ public function selectid() {
             echo json_encode(['error' => 'No record found']);
         }
     } else {
-        echo json_encode(['error' => 'ID missing']);
+        echo json_encode(['error' => 'user ID missing']);
     }
 }
 
@@ -359,6 +359,14 @@ public function status(){
 //     }
 // }
 
+
+
+
+
+
+
+// pagination limit order by and search start form ehre 
+
 public function pagination() {
     header('Content-Type: application/json');
 
@@ -402,6 +410,64 @@ public function pagination() {
         "totalUsers" => $totalUsers,
     ]);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// dashboard controoler start form here 
+
+
+public function usercount(){
+    $object = new user();
+    $totalUsers = $object->countuser();
+
+   
+    echo json_encode(['total' => $totalUsers]);
+}
+
+public function clientcount(){
+    $object = new user();
+    $totalUsers = $object->countclient();
+
+   
+    echo json_encode(['total' => $totalUsers]);
+}
+
+
+public function itemscount(){
+    $object = new user();
+    $totalUsers = $object->countitems();
+
+   
+    echo json_encode(['total' => $totalUsers]);
+}
+
+
+public function invoicescount(){
+    $object = new user();
+    $totalUsers = $object->countinvoices();
+
+   
+    echo json_encode(['total' => $totalUsers]);
+}
+
+
+
 
 
 

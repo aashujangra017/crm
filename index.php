@@ -207,10 +207,44 @@ $router->addRoute('/cool/invoice',function(){
 
 // erro page start from here 
 
-$router->addRoute('*', function() {
+$router->addRoute('/cool/totalusermaster', function() {
 
 $controller= new userController();
-$controller->error();
+$controller->usercount();
+    
+   
+});
+
+
+//client count
+
+$router->addRoute('/cool/totalclientmaster', function() {
+
+$controller= new userController();
+$controller->clientcount();
+    
+   
+});
+
+
+
+// iitem master count
+$router->addRoute('/cool/totalitemsmaster', function() {
+
+$controller= new userController();
+$controller->itemscount();
+    
+   
+});
+
+
+// invoices master 
+
+
+$router->addRoute('/cool/totalinvoicesmaster', function() {
+
+$controller= new userController();
+$controller->invoicescount();
     
    
 });
@@ -417,6 +451,9 @@ $router->addRoute('/cool/item-order',function(){
 
 
 
+
+
+
 //invoice start form here
 
 $router->addRoute('/cool/clientdetails',function(){
@@ -473,6 +510,27 @@ $router->addRoute('/cool/getitems', function() {
 
 
 
+// select for udpate 
+
+$router->addRoute('/cool/selectbyid', function() {
+    $controller = new InvoiceController();
+    $controller->selectinvoiceid();
+});
+
+
+
+
+
+$router->addRoute('/cool/invoice-update', function() {
+    $controller = new InvoiceController();
+    $controller->updateInvoiceItemAction();
+});
+
+
+ $router->addRoute('/cool/pdf-generate',function(){
+    $controller = new InvoiceController();
+    $controller-> generatepdf();
+});
 
 
 

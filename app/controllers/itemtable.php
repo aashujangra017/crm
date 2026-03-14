@@ -16,7 +16,7 @@ if ($items && $items->num_rows > 0) {
                     </button>
                 </td>
                  <td>
-        <ul class='nav nav-tabs' id='myTab' role='tablist'>
+       <ul class='nav nav-tabs' id='myTab' role='tablist'>
             <li class='' role='presentation'>
                 <button class='btn btn-primary update-btn'
                         id='addclient'

@@ -250,6 +250,73 @@ public function countUsersFiltered($search = '') {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// dash board mdoel start form here
+
+public function countUser() {
+        $sql = "SELECT COUNT(*) AS total FROM user"; 
+        $result = $this->conn->query($sql); 
+        $row = $result->fetch_assoc(); 
+        return $row['total']; 
+    }
+
+// model for the client master
+public function countclient(){
+    $sql = "select count(*) as total from clientinsert";
+
+    $result = $this->conn->query($sql); 
+        $row = $result->fetch_assoc(); 
+        return $row['total']; 
+    }
+
+    //mopde for the itemmaster
+
+    public function countitems(){
+    $sql = "select count(*) as total from items";
+
+    $result = $this->conn->query($sql); 
+        $row = $result->fetch_assoc(); 
+        return $row['total']; 
+    }
+
+
+// invoices 
+      public function countinvoices(){
+    $sql = "select count(*) as total from invoices";
+
+    $result = $this->conn->query($sql); 
+        $row = $result->fetch_assoc(); 
+        return $row['total']; 
+    }
+
+
 }
 
 

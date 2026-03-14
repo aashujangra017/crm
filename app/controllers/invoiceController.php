@@ -2,9 +2,11 @@
 
 
 require_once __DIR__ . "/../models/invoice.php";
+require_once __DIR__ . '/../../fpdf/fpdf.php';
 
 
 class invoiceController{
+
 
 public function clienthome() {
        require __DIR__ . "/../../public/views/clienthome.php";
@@ -188,11 +190,24 @@ header('Content-Type: application/json');
                 <td>{$row['total']}</td>
                 <td>{$row['created_at']}</td>
                 <td>
-                    <button class='btn btn-primary update-btn'
-                            data-eid='{$row['id']}'>
-                        Update
-                    </button>
+                     <ul class='nav nav-tabs' id='myTab' role='tablist'>
+                        <li class='nav-item' role='presentation'>
+                            <button class=' btn btn-primary update-invoice'
+                                    id='addclient'
+                                    data-bs-toggle='tab'
+                                    data-bs-target='#home-tab-pane'
+                                    type='button'
+                                    role='tab'
+                                    data-eid='{$row['id']}'>
+                               update
+                            </button>
+                        </li>
+                    </ul>
                 </td>
+                <td>
+               <button class='btn btn-success generate-pdf'  data-id='{$row['id']}'> PDF</button>
+               </td>
+               <td><button class='btn btn-warning'>Mail</button></td>
               </tr>";
         }
     } else {
@@ -206,14 +221,138 @@ header('Content-Type: application/json');
         "totalUsers" => $totalUsers,
     ]);
 
+
+}
+
+
+
+
+
+
+
+
+    // select controller for uddate 
+
+public function selectinvoiceid() {
+    if (isset($_POST['id'])) {
+        $id = (int) $_POST['id'];
+
+        $object = new invoice();
+        $userResult = $object->selectinvoice($id);
+
+        if (!empty($userResult)) {
+            echo json_encode($userResult); 
+        } else {
+            echo json_encode(['error' => 'No record found']);
+        }
+    } else {
+        echo json_encode(['error' => 'User ID missing']);
+    }
+}
    
 
 
+    // Function to handle invoice item update
+    public function updateInvoiceItemAction() {
+    if (isset($_POST['items']) && !empty($_POST['items'])) {
+        $items = json_decode($_POST['items'], true);
+
+        if (!$items) {
+            echo json_encode(['error' => 'Invalid items data']);
+            return;
+        }
+
+        $results = [];
+        $failed_updates = [];
+
+        foreach ($items as $item) {
+            $item_id   = (int) $item['item_id'];
+            $item_name = $item['item_name'];
+            $price     = (float) $item['price'];
+            $quantity  = (int) $item['quantity'];
+
+           $object = new invoice();
+$update_result = $object->updateInvoiceItem($item_id, $item_name, $price, $quantity);
+
+            if (isset($update_result['error'])) {
+                $failed_updates[] = [
+                    'item_id' => $item_id,
+                    'error'   => $update_result['error']
+                ];
+            } else {
+                $results[] = [
+                    'item_id' => $item_id,
+                    'status'  => 'success'
+                ];
+            }
+        }
+
+        
+        if (!empty($failed_updates)) {
+            echo json_encode([
+                'status' => 'failure',
+                'failed_updates' => $failed_updates
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'success',
+                'updated_items' => $results
+            ]);
+        }
+    } else {
+        echo json_encode(['error' => 'No items to update']);
+    }
+}
 
 
 
 
 
+
+//pdf controller start from here
+public function generatepdf() {
+    if (isset($_GET['id'])) {
+        $invoiceId = $_GET['id']; 
+        $object = new invoice();
+        
+        $invoiceData = $object->getinvoicedatabyid($invoiceId);
+        $itemsData = $object->getInvoiceItemsById($invoiceId);
+        
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 16);
+        
+        $pdf->Cell(0, 10, 'Invoice: ' . $invoiceData['invoice_codes'], 0, 1, 'C');
+        $pdf->Cell(0, 10, 'Client Name: ' . $invoiceData['client_name'], 0, 1);
+        $pdf->Cell(0, 10, 'Email: ' . $invoiceData['email'], 0, 1);
+        $pdf->Cell(0, 10, 'Total: ' . number_format($invoiceData['total'], 2), 0, 1);
+        $pdf->Cell(0, 10, 'Created At: ' . $invoiceData['created_at'], 0, 1);
+        $pdf->Ln(10);
+        
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(30, 10, 'Item', 1);
+        $pdf->Cell(30, 10, 'Description', 1);
+        $pdf->Cell(30, 10, 'Quantity', 1);
+        $pdf->Cell(30, 10, 'Price', 1);
+        $pdf->Cell(30, 10, 'Total', 1);
+        $pdf->Ln();
+        
+        foreach ($itemsData as $item) {
+            $pdf->Cell(30, 10, $item['item_name'], 1);
+            $pdf->Cell(30, 10, $item['description'], 1);
+            $pdf->Cell(30, 10, $item['quantity'], 1);
+            $pdf->Cell(30, 10, number_format($item['price'], 2), 1);
+            $pdf->Cell(30, 10, number_format($item['total'], 2), 1);
+            $pdf->Ln();
+        }
+        
+        // Send PDF as a response
+        ob_end_clean();
+        
+        $pdf->Output('I', 'Invoice_' . $invoiceData['invoice_codes'] . '.pdf');
+        exit();
+    }
+}
 
 }
 
@@ -221,6 +360,8 @@ header('Content-Type: application/json');
 
 
 
-}
+
+
+
 
 ?>

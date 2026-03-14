@@ -286,7 +286,7 @@ $(document).on("click", ".update-btn", function() {
 $(document).on("click","#submit",function(e){
 e.preventDefault();
 
-var id = $("#userid").val();  // hidden id
+var id = $("#userid").val();  
 var name = $("#name").val().trim();
 var email = $("#email").val().trim();
 var phone = $("#phone").val().trim();

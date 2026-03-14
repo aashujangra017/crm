@@ -122,6 +122,8 @@ role="tabpanel">
 <div class="invoice-form">
 
  <form id="invoiceForm">
+
+    <input type="hidden" id="invoice_id" />
      
       <div class="row">
         <div class="col-md-4">
@@ -203,7 +205,7 @@ role="tabpanel">
       <!-- Save and Reset Buttons -->
       <div class="row mt-4">
         <div class="col-md-6">
-          <button id="invoicesave" class="btn btn-primary mx-4">Save</button>
+          <button id="invoicesave" type="button" class="btn btn-primary mx-4">Save</button>
           <button id="invoicereset" class="btn btn-danger">Reset</button>
         </div>
       </div>
@@ -288,6 +290,9 @@ role="tabpanel ">
        <option value="30">30</option>
         <option value="35">35</option>
          <option value="40">40</option>
+            <option value="45">45</option>
+               <option value="50">50</option>
+                  <option value="55">55</option>
 </select>
 </div>
 
@@ -334,6 +339,8 @@ role="tabpanel ">
 </th>
 
 <th>Update</th>
+<th>Pdf</th>
+<th>Mail</th>
 
 </tr>
 </thead>

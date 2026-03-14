@@ -52,27 +52,43 @@
 
   <div class="row my-5 g-4 ">
   
-  <div class="col-md-3  ">
-    <div class="border rounded p-4 text-center bg-success-subtle ">
-      <h2>User Master</h2>
-    </div>
+<div class="col-md-3">
+  <div class="border rounded p-4 text-center bg-success-subtle">
+    <h2>User Master</h2>
+    <p class="fs-1 fw-bold mb-0" id="userCount">
+      <span class="spinner-border spinner-border-sm"></span>
+    </p>
+    <small class="text-muted">Total Users</small>
   </div>
+</div>
 
   <div class="col-md-3">
     <div class="border rounded p-4 text-center bg-success-subtle">
-      <h2>Client Master</h2>
-    </div>
+    <h2>Client Master</h2>
+    <p class="fs-1 fw-bold mb-0" id="clientCount">
+      <span class="spinner-border spinner-border-sm"></span>
+    </p>
+    <small class="text-muted">Total Clients</small>
+  </div>
   </div>
 
   <div class="col-md-3">
-    <div class="border rounded p-4 text-center bg-success-subtle">
-      <h3>Item Master</h3>
-    </div>
+     <div class="border rounded p-4 text-center bg-success-subtle">
+    <h2>Items Master</h2>
+    <p class="fs-1 fw-bold mb-0" id="itemsCount">
+      <span class="spinner-border spinner-border-sm"></span>
+    </p>
+    <small class="text-muted">Total Items</small>
+  </div>
   </div>
    <div class="col-md-3">
     <div class="border rounded p-4 text-center bg-success-subtle">
-      <h3>Invoice</h3>
-    </div>
+    <h2>Invoices Master</h2>
+    <p class="fs-1 fw-bold mb-0" id="invoicesCount">
+      <span class="spinner-border spinner-border-sm"></span>
+    </p>
+    <small class="text-muted">Total Invoices</small>
+  </div>
   </div>
 
 </div>
@@ -95,6 +111,81 @@
 
 <script src="/cool/public/bootstrap/js/jquery.js"></script>
 <script src="/cool/js/clientapi.js"></script>
+
+
+
+<script>
+
+  $(document).ready(function() {
+   
+    $.ajax({
+    url: '/cool/totalusermaster',
+    method: 'GET',
+    data: {
+       action: 'usercount'
+       },
+    dataType: 'json',
+    success: function(response) {
+        $('#userCount').text(response.total); 
+    },
+    error: function(err) {
+        console.error('Error fetching user count:', err);
+        $('#userCount').text('Error');
+    }
+});
+
+
+
+
+
+// client master api
+
+$.ajax({
+    url: '/cool/totalclientmaster',
+    method: 'GET',
+    data: {
+       action: 'usercount'
+       },
+    dataType: 'json',
+    success: function(response) {
+        $('#clientCount').text(response.total); 
+    }
+});
+});
+
+
+
+$.ajax({
+    url: '/cool/totalitemsmaster',
+    method: 'GET',
+    data: {
+       action: 'usercount'
+       },
+    dataType: 'json',
+    success: function(response) {
+        $('#itemsCount').text(response.total); 
+    }
+});
+
+
+
+
+$.ajax({
+    url: '/cool/totalinvoicesmaster',
+    method: 'GET',
+    data: {
+       action: 'usercount'
+       },
+    dataType: 'json',
+    success: function(response) {
+        $('#invoicesCount').text(response.total); 
+    }
+});
+
+
+
+</script>
+
 
 
 </body>
